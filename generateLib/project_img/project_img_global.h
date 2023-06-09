@@ -1,0 +1,12 @@
+#ifndef CONSTRUCT_IMG_GLOBAL_H
+#define CONSTRUCT_IMG_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(CONSTRUCT_IMG_LIBRARY)
+#  define CONSTRUCT_IMG_EXPORT Q_DECL_EXPORT
+#else
+#  define CONSTRUCT_IMG_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // CONSTRUCT_IMG_GLOBAL_H

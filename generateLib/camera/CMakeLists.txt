@@ -23,6 +23,7 @@ find_package(OpenCV REQUIRED)
 
 # selbst
 include_directories(~/buendia)
+include_directories(~/dieschwesterwaternderengle)
 
 # opencv
 include_directories(/usr/local/include/opencv4)
@@ -30,6 +31,7 @@ include_directories(/usr/local/include/opencv4)
 # basler
 include_directories(/opt/pylon/include)
 include_directories(/opt/pylon/share/pylon/Samples/C++)
+include_directories(/opt/pylon/share/pylon/Samples/C++/include)
 
 add_library(camera SHARED
   camera_global.h

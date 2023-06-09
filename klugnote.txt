@@ -1,4 +1,16 @@
 # 献给我的心上人等待天使的妹妹
+# last：230609
+
+# github token 
+
+name:liebelili
+公钥：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
+
+git init
+git add -A
+git commit -m "date"
+git config --system --unset credential.helper
+git remote set-url origin https://liebelili@github.com/klugcyk/dieschewesterwaternderangle.git
 
 # 投影重构三维重建
 1 相移法：https://blog.csdn.net/beyond951/article/details/123361852；
@@ -44,6 +56,10 @@ git commit -m "注释" 添加注释
 git remote add origin https://gitee.com/klug/dulcineadeltoboso.git
 git pull --rebase origin master 同步仓库内容
 git push -u origin master 上传到远程仓库
+
+# AI图像算法
+
+
 
 # 传统图像处理算法
 
@@ -96,6 +112,26 @@ git push -u origin master 上传到远程仓库
 2 GBK2312 中文编码，2个字节表示一个汉字
 3 UTF-8 国际通用字符集，1-4个字节
 
+* 定点数
+
+确定的小数点的位置，不需要点号
+表示范围小，运算简单，运算精度低，不是可科学运算
+
+1 定点整数
+纯整数，没有小数部分
+
+2 定点小数
+小数点在符号位之后，纯小数，没有整数部分
+
+定点数运算
+1 利用补码运算
+2 不考虑正负
+3 做减法转换成加法，将减数利用补码取反，再做加法
+
+* 浮点数
+
+
+
 
 # 计算机操作系统
 
@@ -146,6 +182,13 @@ git push -u origin master 上传到远程仓库
 
 * 孩子表示法(从跟开始表示)
 
+1 双亲表示法找不到对应的子节点，需要对整个树扫描，效率较低
+2 顺序存储和链式存储的结合
+
+将每个节点和孩子节点用单链表链接起来，形成一个线性结构，N个节点就会有N个孩子链表
+与双亲节点不同存储的是孩子节点的指针
+只链接其孩子节点，不链接孙子节点
+
 * 孩子兄弟表示法（二叉树）
 
 链式存储的方式
@@ -171,8 +214,36 @@ git push -u origin master 上传到远程仓库
 
 树结构是逻辑上的结构，逻辑上认为有层次和结构，在内存中没有任何关系
 
+* 森林
+
+森林时m棵互不想交的树的集合
+既可存在顺序存储，又可链式存储
+
+* 二叉树
+
+1 节点的度<=2的有序树
+2 满二叉树：高为h，节点数为2^h-1,只有最后一层有叶子节点，不存在度为1的节点
+3 
+4
+
 
 # c++
+
+* 数组
+
+一维数组
+
+多维数组
+1 多维数组在内存中是连续的
+2 定义多维数组的行列后，可不加分隔定义数组，会自动识别分行
+3 定义多维数组时，可省略行数，不可省略列数
+
+可同数组名查看数组长度（占用空间大小），查看数组的首地址
+
+* 指针
+
+
+* 智能指针
 
 * 线程锁：std::mutex m
 std::lock_guard<std::mutex> mtx(m);
@@ -182,4 +253,3 @@ std::unique_lock<std::mutex> mtx(m);
 * 线程
 
 * 进程
-

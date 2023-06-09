@@ -35,6 +35,7 @@ void img1::img_show(cv::Mat img)
 
 void img1::on_img_process_clicked()
 {
+    ui->img_name->setText("1001");
     int ein=ui->img_name->text().toUInt();
 
     std::string name="/home/klug/img/construct/";
@@ -47,17 +48,12 @@ void img1::on_img_process_clicked()
         return ;
     }
 
-    cv::Mat img2(img1.rows,img1.cols,CV_8UC1);
+    cv::Mat img2(img1.rows,img1.cols,CV_8UC3);
 
-    int p1,p2;
-
-    p1=ui->param1->text().toInt();
-    p2=ui->param2->text().toInt();
-
-    grid_extract_preprocess(img1,img2,p1,p2);
+    img_test(img1,img2);
 
     img_show(img2);
 #ifdef img1_save
-    cv::imwrite("/home/klug/img/construct/grid_extract_res.png",img2);
+    cv::imwrite("/home/klug/img/construct/res.png",img2);
 #endif
 }

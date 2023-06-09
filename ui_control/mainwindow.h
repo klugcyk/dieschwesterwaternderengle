@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230608
+    last:230609
 */
 
 #ifndef MAINWINDOW_H
@@ -71,7 +71,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    std::thread show_thread;
+    std::thread camera_show_thread;//相机连续采集显示图像线程 img_show_continue()
 
 };
 

@@ -12,12 +12,3 @@
 
 git clone https://gitee.com/klug/buendia.git
 
-# 三维重建
-class construct
-
-# 标定
-class construct_cal
-
-# 图像处理
-class construct_img
-

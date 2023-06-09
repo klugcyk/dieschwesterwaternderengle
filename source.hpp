@@ -31,6 +31,7 @@ extern std::string write_path;
 extern bool recal_flag;
 extern bool cal_done;
 extern bool communication_open;
+extern bool camera_continue_switch;
 
 //extern std::mutex continue_lock; //相机连续采集图像线程锁
 

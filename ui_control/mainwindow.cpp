@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230608
+    last:230609
 */
 
 #include "mainwindow.h"
@@ -25,12 +25,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowTitle("3d_construct");
-    //show_thread=std::thread(&MainWindow::img_show_continue,this);
+    if(camera_continue_switch)
+    {
+        camera_show_thread=std::thread(&MainWindow::img_show_continue,this);
+    }
 }
 
 MainWindow::~MainWindow()
 {
-    //show_thread.join();
+    if(camera_continue_switch)
+    {
+        camera_show_thread.join();
+    }
     delete ui;
 }
 
@@ -51,17 +57,13 @@ void MainWindow::img_show_continue()
     while(1)
     {
         std::unique_lock<std::mutex> show_lock(continue_lock);
-        //show_lock.lock();
+
         if(!cam_img_continue.empty())
         {
-            //QImage qimg((const unsigned char*)cam_img_continue.data,cam_img_continue.cols,cam_img_continue.rows,cam_img_continue.step,QImage::Format_RGB888);
-            //QImage qimg_show=qimg.scaled(qimg.width()/4,qimg.height()/4).scaled(qimg.width()/4,qimg.height()/4,Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-            //ui->img_continue->setPixmap(QPixmap::fromImage(qimg_show));
-            //ui->img_continue->resize(qimg_show.size());
-            //ui->img_continue->show();
             imshow("g",cam_img_continue);
+            show_lock.unlock();
+            sleep(1);
         }
-        //show_lock.unlock();
     }
 }
 

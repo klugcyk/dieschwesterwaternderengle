@@ -12,6 +12,7 @@
 #include <QWidget>
 #include "StructureLight/construct_cal.hpp"
 #include "ui_control/mainwindow.h"
+#include "CameraPose/cam_pose.hpp"
 
 #define img1_save
 
@@ -19,7 +20,7 @@ namespace Ui {
 class img1;
 }
 
-class img1 : public QWidget,public calibrate_construct::construct_cal
+class img1 : public QWidget,public cal_cam_pose::cam_pose
 {
     Q_OBJECT
 

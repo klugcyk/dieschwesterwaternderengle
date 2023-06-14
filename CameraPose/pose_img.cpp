@@ -43,6 +43,7 @@ void pose_img::img_test(cv::Mat src_img,cv::Mat &res_img)
     cv::Mat temp_img;
     cv::GaussianBlur(src_img,temp_img,cv::Size(5,5),5);
     cv::cvtColor(temp_img,res_img,cv::COLOR_BGR2GRAY);
+
 }
 
 };

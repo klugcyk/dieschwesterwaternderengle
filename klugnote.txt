@@ -48,7 +48,7 @@ sudo docker run --rm -it universalrobots/ursim_cb3
 # 结构光相机部件
 光源：VCSEL、DOE、WLO、Fliter
 
-# gitee create
+# git create
 
 git init 初始化，创建本地仓库
 git add . 添加到本地仓库
@@ -56,6 +56,8 @@ git commit -m "注释" 添加注释
 git remote add origin https://gitee.com/klug/dulcineadeltoboso.git
 git pull --rebase origin master 同步仓库内容
 git push -u origin master 上传到远程仓库
+
+git ssh 可以不需要账号密码访问repo
 
 # AI图像算法
 
@@ -77,6 +79,12 @@ git push -u origin master 上传到远程仓库
 11 图像金字塔；
 12 laplance算子；
 13 自定义线性滤波，自定义卷积核完成卷积操作；
+14 像素重映射 remap；
+15 直方图均衡化；
+16 直方图反向投影calcbackproject；
+17 模板匹配（template match）macthTemplate；
+18 轮廓发现findcontours，drawcontours
+
 
 * 频域
 1 图像傅里叶变换；
@@ -88,7 +96,8 @@ git push -u origin master 上传到远程仓库
 3 surf特征点；
 4 HOG特征；
 5 Flann快速最临近匹配；
-6 霍夫直线检测；
+6 霍夫直线检测 HoughLines；
+7 霍夫圆检测 HoughCircles；
 7 Shi-Tomasi角点检测；
 
 * 图像色彩空间
@@ -223,9 +232,30 @@ git push -u origin master 上传到远程仓库
 
 1 节点的度<=2的有序树
 2 满二叉树：高为h，节点数为2^h-1,只有最后一层有叶子节点，不存在度为1的节点
-3 
-4
+3 只有最后两层有叶子节点
+4 最多有一个度为1的节点
+5 非空二叉树中，叶子节点比二分支节点多一个，n0,n1,n2，分别表示度为0，1，2的节点数量，n0=n2+1
 
+* 二叉树的存储结构
+
+顺序存储
+1 用数组存储，0处空缺，以便与下标对标完全二叉树，按序号对应索引位置，
+i的左孩子，2i
+i的右孩子，2i+1
+i的父节点，i/2
+i的层次，log2（i+1）
+
+* 二叉排序树
+
+任意节点与其左右节点的关键字大小关系满足左<中<右
+
+* 平衡二叉树
+
+任意节点的左右树深度差不超过1
+
+* 完全二叉树
+
+当且仅当树中每个节点序号斗鱼同等高度的满二叉树序号对应，不需要铺满，只需要对应
 
 # c++
 
@@ -242,6 +272,7 @@ git push -u origin master 上传到远程仓库
 
 * 指针
 
+32位操作系统下所有指针占4个字节，64位操作系统下占8个字节
 
 * 智能指针
 

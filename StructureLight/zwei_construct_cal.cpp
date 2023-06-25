@@ -537,6 +537,7 @@ int zwei_construct_cal::system_calibrate()
         }
     }
 
+    //标定
     int res=zwei_camera_calibrate(calibrateImgLink,calibrateImgRicht);
     return res;
 }
@@ -591,10 +592,14 @@ int zwei_construct_cal::zwei_camera_calibrate(std::vector<cv::Mat> calibrate_img
     }
 
     //双目位姿关系计算
-    cv::Mat R,T,E,F;//旋转矩阵，旋转向量，本征矩阵，基本矩阵
+    //cv::Mat R,T,E,F;//旋转矩阵，旋转向量，本征矩阵，基本矩阵
     res=cv::stereoCalibrate(objectPoints,targetPointsLink,targetPointsRicht,
-                        cameraMatrixLink,distCoeffsLink,cameraMatrixLink,distCoeffsLink,
-                        calibrate_img_link[0].size(),R,T,E,F,cv::CALIB_ZERO_TANGENT_DIST);
+                        cameraMatrixLink,distCoeffsLink,
+                        cameraMatrixLink,distCoeffsLink,
+                        calibrate_img_link[0].size(),
+                        zwei_rotate,zwei_transform,
+                        essential,fundamental,
+                        cv::CALIB_ZERO_TANGENT_DIST);
 
     return res;
 }

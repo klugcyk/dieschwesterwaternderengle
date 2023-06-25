@@ -66,13 +66,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget_2">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>10</y>
      <width>144</width>
-     <height>50</height>
+     <height>172</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -85,6 +85,34 @@
     </item>
     <item>
      <widget class="QLineEdit" name="img_name"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="grab_zwei">
+      <property name="text">
+       <string>grab_zwei</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="save">
+      <property name="text">
+       <string>save</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="sys_cal">
+      <property name="text">
+       <string>sys_cal</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QRadioButton" name="for_cal">
+      <property name="text">
+       <string>for_cal</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

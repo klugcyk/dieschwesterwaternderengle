@@ -47,6 +47,10 @@ protected:
     cv::Mat distCoeffsRicht=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
     std::vector<cv::Mat> calibrateImgLink; //左相机标定图片
     std::vector<cv::Mat> calibrateImgRicht; //右相机标定图片
+    cv::Mat zwei_rotate; //双目相机旋转关系
+    cv::Mat zwei_transform; //双目相机平移关系
+    cv::Mat essential; //本征矩阵
+    cv::Mat fundamental; //基本矩阵
 
 private:
     void relationship_calibrate(std::vector<cv::Mat> img_link,std::vector<cv::Mat> img_richt);

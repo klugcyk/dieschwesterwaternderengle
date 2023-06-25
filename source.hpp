@@ -28,6 +28,8 @@ extern bool richt_update;
 #define read_json_path "/home/klug/"
 #define write_json_path "/home/klug/"
 
+#define zwei_cal_img_num 25
+
 extern std::string read_path;
 extern std::string write_path;
 extern bool recal_flag;

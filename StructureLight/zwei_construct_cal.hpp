@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友脚踏西瓜皮的胡安帕诺麦克
     start:2300423
-    last:230523
+    last:230625
 */
 
 #ifndef zwei_construct_cal_HPP
@@ -45,19 +45,31 @@ protected:
     cv::Mat cameraMatrixRicht=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0));
     cv::Mat distCoeffsLink=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
     cv::Mat distCoeffsRicht=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
+    std::vector<cv::Mat> calibrateImgLink; //左相机标定图片
+    std::vector<cv::Mat> calibrateImgRicht; //右相机标定图片
 
 private:
     void relationship_calibrate(std::vector<cv::Mat> img_link,std::vector<cv::Mat> img_richt);
-    int camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat &cameraMatrix,std::vector<cv::Mat> &extrinsic_matrix,cv::Mat &distCoeffs); //相机内外参标定
+    int zwei_camera_calibrate(std::vector<cv::Mat> calibrate_img_link,std::vector<cv::Mat> calibrate_img_richt);
+    int camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat &cameraMatrix,std::vector<cv::Mat> &extrinsic_matrix,cv::Mat &distCoeffs); //单相机内外参标定
+    int camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat &cameraMatrix,std::vector<cv::Mat> &extrinsic_matrix,std::vector<std::vector<cv::Point2f>> &targetPoint,cv::Mat &distCoeffs); //单相机内外参标定
+    int camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat &cameraMatrix,std::vector<std::vector<cv::Point2f>> &targetPoint,cv::Mat &distCoeffs); //单相机内外参标定
 
 private:
-    std::vector<cv::Mat> extrinsic_matrix_link; //相机外参
-    std::vector<cv::Mat> extrinsic_matrix_richt; //相机外参
+    std::vector<std::vector<cv::Point3f>> objectPoints; //真实点坐标
+    std::vector<cv::Point3f> objectPointsLink; //左，真实点坐标
+    std::vector<cv::Point3f> objectPointsRicht; //右，真实点坐标
+    std::vector<std::vector<cv::Point2f>> targetPointsLink; //左，角点在图像坐标系中的坐标
+    std::vector<std::vector<cv::Point2f>> targetPointsRicht; //右，角点在图像坐标系中的坐标
+    std::vector<cv::Mat> extrinsicMatrixLink; //左，相机外参
+    std::vector<cv::Mat> extrinsicMatrixRicht; //右，相机外参
+    std::vector<cv::Mat> extrinsicMatrix; //相机外参
     cv::Size board_size=cv::Size(6,9); //标定板的尺度
     cv::Size2f square_size=cv::Size2f(3.95,3.95);//标定板的格子大小
     std::vector<cv::Mat> rvecsMat;
     std::vector<cv::Mat> rotation_matrix;
     std::vector<cv::Mat> tvecsMat;
+    std::string img_path;
 
 };
 

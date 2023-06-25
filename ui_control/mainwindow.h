@@ -22,7 +22,7 @@
 #define camera_rgb
 //#define camera_gray
 
-#define for_3d_construct //此时用于三维重建
+#define for_3d_construct //此时用于单目结构光
 //#define for_zweilight //此时用于双目结构光
 
 QT_BEGIN_NAMESPACE

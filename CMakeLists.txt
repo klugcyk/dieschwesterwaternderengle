@@ -98,6 +98,15 @@ set(PROJECT_SOURCES
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.hpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.cpp
 
+        # gitee
+        #~/dieschwesterwaternderengle/StructureLight/constructimg.cpp
+        #~/dieschwesterwaternderengle/StructureLight/constructimg.hpp
+        #~/dieschwesterwaternderengle/StructureLight/constructcal.cpp
+        #~/dieschwesterwaternderengle/StructureLight/constructcal.hpp
+        #~/dieschwesterwaternderengle/StructureLight/construct_.cpp
+        #~/dieschwesterwaternderengle/StructureLight/construct_.hpp
+
+
         # pointcloud algorithm
         ~/dieschwesterwaternderengle/pointcloud/construct_pointcloud.cpp
         ~/dieschwesterwaternderengle/pointcloud/construct_pointcloud.hpp

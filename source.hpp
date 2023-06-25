@@ -3,13 +3,15 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的眼神常带月光
     start:230511
-    last:230608
+    last:230619
 */
 
 #pragma once // 只编译一次
 
 #ifndef source_hpp
 #define source_hpp
+
+#define klug_improve
 
 #include <string>
 #include <mutex>

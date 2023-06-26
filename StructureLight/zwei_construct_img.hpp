@@ -16,7 +16,7 @@
 #include <iostream>
 #include <fstream>
 #include <math.h>
-#include "StructureLight/construct_img.hpp"
+//#include "StructureLight/construct_img.hpp"
 #include "source.hpp"
 
 #define zwei_consutrct_img_print_msg_info

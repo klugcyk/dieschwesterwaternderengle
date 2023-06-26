@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230510
-    last:230625
+    last:230626
 */
 
 #ifndef ZWEI_CONSTRUCT_WIN_H
@@ -38,6 +38,8 @@ private slots:
     void on_grab_zwei_clicked();
     void on_sys_cal_clicked();
     void on_save_clicked();
+    void on_set_param_clicked();
+    void on_load_param_clicked();
 
 private:
     Ui::zwei_construct_win *ui;

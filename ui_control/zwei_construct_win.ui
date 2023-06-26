@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>820</width>
-    <height>483</height>
+    <width>1381</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>10</y>
+     <x>160</x>
+     <y>510</y>
      <width>292</width>
      <height>112</height>
     </rect>
@@ -31,10 +31,10 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLineEdit" name="exposure_time_set"/>
+     <widget class="QLineEdit" name="exposure_time_link"/>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="exposure_time_set_2"/>
+     <widget class="QLineEdit" name="exposure_time_richt"/>
     </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="read_param_link">
@@ -66,13 +66,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
+     <x>10</x>
+     <y>510</y>
      <width>144</width>
-     <height>172</height>
+     <height>141</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -107,10 +107,62 @@
       </property>
      </widget>
     </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="link">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>link</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="richt">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>0</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>richt</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>630</y>
+     <width>255</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QRadioButton" name="for_cal">
       <property name="text">
        <string>for_cal</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="set_param">
+      <property name="text">
+       <string>set_param</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="load_param">
+      <property name="text">
+       <string>load_param</string>
       </property>
      </widget>
     </item>

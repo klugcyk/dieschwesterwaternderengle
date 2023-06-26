@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友脚踏西瓜皮的胡安帕诺麦克
     start:2300423
-    last:230625
+    last:230626
 */
 
 #ifndef zwei_construct_cal_HPP
@@ -18,8 +18,9 @@
 #include <math.h>
 #include "StructureLight/construct_img.hpp"
 #include "StructureLight/zwei_construct_img.hpp"
-#include "StructureLight/construct_cal.hpp"
+//#include "StructureLight/construct_cal.hpp"
 #include "source.hpp"
+#include "gene_operate/json_operate.hpp"
 
 #define zwei_construct_cal_print_msg_info
 #define zwei_construct_cal_print_data_info
@@ -38,6 +39,8 @@ public:
 public:
 
 protected:
+    void save_calibrate_parameter(); //保存标定参数
+    void load_calibrate_parameter(); //加载标定参数
     int system_calibrate();
 
 protected:
@@ -47,10 +50,11 @@ protected:
     cv::Mat distCoeffsRicht=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
     std::vector<cv::Mat> calibrateImgLink; //左相机标定图片
     std::vector<cv::Mat> calibrateImgRicht; //右相机标定图片
-    cv::Mat zwei_rotate; //双目相机旋转关系
-    cv::Mat zwei_transform; //双目相机平移关系
+    cv::Mat zweiRotate; //双目相机旋转关系
+    cv::Mat zweiTransform; //双目相机平移关系
     cv::Mat essential; //本征矩阵
     cv::Mat fundamental; //基本矩阵
+    cv::Mat readTransformMatrix=cv::Mat::eye(4,4,CV_64FC1); //读取的左右相机位姿关系矩阵
 
 private:
     void relationship_calibrate(std::vector<cv::Mat> img_link,std::vector<cv::Mat> img_richt);
@@ -69,7 +73,7 @@ private:
     std::vector<cv::Mat> extrinsicMatrixRicht; //右，相机外参
     std::vector<cv::Mat> extrinsicMatrix; //相机外参
     cv::Size board_size=cv::Size(6,9); //标定板的尺度
-    cv::Size2f square_size=cv::Size2f(3.95,3.95);//标定板的格子大小
+    cv::Size2f square_size=cv::Size2f(6.95,6.95);//标定板的格子大小,3.95
     std::vector<cv::Mat> rvecsMat;
     std::vector<cv::Mat> rotation_matrix;
     std::vector<cv::Mat> tvecsMat;

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230609
+    last:230626
 */
 
 #ifndef MAINWINDOW_H
@@ -22,23 +22,14 @@
 #define camera_rgb
 //#define camera_gray
 
-#define for_3d_construct //此时用于单目结构光
-//#define for_zweilight //此时用于双目结构光
-
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow,
-#ifdef for_3d_construct
         public structlight_construct::construct,
         public cal_cam_pose::cam_pose,
         public communication_up::communication
-#endif
-
-#ifdef for_zweilight
-        public zwei_light_cal
-#endif
         ,public basler_camera
 {
     Q_OBJECT

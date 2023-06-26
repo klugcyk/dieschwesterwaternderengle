@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友梅尔基亚德斯
     start:230423
-    last:230625
+    last:230626
 */
 
 #include "StructureLight/zwei_construct_cal.hpp"
@@ -26,6 +26,112 @@ zwei_construct_cal::~zwei_construct_cal()
     printf("end zwei_construct_cal...\n");
 #endif
 
+}
+
+/*
+    标定完成保存标定结果参数
+*/
+void zwei_construct_cal::save_calibrate_parameter()
+{
+    if(cal_done)
+    {
+        double fx_link=cameraMatrixLink.at<double>(0,0);
+        double fy_link=cameraMatrixLink.at<double>(1,1);
+        double u0_link=cameraMatrixLink.at<double>(0,2);
+        double v0_link=cameraMatrixLink.at<double>(1,2);
+        double fx_richt=cameraMatrixRicht.at<double>(0,0);
+        double fy_richt=cameraMatrixRicht.at<double>(1,1);
+        double u0_richt=cameraMatrixRicht.at<double>(0,2);
+        double v0_richt=cameraMatrixRicht.at<double>(1,2);
+
+        double r11=zweiRotate.at<double>(0,0);
+        double r12=zweiRotate.at<double>(0,1);
+        double r13=zweiRotate.at<double>(0,2);
+        double r21=zweiRotate.at<double>(1,0);
+        double r22=zweiRotate.at<double>(1,1);
+        double r23=zweiRotate.at<double>(1,2);
+        double r31=zweiRotate.at<double>(2,0);
+        double r32=zweiRotate.at<double>(2,1);
+        double r33=zweiRotate.at<double>(2,2);
+        double t1=zweiTransform.at<double>(0,0);
+        double t2=zweiTransform.at<double>(0,1);
+        double t3=zweiTransform.at<double>(0,2);
+
+        std::string string_temp;
+        std::string param_name[21]={"zwei_camera_param","fx_link","fy_link","u0_link","v0_link",
+                                  "fx_richt","fy_richt","u0_richt","v0_richt",
+                                  "r11","r12","r13",
+                                  "r21","r22","r23",
+                                  "r31","r32","r33",
+                                  "t1","t2","t3"}; //相机参数,标定结果
+
+        double param_data[21]={2.0,fx_link,fy_link,u0_link,v0_link,
+                               fx_richt,fy_richt,u0_richt,v0_richt,
+                               r11,r12,r13,
+                               r21,r22,r23,
+                               r31,r32,r33,
+                               t1,t2,t3};
+        //mein_json::json_write_construct("/home/klug/system_param.json",&param_name[0][0],param_data,5,9);
+        write_path=write_json_path;
+        write_path+="zwei_system_param.json";
+
+        mein_json::json_write(write_path,param_name,param_data,21);
+    }
+    else
+    {
+#ifdef zwei_construct_cal_print_error_info
+        printf("please calibrate first...\n");
+#endif
+    }
+}
+
+/*
+    加载标定完成保存的标定结果参数
+*/
+void zwei_construct_cal::load_calibrate_parameter()
+{
+    //相机参数
+    //double fxLink,fxRicht;
+    //double fyLink,fyRicht;
+    //double u0Link,u0Richt;
+    //double v0Link,v0Richt;
+    //左右相机位姿关系
+    //double r11,r12,r13,r21,r22,r23,r31,r32,r33;
+    //double t1,t2,t3;
+    std::string load_name[21]={"zwei_camera_param",
+                               "fx_link","fy_link","u0_link","v0_link",
+                               "fx_richt","fy_richt","u0_richt","v0_richt",
+                               "r11","r12","r13","r21","r22","r23","r31","r32","r33",
+                               "t1","t2","t3"};
+    double load_value[21];
+
+    read_path=read_json_path;
+    read_path+="zwei_system_param.json";
+
+    mein_json::json_read(read_path,load_name,load_value);
+    std::cout<<"read achieve..."
+            <<std::endl;
+/*
+    fxLink=load_value[1];
+    fyLink=load_value[2];
+    u0Link=load_value[3];
+    v0Link=load_value[4];
+    fxRicht=load_value[5];
+    fyRicht=load_value[6];
+    u0Richt=load_value[7];
+    v0Richt=load_value[8];
+    r11=load_value[9];
+    r12=load_value[10];
+    r13=load_value[11];
+    r21=load_value[12];
+    r22=load_value[13];
+    r23=load_value[14];
+    r31=load_value[15];
+    r32=load_value[16];
+    r33=load_value[17];
+    t1=load_value[18];
+    t2=load_value[19];
+    t3=load_value[20];*/
 }
 
 /*
@@ -71,7 +177,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
     for(size_t i=0;i<img_vector.size();i++)
     {
         image_count++;
-#ifdef zwei_construct_cal_print_msg_info
+#ifdef zwei_construct_cal_print_data_info
         std::cout << "image_count=" << image_count << std::endl;
 #endif
         cv::Mat imageInput = img_vector[i];
@@ -91,7 +197,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
             targetPoint.push_back(image_points);
             drawChessboardCorners(view_gray,board_size,image_points,true);
 #ifdef zwei_construct_cal_save_process
-            std::string name="/home/klug/img/construct/view_gray_";
+            std::string name="/home/klug/img/zwei_construct/view_gray_";
             name+=std::to_string(i+1);
             name+=".png";
             cv::imwrite(name,view_gray);
@@ -220,7 +326,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
     for(size_t i=0;i<img_vector.size();i++)
     {
         image_count++;
-#ifdef zwei_construct_cal_print_msg_info
+#ifdef zwei_construct_cal_print_data_info
         std::cout << "image_count=" << image_count << std::endl;
 #endif
         cv::Mat imageInput = img_vector[i];
@@ -240,7 +346,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
             targetPoint.push_back(image_points);
             drawChessboardCorners(view_gray,board_size,image_points,true);
 #ifdef zwei_construct_cal_save_process
-            std::string name="/home/klug/img/construct/view_gray_";
+            std::string name="/home/klug/img/zwei_construct/view_gray_";
             name+=std::to_string(i+1);
             name+=".png";
             cv::imwrite(name,view_gray);
@@ -369,7 +475,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
     for(size_t i=0;i<img_vector.size();i++)
     {
         image_count++;
-#ifdef zwei_construct_cal_print_msg_info
+#ifdef zwei_construct_cal_print_data_info
         std::cout << "image_count=" << image_count << std::endl;
 #endif
         cv::Mat imageInput = img_vector[i];
@@ -389,7 +495,7 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
             image_points_seq.push_back(image_points);
             drawChessboardCorners(view_gray,board_size,image_points,true);
 #ifdef zwei_construct_cal_save_process
-            std::string name="/home/klug/img/construct/view_gray_";
+            std::string name="/home/klug/img/zwei_construct/view_gray_";
             name+=std::to_string(i+1);
             name+=".png";
             cv::imwrite(name,view_gray);
@@ -500,10 +606,10 @@ int zwei_construct_cal::camera_calibrate(std::vector<cv::Mat> img_vector,cv::Mat
 int zwei_construct_cal::system_calibrate()
 {
     //加载图片
-    for(int i=0;i<zwei_cal_img_num;i++)
+    for(int i=1;i<=zwei_cal_img_num;i++)
     {
         img_path=zwei_read_img_path;
-        img_path+="link";
+        img_path+="cal/link";
         img_path+=std::to_string(i);
         img_path+=".png";
         cv::Mat read_img=cv::imread(img_path);
@@ -520,7 +626,7 @@ int zwei_construct_cal::system_calibrate()
         }
 
         img_path=zwei_read_img_path;
-        img_path+="richt";
+        img_path+="cal/richt";
         img_path+=std::to_string(i);
         img_path+=".png";
         read_img=cv::imread(img_path);
@@ -539,6 +645,9 @@ int zwei_construct_cal::system_calibrate()
 
     //标定
     int res=zwei_camera_calibrate(calibrateImgLink,calibrateImgRicht);
+
+    cal_done=1; //标定完成置位标定完成标志位
+
     return res;
 }
 
@@ -554,7 +663,7 @@ int zwei_construct_cal::zwei_camera_calibrate(std::vector<cv::Mat> calibrate_img
     int res=1;
 
     //目标点位置生成,每张图片生成一个
-    int image_count=calibrate_img_link.size()+calibrate_img_richt.size();
+    int image_count=calibrate_img_link.size();//+calibrate_img_richt.size();
     for(int t=0;t<image_count;t++)
     {
         std::vector<cv::Point3f> points;
@@ -577,7 +686,7 @@ int zwei_construct_cal::zwei_camera_calibrate(std::vector<cv::Mat> calibrate_img
     if(res!=1)
     {
 #ifdef zwei_construct_cal_print_error_info
-        printf("link camera calibratefail...\n");
+        printf("link camera calibrate fail...\n");
 #endif
         return res-10;
     }
@@ -586,20 +695,34 @@ int zwei_construct_cal::zwei_camera_calibrate(std::vector<cv::Mat> calibrate_img
     if(res!=1)
     {
 #ifdef zwei_construct_cal_print_error_info
-        printf("richt camera calibratefail...\n");
+        printf("richt camera calibrate fail...\n");
 #endif
         return res-20;
     }
 
     //双目位姿关系计算
-    //cv::Mat R,T,E,F;//旋转矩阵，旋转向量，本征矩阵，基本矩阵
     res=cv::stereoCalibrate(objectPoints,targetPointsLink,targetPointsRicht,
                         cameraMatrixLink,distCoeffsLink,
                         cameraMatrixLink,distCoeffsLink,
                         calibrate_img_link[0].size(),
-                        zwei_rotate,zwei_transform,
+                        zweiRotate,zweiTransform,
                         essential,fundamental,
                         cv::CALIB_ZERO_TANGENT_DIST);
+
+#ifdef zwei_construct_cal_print_data_info
+    std::cout<<"R:="
+            <<zweiRotate
+            <<std::endl
+            <<"T:="
+            <<zweiTransform
+            <<std::endl
+            <<"E:="
+            <<essential
+            <<std::endl
+            <<"F:="
+            <<fundamental
+            <<std::endl;
+#endif
 
     return res;
 }

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的眼神常带月光
     start:230511
-    last:230619
+    last:230626
 */
 
 #pragma once // 只编译一次
@@ -28,7 +28,7 @@ extern bool richt_update;
 #define read_json_path "/home/klug/"
 #define write_json_path "/home/klug/"
 
-#define zwei_cal_img_num 25
+#define zwei_cal_img_num 30
 
 extern std::string read_path;
 extern std::string write_path;

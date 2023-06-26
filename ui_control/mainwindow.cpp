@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230609
+    last:230626
 */
 
 #include "mainwindow.h"
@@ -39,8 +39,6 @@ MainWindow::~MainWindow()
     }
     delete ui;
 }
-
-#ifdef for_3d_construct
 
 void MainWindow::img_show()
 {
@@ -144,8 +142,6 @@ void MainWindow::on_func_test_clicked()
     cv::Mat i=cv::imread("/home/klug/img/construct/1.png");
     img_encode(i);
 }
-
-#endif
 
 #ifdef camera_gray
 

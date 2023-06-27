@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230607
+# last:230627
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -97,6 +97,10 @@ set(PROJECT_SOURCES
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_cal.cpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.hpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.cpp
+        ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
+        ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
+        ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
+        ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
         # gitee
         #~/dieschwesterwaternderengle/StructureLight/constructimg.cpp

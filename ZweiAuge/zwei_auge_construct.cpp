@@ -7,3 +7,18 @@
 */
 
 #include "ZweiAuge/zwei_auge_construct.hpp"
+
+namespace zweiauge
+{
+
+zwei_auge_construct::zwei_auge_construct()
+{
+
+}
+
+zwei_auge_construct::~zwei_auge_construct()
+{
+
+}
+
+};

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的身旁常伴月光
     start:221129
-    last:230626
+    last:230628
 */
 
 #include "ui_control/mainwindow.h"
@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    zwei_construct_win w;
-    //MainWindow w;
+    //zwei_construct_win w;
+    MainWindow w;
     w.show();
 
     return a.exec();

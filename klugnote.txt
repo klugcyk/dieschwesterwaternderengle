@@ -3,6 +3,7 @@
 
 # github token 
 
+username:klugcyk
 name:liebelili
 公钥：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
 
@@ -111,8 +112,14 @@ git ssh 可以不需要账号密码访问repo
 6 霍夫直线检测 HoughLines；
 7 霍夫圆检测 HoughCircles；
 8 Shi-Tomasi角点检测cv::goodFeaturesToTrack()；
-9 自定义角点检测器：cv::cornerEigenValsAndVecs(),cv::cornerMinEigenVal()
-10 LBP特征
+9 自定义角点检测器：cv::cornerEigenValsAndVecs(),cv::cornerMinEigenVal()；
+10 LBP特征，具有旋转不变性；
+11 LBPH特征；
+12 FAST角点检测；
+13 MinEngen角点检测；
+13 Brisk特征点描述；
+14 ORB;
+
 
 * 图像色彩空间
 1 RGB；

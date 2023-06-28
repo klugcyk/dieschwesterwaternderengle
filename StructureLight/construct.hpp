@@ -24,7 +24,7 @@
 namespace structlight_construct
 {
 
-class construct:protected calibrate_construct::construct_cal
+class construct:protected structlight_construct::construct_cal
 {
 public:
     construct();

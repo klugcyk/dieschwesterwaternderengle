@@ -27,10 +27,10 @@
 #define construct_cal_save_process
 #define construct_cal_print_error_info
 
-namespace calibrate_construct
+namespace structlight_construct
 {
 
-class construct_cal:public img_construct::construct_img
+class construct_cal:public structlight_construct::construct_img
 {
 public:
     construct_cal();

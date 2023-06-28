@@ -27,7 +27,7 @@
 #define construct_img_save_img
 #define construct_img_mark
 
-namespace img_construct
+namespace structlight_construct
 {
 
 class construct_img

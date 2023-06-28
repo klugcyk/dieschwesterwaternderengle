@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230627
+# last:230628
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -102,15 +102,6 @@ set(PROJECT_SOURCES
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
-        # gitee
-        #~/dieschwesterwaternderengle/StructureLight/constructimg.cpp
-        #~/dieschwesterwaternderengle/StructureLight/constructimg.hpp
-        #~/dieschwesterwaternderengle/StructureLight/constructcal.cpp
-        #~/dieschwesterwaternderengle/StructureLight/constructcal.hpp
-        #~/dieschwesterwaternderengle/StructureLight/construct_.cpp
-        #~/dieschwesterwaternderengle/StructureLight/construct_.hpp
-
-
         # pointcloud algorithm
         ~/dieschwesterwaternderengle/pointcloud/construct_pointcloud.cpp
         ~/dieschwesterwaternderengle/pointcloud/construct_pointcloud.hpp
@@ -128,6 +119,9 @@ set(PROJECT_SOURCES
         # outside control buendia
         ~/buendia/camera/camera.cpp
         ~/buendia/camera/camera.hpp
+        ~/buendia/camera/cameraGene.cpp
+        ~/buendia/camera/cameraGene.hpp
+        #~/buendia/camera/cameraGene1.cpp
         ~/buendia/structurelight/structure_light.cpp
         ~/buendia/structurelight/structure_light.hpp
         ~/buendia/gene_operate/json_operate.cpp

@@ -10,7 +10,7 @@
 #define zwei_auge_pre_H
 
 #include <opencv2/opencv.hpp>
-#include "camera/camera.hpp"
+#include "camera/cameraGene.hpp"
 
 namespace zweiauge
 {

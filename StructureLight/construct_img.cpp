@@ -9,7 +9,7 @@
 #include "StructureLight/construct_img.hpp"
 #include "source.hpp"
 
-namespace img_construct
+namespace structlight_construct
 {
 
 construct_img::construct_img()

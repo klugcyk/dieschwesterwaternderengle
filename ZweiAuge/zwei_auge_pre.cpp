@@ -23,6 +23,9 @@ zwei_auge_pre::~zwei_auge_pre()
 
 void zwei_auge_pre::zweiAugeCal()
 {
+    std::vector<cv::Mat> linkImg,richtImg;
+    cameraCalibrate(linkImg,cameraMatrixLink,distCoeffsLink);
+    cameraCalibrate(richtImg,cameraMatrixRicht,distCoeffsRicht);
 
 }
 

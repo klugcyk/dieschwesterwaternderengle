@@ -25,7 +25,7 @@
 namespace construct_pc
 {
 
-class construct_pointcloud:public calibrate_construct::construct_cal
+class construct_pointcloud:public structlight_construct::construct_cal
 {
 public:
     construct_pointcloud();

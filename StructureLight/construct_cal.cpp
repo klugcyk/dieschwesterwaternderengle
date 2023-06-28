@@ -21,7 +21,7 @@
 #include "source.hpp"
 #include "gene_operate/json_operate.hpp"
 
-namespace calibrate_construct
+namespace structlight_construct
 {
 
 construct_cal::construct_cal()

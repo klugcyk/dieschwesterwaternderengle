@@ -29,6 +29,15 @@ zwei_construct_cal::~zwei_construct_cal()
 }
 
 /*
+
+*/
+int zwei_construct_cal::zweiUndistort(cv::Mat srcImg,cv::Mat &resImg)
+{
+
+    return 1;
+}
+
+/*
     标定完成保存标定结果参数
 */
 void zwei_construct_cal::save_calibrate_parameter()

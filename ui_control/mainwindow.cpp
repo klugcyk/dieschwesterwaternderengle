@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230626
+    last:230704
 */
 
 #include "mainwindow.h"
@@ -67,6 +67,11 @@ void MainWindow::img_show_continue()
 
 void MainWindow::on_save_clicked()
 {
+    int save_for=0;
+    if(ui->for_cal->isChecked())//保存为标定图片
+    {
+        save_for=1;
+    }
     int i=1;
 
     i=ui->img_name->text().toInt();
@@ -76,9 +81,18 @@ void MainWindow::on_save_clicked()
     QString num_;
     num_=QString::fromStdString(num);
 
-    n="/home/klug/img/construct/";
+    if(save_for==1)
+    {
+        n="/home/klug/img/construct/cal/";
+
+    }
+    else
+    {
+        n="/home/klug/img/construct/";
+    }
     n+=std::to_string(i);
     n+=".png";
+
     name=QString::fromStdString(n);
 
     img_show();

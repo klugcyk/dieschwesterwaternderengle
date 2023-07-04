@@ -42,6 +42,7 @@ protected:
     void save_calibrate_parameter(); //保存标定参数
     void load_calibrate_parameter(); //加载标定参数
     int system_calibrate();
+    int zweiUndistort(cv::Mat srcImg,cv::Mat &resImg);
 
 protected:
     cv::Mat cameraMatrixLink=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0)); //相机内参

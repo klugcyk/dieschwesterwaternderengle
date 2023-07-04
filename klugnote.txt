@@ -46,6 +46,12 @@ https://blog.csdn.net/weixin_43956164/article/details/105153313
 3 A Single Scan Longitudinal Calibration Technique for Fringe Projection Profilometry (scihub)
 
 
+# cuda
+
+# TensorRT
+
+# cudnn
+
 cmake -G "MinGW Makefiles" -D"CMAKE_MAKE_PROGRAM:PATH=C:/Qt/Qt5.14.2/Tools/mingw730_32/bin/mingw-make.exe" ..
 
 大为数据库网址：https://www.innojoy.com/search/index.html

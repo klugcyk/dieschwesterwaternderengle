@@ -72,7 +72,7 @@
      <x>10</x>
      <y>510</y>
      <width>144</width>
-     <height>141</height>
+     <height>143</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -135,7 +135,7 @@
     <string>richt</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -167,6 +167,19 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QRadioButton" name="for_cal_2">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>410</y>
+     <width>72</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>for_cal</string>
+   </property>
   </widget>
  </widget>
  <resources/>

@@ -24,7 +24,7 @@
 #define zwei_consutrct_img_save_process
 #define zwei_consutrct_img_print_error_info
 
-namespace img_zwei_construct
+namespace ZweiConstruct
 {
 
 class zwei_construct_img

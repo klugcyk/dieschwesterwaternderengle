@@ -22,7 +22,7 @@ namespace Ui {
 class zwei_construct_win;
 }
 
-class zwei_construct_win : public QWidget,public zwei_construct::construct,public basler_camera
+class zwei_construct_win : public QWidget,public ZweiConstruct::construct,public basler_camera
 {
     Q_OBJECT
 

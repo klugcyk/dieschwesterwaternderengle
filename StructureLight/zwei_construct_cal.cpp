@@ -9,7 +9,7 @@
 #include "StructureLight/zwei_construct_cal.hpp"
 #include "source.hpp"
 
-namespace calibrate_zwei_construct
+namespace ZweiConstruct
 {
 
 zwei_construct_cal::zwei_construct_cal()

@@ -8,7 +8,7 @@
 
 #include "project_cal.hpp"
 
-namespace cal_project
+namespace project
 {
 
 };

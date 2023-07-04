@@ -27,10 +27,10 @@
 #define zwei_construct_cal_save_process
 #define zwei_construct_cal_print_error_info
 
-namespace calibrate_zwei_construct
+namespace ZweiConstruct
 {
 
-class zwei_construct_cal:public img_zwei_construct::zwei_construct_img
+class zwei_construct_cal:public ZweiConstruct::zwei_construct_img
 {
 public:
     zwei_construct_cal();

@@ -8,7 +8,7 @@
 
 #include "project_construct.hpp"
 
-namespace construct_project
+namespace project
 {
 
 };

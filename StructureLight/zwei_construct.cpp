@@ -8,7 +8,7 @@
 
 #include "StructureLight/zwei_construct.hpp"
 
-namespace zwei_construct
+namespace ZweiConstruct
 {
 
 construct::construct()

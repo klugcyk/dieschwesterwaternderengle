@@ -7,7 +7,7 @@
 */
  #include "project_img.hpp"
 
-namespace img_project
+namespace project
 {
 
 };

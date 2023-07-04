@@ -17,10 +17,10 @@
 #define zwei_construct_save_process
 #define zwei_construct_print_error_info
 
-namespace zwei_construct
+namespace ZweiConstruct
 {
 
-class construct:protected calibrate_zwei_construct::zwei_construct_cal
+class construct:protected ZweiConstruct::zwei_construct_cal
 {
 public:
     construct();

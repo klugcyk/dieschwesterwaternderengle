@@ -9,7 +9,7 @@
 #ifndef PROJECT_CAL_HPP
 #define PROJECT_CAL_HPP
 
-namespace cal_project
+namespace project
 {
 
 };

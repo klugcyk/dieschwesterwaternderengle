@@ -9,7 +9,7 @@
 #ifndef PROJECT_IMG_HPP
 #define PROJECT_IMG_HPP
 
-namespace img_project
+namespace project
 {
 
 };

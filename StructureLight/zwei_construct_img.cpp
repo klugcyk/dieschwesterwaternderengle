@@ -8,7 +8,7 @@
 
 #include "StructureLight/zwei_construct_img.hpp"
 
-namespace img_zwei_construct
+namespace ZweiConstruct
 {
 
 zwei_construct_img::zwei_construct_img()

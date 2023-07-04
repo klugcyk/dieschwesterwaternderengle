@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230628
+# last:230703
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -128,6 +128,8 @@ set(PROJECT_SOURCES
         ~/buendia/gene_operate/json_operate.hpp
         ~/buendia/socket/socket.cpp
         ~/buendia/socket/socket.hpp
+        ~/buendia/Robot/Robot.cpp
+        ~/buendia/Robot/Robot.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -9,7 +9,7 @@
 #ifndef PROJECT_CONSTRUCT_HPP
 #define PROJECT_CONSTRUCT_HPP
 
-namespace construct_project
+namespace project
 {
 
 };

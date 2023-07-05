@@ -190,10 +190,10 @@
    <widget class="QRadioButton" name="for_cal">
     <property name="geometry">
      <rect>
-      <x>680</x>
-      <y>100</y>
+      <x>670</x>
+      <y>50</y>
       <width>72</width>
-      <height>23</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">

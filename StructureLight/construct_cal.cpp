@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友梅尔基亚德斯
     start:230220
-    last:230601
+    last:230705
 */
 
 #include "StructureLight/construct_cal.hpp"
@@ -90,18 +90,11 @@ void construct_cal::cal_test()
            p.x=zc[pc].x();
            p.y=zc[pc].y();
            p.z=zc[pc].z();
-           if(i==0)
-           {
-               p.r=255;
-               p.g=0;
-               p.b=0;
-           }
-           else
-           {
-               p.r=0;
-               p.g=255;
-               p.b=0;
-           }
+
+           p.r=255;
+           p.g=0;
+           p.b=0;
+
            cloud->push_back(p);
         }
     }
@@ -119,7 +112,7 @@ void construct_cal::cal_test()
     }
 
     // 激光平面点
-    for(int x=-100;x<0;x+=1)
+    for(int x=0;x<50;x+=1)
     {
         for(int y=-50;y<50;y+=10)
         {
@@ -132,9 +125,40 @@ void construct_cal::cal_test()
             cloud->push_back(p);
 
             p.z=-(light_plane[1].A*x+light_plane[1].B*y+light_plane[1].D)/light_plane[1].C;
-            p.r=255;
+            p.r=0;
             p.g=255;
             p.b=0;
+            cloud->push_back(p);
+
+            p.z=-(light_plane[2].A*x+light_plane[2].B*y+light_plane[2].D)/light_plane[2].C;
+            p.r=0;
+            p.g=255;
+            p.b=0;
+            cloud->push_back(p);
+
+            p.z=-(light_plane[3].A*x+light_plane[3].B*y+light_plane[3].D)/light_plane[3].C;
+            p.r=0;
+            p.g=255;
+            p.b=0;
+            cloud->push_back(p);
+
+            p.z=-(light_plane[4].A*x+light_plane[4].B*y+light_plane[4].D)/light_plane[4].C;
+            p.r=0;
+            p.g=255;
+            p.b=0;
+            cloud->push_back(p);
+
+            p.z=-(light_plane[5].A*x+light_plane[5].B*y+light_plane[5].D)/light_plane[5].C;
+            p.r=0;
+            p.g=255;
+            p.b=0;
+            cloud->push_back(p);
+
+            p.z=-(light_plane[6].A*x+light_plane[6].B*y+light_plane[6].D)/light_plane[6].C;
+            p.r=0;
+            p.g=255;
+            p.b=0;
+
             cloud->push_back(p);
         }
     }
@@ -184,14 +208,15 @@ void construct_cal::cal_test()
 */
 int construct_cal::system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv::Mat> laser_img,cv::Size chess_size,cv::Size2f chess_length)
 {
-    if(src_img.size()<8||laser_img.size()<2)
+    if(src_img.size()<10||laser_img.size()<2)
     {
         return 0;
     }
 
     camera_calibrate(src_img,chess_size,chess_length);
     //lightsource_calibrate_ein(1,laser_img);
-    lightsource_calibrate(src_img,laser_img);
+    //lightsource_calibrate(src_img,laser_img);
+    lightsourceCalibrate(src_img,laser_img);
 
     cal_done=1;
 
@@ -215,7 +240,7 @@ int construct_cal::system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv:
 
     camera_calibrate(src_img);
     //lightsource_calibrate_ein(5,laser_img);
-    //lightsource_calibrate(src_img,laser_img);
+    lightsource_calibrate(src_img,laser_img);
 
     cal_done=1;
 
@@ -266,10 +291,12 @@ void construct_cal::lightsource_calibrate_ein(int img_cnt,std::vector<cv::Mat> i
     float theat=abs(acos(up/l1)*57.3-90);
 
     std::cout<<"theat:="<<theat<<std::endl;
+    std::cout<<std::endl;
     std::cout<<"A:="<<light_plane_ein.A<<std::endl;
     std::cout<<"B:="<<light_plane_ein.B<<std::endl;
     std::cout<<"C:="<<light_plane_ein.C<<std::endl;
     std::cout<<"D:="<<light_plane_ein.D<<std::endl;
+    std::cout<<std::endl;
 #endif
 }
 
@@ -298,7 +325,7 @@ math_geometry::geo_plane_param construct_cal::extrinsic2plane(cv::Mat extrinsic)
 }
 
 /*
-    所有激光平面参数标定
+    二激光平面参数标定，激光线为两条是使用，两个激光平面
     @img_chess:包含棋盘格的图片,30张，从中提取后5张
     @img_laser:包含激光线的图片,5张
 */
@@ -306,6 +333,7 @@ void construct_cal::lightsource_calibrate(std::vector<cv::Mat> img_chess,std::ve
 {
     cv::Mat res; //useless
 
+    //相机坐标系中，中心点的坐标值
     zenturm_camera_array.clear();
     std::vector<Eigen::Vector3d> zc1,zc2;
 
@@ -314,17 +342,19 @@ void construct_cal::lightsource_calibrate(std::vector<cv::Mat> img_chess,std::ve
     double u0=cameraMatrix.at<double>(0,2);
     double v0=cameraMatrix.at<double>(1,2);
 
+    //激光平面参数集合清除
     light_plane.clear();
     //zenturm_camera_array.clear();
+    //相机坐标系中，激光中心线上的点
     zenturm_camera.clear();
     for(int img_cnt=0;img_cnt<img_laser.size();img_cnt++)
     {
+        //激光线图像中，激光中心线提取，后续读取图像处理类中的参数来做最小二乘法拟合标定
         laser_zenturm_line_zwei(img_laser[img_cnt],res);
         // 相机外参转换成平面方程，标定板平面
         math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
 
         // 计算中线上点坐标在相机坐标系中的值
-
         for(size_t i=0;i<zenturm_line.size();i++)
         {
             double zc=-p.D/(p.A*(zenturm_line[i].x-u0)/fx+p.B*(zenturm_line[i].y-v0)/fy+p.C);
@@ -351,6 +381,111 @@ void construct_cal::lightsource_calibrate(std::vector<cv::Mat> img_chess,std::ve
     }
 }
 
+/*
+    多条激光平面参数标定，超过两条
+    @img_chess:包含棋盘格的图片,30张，从中提取后5张
+    @img_laser:包含激光线的图片,5张
+*/
+void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vector<cv::Mat> img_laser)
+{
+    cv::Mat res; //useless
+
+    //相机坐标系中，中心点的坐标值
+    zenturm_camera_array.clear();
+
+    std::vector<Eigen::Vector3d> zc1,zc2;
+
+    double fx=cameraMatrix.at<double>(0,0);
+    double fy=cameraMatrix.at<double>(1,1);
+    double u0=cameraMatrix.at<double>(0,2);
+    double v0=cameraMatrix.at<double>(1,2);
+
+    //激光平面参数集合清除
+    light_plane.clear();
+    for(int img_cnt=0;img_cnt<img_laser.size();img_cnt++)
+    {
+        //激光线图像中，激光中心线提取，后续读取图像处理类中的参数来做最小二乘法拟合标定
+        laserZenturmLineMultiCal(img_laser[img_cnt],res);
+        //图像中提取到的中心线数量与实际不相同，结束标定
+        if(zenturm_line_array.size()!=laserLineCnt)
+        {
+#ifdef construct_cal_print_error_info
+            printf("cal img process not correct,calibrate failed...\n");
+            return;
+#endif
+        }
+#ifdef construct_cal_save_process
+        std::string _save=write_img_path;
+        _save+="sys_cal_res_";
+        _save+=std::to_string(img_cnt+1);
+        _save+=".png";
+        cv::imwrite(_save,res);
+#endif
+        // 相机外参转换成平面方程，标定板平面
+        math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
+
+        // 计算中线上点坐标在相机坐标系中的值
+        for(size_t i=0;i<zenturm_line_array.size();i++)
+        {
+            //相机坐标系中，激光中心线上的点，每次清除
+            zenturm_camera.clear();
+            for(size_t j=0;j<zenturm_line_array[i].size();j++)
+            {
+                double zc=-p.D/(p.A*(zenturm_line_array[i][j].x-u0)/fx+p.B*(zenturm_line_array[i][j].y-v0)/fy+p.C);
+                double xc=zc*(zenturm_line_array[i][j].x-u0)/fx;
+                double yc=zc*(zenturm_line_array[i][j].y-v0)/fy;
+                zenturm_camera.push_back(Eigen::Vector3d(xc,yc,zc));
+            }
+            zenturm_camera_array.push_back(zenturm_camera);
+        }
+    }
+
+    //line_point_array(zenturm_camera,zenturm_camera_array);
+
+    // 最小二乘法计算平面方程
+    light_plane.clear();
+    /*for(size_t plane_cnt=0;plane_cnt<zenturm_camera_array.size();plane_cnt+=laserLineCnt)
+    {
+        light_plane_ein=math_leastsqaure::plane_calculate(zenturm_camera_array[plane_cnt]);
+        light_plane.push_back(light_plane_ein);
+#ifdef construct_cal_print_data_info
+        std::cout<<"A:="<<light_plane_ein.A<<std::endl;
+        std::cout<<"B:="<<light_plane_ein.B<<std::endl;
+        std::cout<<"C:="<<light_plane_ein.C<<std::endl;
+        std::cout<<"D:="<<light_plane_ein.D<<std::endl;
+        std::cout<<std::endl;
+#endif
+    }*/
+    //5张图，每张图7条线,35
+    for(size_t plane_cnt=0;plane_cnt<7;plane_cnt+=1)
+    {
+        std::vector<Eigen::Vector3d> pointsT;
+        for(int i=plane_cnt;i<zenturm_camera_array.size();i+=laserLineCnt)
+        {
+            for(int j=0;j<zenturm_camera_array[i].size();j++)
+            {
+                pointsT.push_back(zenturm_camera_array[i][j]);
+            }
+        }
+
+        light_plane_ein=math_leastsqaure::plane_calculate(pointsT);
+        light_plane.push_back(light_plane_ein);
+
+#ifdef construct_cal_print_data_info
+        std::cout<<"A:="<<light_plane_ein.A<<std::endl;
+        std::cout<<"B:="<<light_plane_ein.B<<std::endl;
+        std::cout<<"C:="<<light_plane_ein.C<<std::endl;
+        std::cout<<"D:="<<light_plane_ein.D<<std::endl;
+        std::cout<<std::endl;
+#endif
+    }
+}
+
+/*
+    直线上点排序，两条激光线时使用
+    @points:左右激光线融合的点集合
+    @array_points:左右分开后的结果
+*/
 void construct_cal::line_point_array(std::vector<Eigen::Vector3d> points,std::vector<std::vector<Eigen::Vector3d>> &array_points)
 {
     std::vector<Eigen::Vector3d> array1,array2;
@@ -665,7 +800,7 @@ std::vector<cv::Mat> construct_cal::camera_calibrate(std::vector<cv::Mat> img_ve
         cv::Mat undistort_img;
         cv::undistort(img_vector[img_cnt],undistort_img,cameraMatrix,distCoeffs);
 #ifdef construct_cal_save_process
-        write_path=write_img_path;
+        write_path=write_img_path_undistort;
         write_path+="undistort_";
         write_path+=std::to_string(img_cnt+1);
         write_path+=".png";

@@ -345,14 +345,15 @@ cv::Mat construct_img::zenturm_abandon(cv::Mat img1,cv::Mat img2,int length)
 /*
     单条连通域激光线提取
     @src_img:输入图像
-    @zenturm:激光中心点图像
+    @zenturm:激光中心点坐标
     @type:图像类型0，1，0为row>col,1为row<col
+    @res_img:返回值，标记激光中心线的图像
 */
 cv::Mat construct_img::laser_zenturm_line_ein(cv::Mat src_img,std::vector<cv::Point2f> &zenturm,bool type)
 {
     cv::Mat res_img=src_img;
     float p;
-    cv::Point zenturm_point;
+    cv::Point2f zenturm_point;
     if(type)
     {
         for(size_t col=0;col<res_img.cols;col++)
@@ -525,7 +526,7 @@ void construct_img::draw_point(cv::Mat &src_img,std::vector<cv::Point2f> zenturm
         float x=zenturm[i].x+offset_x;
         float y=zenturm[i].y+offset_y;
 
-        circle(src_img,cv::Point2f(x,y),1,cv::Scalar(0,255,0),1);
+        circle(src_img,cv::Point2f(x,y),5,cv::Scalar(0,255,0),1);
     }
 }
 
@@ -741,16 +742,142 @@ cv::Mat construct_img::laser_zenturm_line(cv::Mat src_img,cv::Mat &res_img)
 }
 
 /*
-    超过两条激光中心线提取算法
+    超过两条激光中心线提取算法，标定中使用
+    要求标定时，激光线打在平面上
     @src_img:包含激光中心线的图像
     @res_img:结果图像
     @line_cnt:返回值，提取到激光中线的条数
 */
-int construct_img::laser_zenturm_line_sum(cv::Mat src_img,cv::Mat &res_img)
+int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 {
     int line_cnt=0;
 
+    //清除上一张图片上提取的点位缓存
+    zenturm_line_array.clear();
+
+    res_img=src_img;
+    //图像预处理
+    cv::Mat bin_img(src_img.rows,src_img.cols,CV_8UC1);
+    //增强红色通道
+    for(size_t row=0;row<src_img.rows;row++)
+    {
+        for(size_t col=0;col<src_img.cols;col++)
+        {
+            int B=src_img.at<cv::Vec3b>(row,col)[0];
+            if(B>250)
+            {
+                bin_img.at<uchar>(row,col)=255;
+            }
+            else
+            {
+                bin_img.at<uchar>(row,col)=0;
+            }
+        }
+    }
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="line_bin.png";
+    cv::imwrite(write_path,bin_img);
+#endif
+
+    cv::Mat mor_img;
+    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(15,15),cv::Point(-1,-1));
+    morphologyEx(bin_img,mor_img,CV_MOP_CLOSE,kernel);
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="line_morphology.png";
+    cv::imwrite(write_path,mor_img);
+#endif
+
+    cv::Mat blur_img;
+    cv::medianBlur(mor_img,blur_img,5);
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="line_blur.png";
+    cv::imwrite(write_path,blur_img);
+#endif
+    //连通域roi提取
+    cv::Mat labels,lab;
+    cv::Mat connect_info,connect_centor;
+    int cnt=cv::connectedComponentsWithStats(blur_img,lab,connect_info,connect_centor,8,CV_16U);
+#ifdef construct_img_print_data_info
+    std::cout<<"connected cnt:="<<cnt<<std::endl;
+#endif
+    std::vector<cv::Mat> roi;
+    for(int i=1;i<cnt;i++)
+    {
+        int x=connect_info.at<int>(i,0);
+        int y=connect_info.at<int>(i,1);
+        int h=connect_info.at<int>(i,2);
+        int w=connect_info.at<int>(i,3);
+        cv::Mat roi_img=blur_img(cv::Rect(x,y,h,w));
+        //去除短激光线的影响，只对长激光线做中心线提取
+        if(w>1000)
+        {
+            roi.push_back(roi_img);
+        }
+
+#ifdef construct_img_save_img
+        write_path=write_img_path;
+        write_path+="line_connect_roi_img_";
+        write_path+=std::to_string(i);
+        write_path+=".png";
+        cv::imwrite(write_path,roi_img);
+#endif
+    }
+
+    //单条激光中心提取
+    std::vector<cv::Point2f> zenturm; //只保存单个roi中的点
+    zenturm_line.clear();
+
+    //设置返回值提取到线的条数
+    //line_cnt=roi.size();
+    for(size_t i=0;i<roi.size();i++)
+    {
+        int row=roi[i].rows;
+        int col=roi[i].cols;
+
+        zenturm.clear();
+        if(row>col)
+        {
+            cv::Mat roi_mark=laser_zenturm_line_ein(roi[i],zenturm,0);
+        }
+        else
+        {
+            cv::Mat roi_mark=laser_zenturm_line_ein(roi[i],zenturm,1);
+        }
+
+        int offset_x=connect_info.at<int>(i+1,0); //roi在原图上的位置，列偏置
+        int offset_y=connect_info.at<int>(i+1,1); //roi在原图上的位置，行偏置
+        savePointArray(zenturm,offset_x,offset_y); //保存激光中心点到类中保存中心点的变量中
+    }
+    //删除不需要的点
+    //point_filter(zenturm_line);
+#ifdef construct_img_mark
+    draw_point(res_img,zenturm_line,cv::Scalar(0,255,0));
+#endif
+
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="line_res.png";
+    cv::imwrite(write_path,res_img);
+#endif
+
+    line_cnt=zenturm_line_array.size();
+
     return line_cnt;
+}
+
+void construct_img::savePointArray(std::vector<cv::Point2f> zenturm,int offset_x,int offset_y)
+{
+    std::vector<cv::Point2f> zenturm_temp;
+    for(size_t i=0;i<zenturm.size();i++)
+    {
+        float x=zenturm[i].x+offset_x;
+        float y=zenturm[i].y+offset_y;
+        zenturm_temp.push_back(cv::Point2f(x,y)); //记录点信息
+    }
+    zenturm_line_array.push_back(zenturm_temp);
 }
 
 /*

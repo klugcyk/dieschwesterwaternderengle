@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友路易斯恩里克
     start:230220
-    last:230602
+    last:230705
 */
 
 #ifndef construct_cal_HPP
@@ -42,6 +42,7 @@ protected:
     int system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv::Mat> laser_img,cv::Size chess_size,cv::Size2f chess_length);
     int system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv::Mat> laser_img);
     void cal_test();
+    std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector,cv::Size chess_size,cv::Size2f chess_length); //相机内外参标定
 
 protected:
     cv::Mat cameraMatrix=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0)); //相机内参
@@ -58,10 +59,11 @@ protected:
 private:
     void assign_points(std::vector<cv::Point2f> all_points,std::vector<std::vector<cv::Point2f>> &assigned_points); //对获取到的中线点按激光线分类
     void lightsource_calibrate(std::vector<cv::Mat> img_chess,std::vector<cv::Mat> img_laser); //激光平面位置标定相对于相机
+    void lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vector<cv::Mat> img_laser); //激光平面位置标定相对于相机
     void lightsource_calibrate_ein(int img_cnt,std::vector<cv::Mat> img_laser); //单条激光平面位置标定相对于相机
     math_geometry::geo_plane_param extrinsic2plane(cv::Mat extrinsic); //外参转平面方程
     std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector); //相机内外参标定
-    std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector,cv::Size chess_size,cv::Size2f chess_length); //相机内外参标定
+    //std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector,cv::Size chess_size,cv::Size2f chess_length); //相机内外参标定
     void line_point_array(std::vector<Eigen::Vector3d> points,std::vector<std::vector<Eigen::Vector3d>> &array_points);
 
 private:
@@ -75,7 +77,7 @@ private:
     std::vector<cv::Mat> tvecsMat;
     //Eigen::Matrix3d cameraMatrix_inverse; //相机内参的逆
     std::vector<Eigen::Vector3d> zenturm_camera; //相机坐标系中，激光线的点
-    std::vector<std::vector<Eigen::Vector3d>> zenturm_camera_array; //相机坐标系中，激光线的点
+    std::vector<std::vector<Eigen::Vector3d>> zenturm_camera_array; //相机坐标系中，多条激光线的点，
 
 };
 

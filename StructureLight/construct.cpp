@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230602
+    last:230705
 */
 
 #include "StructureLight/construct.hpp"
@@ -31,10 +31,9 @@ construct::construct()
         std::vector<cv::Mat> laser_img;
 
         // 加载相机标定用的图片
-        int cal_img_cnt=30; //加载图片的数量
-        for(int i=1;i<=cal_img_cnt;i++)
+        for(int i=1;i<=cal_img_num;i++)
         {
-            read_path=read_img_path;
+            read_path=read_img_path_cal;
             read_path+=std::to_string(i);
             read_path+=".png";
             cv::Mat temp_img=cv::imread(read_path);

@@ -29,8 +29,8 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow,
         public structlight_construct::construct,
         public cal_cam_pose::cam_pose,
-        public communication_up::communication
-        ,public basler_camera
+        public communication_up::communication,
+        public basler_camera
 {
     Q_OBJECT
 public:

@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230606
+    last:230705
 */
 
 #ifndef contrruct_img_HPP
@@ -48,7 +48,8 @@ protected:
     void grid_extract(cv::Mat src_img,cv::Mat &res_img);
     void convolution_grid_extract(cv::Mat src_img,cv::Mat &res_img,int kernel_size,int threshold);
     cv::Mat laser_zenturm_line(cv::Mat src_img,cv::Mat &res_img);
-    int laser_zenturm_line_sum(cv::Mat src_img,cv::Mat &res_img);
+    int laserZenturmLineMultiCal(cv::Mat src_img,cv::Mat &res_img); //标定时，激光中心线提取
+    int laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img); //三维重建时，激光中心线提取
     int laser_zenturm_line_zwei(cv::Mat src_img,cv::Mat &res_img);
 
 protected:
@@ -57,6 +58,7 @@ protected:
     cv::Mat img_from_memory;//从内存中读取的图片
 
 private:
+    void savePointArray(std::vector<cv::Point2f> zenturm,int offset_x,int offset_y);
     void point_array(std::vector<cv::Point2f> points,std::vector<std::vector<cv::Point2f>> &points_array); //滤除激光中心线中不需要的点
     void point_array(std::vector<cv::Point2f> points,std::vector<std::vector<cv::Point2f>> *points_array); //滤除激光中心线中不需要的点
     void point_filter(std::vector<cv::Point2f> &points); //滤除激光中心线中不需要的点

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:221129
-    last:230704
+    last:230705
 */
 
 #include "mainwindow.h"
@@ -15,10 +15,8 @@
 #include "source.hpp"
 #include <dlfcn.h>//显式调用动态链接库使用
 #include "gene_operate/json_operate.hpp"
+#include "camera/camera.hpp"
 
-#ifdef depend_outside
-#include "camera/camera_.hpp"
-#endif
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -108,10 +106,9 @@ void MainWindow::on_sys_cal_clicked()
     std::vector<cv::Mat> laser_img;
 
     // load the image from the path for the camera calibrate
-    int cal_img_cnt=30; //加载图片的数量
-    for(int i=1;i<=cal_img_cnt;i++)
+    for(int i=1;i<=cal_img_num;i++)
     {
-        std::string path="/home/klug/img/construct/";
+        std::string path=read_img_path_cal;
         path+=std::to_string(i);
         path+=".png";
         cv::Mat temp_img=imread(path);
@@ -125,7 +122,7 @@ void MainWindow::on_sys_cal_clicked()
 
     for(int i=126;i<=130;i++)
     {
-        std::string path="/home/klug/img/construct/";
+        std::string path=read_img_path_cal;
         path+=std::to_string(i);
         path+=".png";
         cv::Mat temp_img=imread(path);
@@ -135,8 +132,18 @@ void MainWindow::on_sys_cal_clicked()
         }
     }
 
-    system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.95,6.95));
-    //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95));
+    int ret=system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2));
+
+    //int ret=system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.95,6.95));
+    //int ret=system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95));
+    if(ret==1)
+    {
+        printf("system calibrate achieved...\n");
+    }
+    else
+    {
+        printf("system calibrate failed...\n");
+    }
 }
 
 void MainWindow::on_func_test_clicked()
@@ -151,10 +158,33 @@ void MainWindow::on_func_test_clicked()
 
     cv::imwrite("/home/klug/img/construct/res_functest.jpg",res);
     res_show(res);
-    cal_test();*/
+    cal_test();
     //img_show_continue();
     cv::Mat i=cv::imread("/home/klug/img/construct/1.png");
     img_encode(i);
+
+    std::vector<cv::Mat> cal_img;
+    std::vector<cv::Mat> laser_img;
+
+    // load the image from the path for the camera calibrate
+    for(int i=1;i<=cal_img_num;i++)
+    {
+        std::string path=read_img_path_cal;
+        path+=std::to_string(i);
+        path+=".png";
+        cv::Mat temp_img=imread(path);
+        if(!temp_img.empty())
+        {
+            cal_img.push_back(temp_img);
+        }
+    }
+
+    camera_calibrate(cal_img,cv::Size(6,9),cv::Size2f(11.2,11.2));
+    cv::Mat i=cv::imread("/home/klug/img/construct/cal/128.png");
+    cv::Mat r;
+    laserZenturmLineMultiCal(i,r);
+    imwrite("/home/klug/img/construct/res128.png",r);*/
+    cal_test();
 }
 
 #ifdef camera_gray
@@ -181,6 +211,7 @@ void MainWindow::on_set_param_clicked()
 {
     set_exposure_time=ui->exposure_time_set->text().toInt();
     camera_set_parameter();
+
     printf("set the parameter...\n");
 }
 

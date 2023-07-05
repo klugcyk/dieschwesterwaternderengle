@@ -868,6 +868,12 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
     return line_cnt;
 }
 
+/*
+    激光中心点加入集合
+    @zenturm:提取到的激光中心点
+    @offset_x:偏置x
+    @offset_y:偏置y
+*/
 void construct_img::savePointArray(std::vector<cv::Point2f> zenturm,int offset_x,int offset_y)
 {
     std::vector<cv::Point2f> zenturm_temp;
@@ -878,6 +884,16 @@ void construct_img::savePointArray(std::vector<cv::Point2f> zenturm,int offset_x
         zenturm_temp.push_back(cv::Point2f(x,y)); //记录点信息
     }
     zenturm_line_array.push_back(zenturm_temp);
+}
+
+/*
+    对提取到的中心点排序，按x轴大小排列
+    @zenturm:初始点
+    @resZenturm:结果点
+*/
+void construct_img::PointArray(std::vector<std::vector<cv::Point2f>> zenturm,std::vector<std::vector<cv::Point2f>> &resZenturm)
+{
+
 }
 
 /*

@@ -849,8 +849,9 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 
         int offset_x=connect_info.at<int>(i+1,0); //roi在原图上的位置，列偏置
         int offset_y=connect_info.at<int>(i+1,1); //roi在原图上的位置，行偏置
-        savePointArray(zenturm,offset_x,offset_y); //保存激光中心点到类中保存中心点的变量中
+        savePointArray(zenturm,offset_x,offset_y); //保存激光中心点到类中保存中心点的变量中      
     }
+    PointArray(zenturmLineArrayT,zenturm_line_array);
     //删除不需要的点
     //point_filter(zenturm_line);
 #ifdef construct_img_mark
@@ -883,7 +884,8 @@ void construct_img::savePointArray(std::vector<cv::Point2f> zenturm,int offset_x
         float y=zenturm[i].y+offset_y;
         zenturm_temp.push_back(cv::Point2f(x,y)); //记录点信息
     }
-    zenturm_line_array.push_back(zenturm_temp);
+    //zenturm_line_array.push_back(zenturm_temp);
+    zenturmLineArrayT.push_back(zenturm_temp);
 }
 
 /*
@@ -893,7 +895,60 @@ void construct_img::savePointArray(std::vector<cv::Point2f> zenturm,int offset_x
 */
 void construct_img::PointArray(std::vector<std::vector<cv::Point2f>> zenturm,std::vector<std::vector<cv::Point2f>> &resZenturm)
 {
+    float zenturmArray[laserLineCnt];
+    //float zenturmArray_[laserLineCnt];
+    static int timesCnt=0;
+    int arrayOffset=timesCnt*laserLineCnt;
 
+    //定义查找表，排序
+    int LUT[laserLineCnt];
+    for(int i=0;i<laserLineCnt;i++)
+    {
+        LUT[i]=i;
+    }
+
+    for(size_t layerEin=arrayOffset;layerEin<laserLineCnt+arrayOffset;layerEin++)
+    {
+        float sumTemp=0;
+        for(size_t layerZwei=0;layerZwei<zenturm[layerEin].size();layerZwei++)
+        {
+            sumTemp+=zenturm[layerEin][layerZwei].x;
+        }
+
+        zenturmArray[layerEin-arrayOffset]=sumTemp/zenturm[layerEin].size();
+        //zenturmArray_[layerEin-arrayOffset]=sumTemp/zenturm[layerEin].size();
+#ifdef construct_img_print_data_info
+        //printf("zetnturm average %d := %f\n",layerEin-arrayOffset,zenturmArray[layerEin-arrayOffset]);
+        printf("sumTemp := %f\n",sumTemp);
+#endif
+    }
+
+    //起泡法排序
+    for(int bub=0;bub<laserLineCnt-1;bub++)
+    {
+        for(int bub_=bub+1;bub_<laserLineCnt;bub_++)
+        {
+            if(zenturmArray[bub_]>zenturmArray[bub])
+            {
+                float ftemp=zenturmArray[bub];
+                zenturmArray[bub]=zenturmArray[bub_];
+                zenturmArray[bub_]=ftemp;
+
+                int temp=LUT[bub];
+                LUT[bub]=LUT[bub_];
+                LUT[bub_]=temp;
+            }
+        }
+    }
+
+    //根据查找表重新赋值
+    for(int pCnt=0;pCnt<laserLineCnt;pCnt++)
+    {
+        std::vector<cv::Point2f> pointsT=zenturm[LUT[pCnt]+arrayOffset];
+        resZenturm.push_back(pointsT);
+    }
+
+    timesCnt++;
 }
 
 /*

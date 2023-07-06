@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230703
+# last:230706
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -64,6 +64,9 @@ set(PROJECT_SOURCES
         ~/dieschwesterwaternderengle/ui_control/zwei_construct_win.cpp
         ~/dieschwesterwaternderengle/ui_control/zwei_construct_win.h
         ~/dieschwesterwaternderengle/ui_control/zwei_construct_win.ui
+        ~/dieschwesterwaternderengle/ui_control/zwei_project.cpp
+        ~/dieschwesterwaternderengle/ui_control/zwei_project.h
+        ~/dieschwesterwaternderengle/ui_control/zwei_project.ui
         ~/dieschwesterwaternderengle/ui_control/cam_link.cpp
         ~/dieschwesterwaternderengle/ui_control/cam_link.h
         ~/dieschwesterwaternderengle/ui_control/cam_link.ui
@@ -80,27 +83,35 @@ set(PROJECT_SOURCES
         ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
         ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
         ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-        ~/dieschwesterwaternderengle/StructureLight/construct.hpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
-        ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-        ~/dieschwesterwaternderengle/CameraPose/cam_pose.cpp
-        ~/dieschwesterwaternderengle/CameraPose/cam_pose.hpp
-        ~/dieschwesterwaternderengle/CameraPose/pose_img.cpp
-        ~/dieschwesterwaternderengle/CameraPose/pose_img.hpp
+        ~/dieschwesterwaternderengle/StructureLight/construct.hpp    
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_img.hpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_img.cpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_cal.hpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_cal.cpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.hpp
         ~/dieschwesterwaternderengle/ProjectRefactoring/project_construct.cpp
+
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_img.hpp
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_img.cpp
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_cal.hpp
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_cal.cpp
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_construct.hpp
+        ~/dieschwesterwaternderengle/ProjectRefactoring/zwei_project_construct.cpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
+        ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
         ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
+
+        ~/dieschwesterwaternderengle/CameraPose/cam_pose.cpp
+        ~/dieschwesterwaternderengle/CameraPose/cam_pose.hpp
+        ~/dieschwesterwaternderengle/CameraPose/pose_img.cpp
+        ~/dieschwesterwaternderengle/CameraPose/pose_img.hpp
 
         # pointcloud algorithm
         ~/dieschwesterwaternderengle/pointcloud/construct_pointcloud.cpp

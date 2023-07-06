@@ -100,7 +100,7 @@ void construct_cal::cal_test()
     }
 
     // 相机轴线点
-    for(int i=0;i<500;++i)
+    for(int i=0;i<300;++i)
     {
          p.x=0;
          p.y=0;
@@ -112,7 +112,7 @@ void construct_cal::cal_test()
     }
 
     // 激光平面点
-    for(int x=0;x<50;x+=1)
+    for(int x=-100;x<100;x+=1)
     {
         for(int y=-50;y<50;y+=10)
         {
@@ -122,44 +122,64 @@ void construct_cal::cal_test()
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[1].A*x+light_plane[1].B*y+light_plane[1].D)/light_plane[1].C;
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[2].A*x+light_plane[2].B*y+light_plane[2].D)/light_plane[2].C;
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[3].A*x+light_plane[3].B*y+light_plane[3].D)/light_plane[3].C;
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[4].A*x+light_plane[4].B*y+light_plane[4].D)/light_plane[4].C;
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[5].A*x+light_plane[5].B*y+light_plane[5].D)/light_plane[5].C;
             p.r=0;
             p.g=255;
             p.b=0;
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
 
             p.z=-(light_plane[6].A*x+light_plane[6].B*y+light_plane[6].D)/light_plane[6].C;
             p.r=0;
             p.g=255;
             p.b=0;
-
-            cloud->push_back(p);
+            if(p.z>0&&p.z<300)
+            {
+                cloud->push_back(p);
+            }
         }
     }
 
@@ -219,6 +239,9 @@ int construct_cal::system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv:
     lightsourceCalibrate(src_img,laser_img);
 
     cal_done=1;
+#ifdef construct_cal_print_msg_info
+    printf("system calibtate done...\n");
+#endif
 
     return 1;
 }
@@ -243,6 +266,10 @@ int construct_cal::system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv:
     lightsource_calibrate(src_img,laser_img);
 
     cal_done=1;
+
+#ifdef construct_cal_print_msg_info
+    printf("system calibtate done...\n");
+#endif
 
     return 1;
 }

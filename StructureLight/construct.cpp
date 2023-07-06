@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230705
+    last:230706
 */
 
 #include "StructureLight/construct.hpp"
@@ -54,7 +54,7 @@ construct::construct()
 
         for(int i=126;i<=130;i++)
         {
-            read_path=read_img_path;
+            read_path=read_img_path_cal;
             read_path+=std::to_string(i);
             read_path+=".png";
             cv::Mat temp_img=cv::imread(read_path);
@@ -76,7 +76,57 @@ construct::construct()
         system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
 
         //保存标定参数到json文件
-        double fx=cameraMatrix.at<double>(0,0);
+        double planeParamArray[4][laserLineCnt]; //标定平面参数
+        for(size_t pCnt=0;pCnt<light_plane.size();pCnt++)
+        {
+            planeParamArray[0][pCnt]=light_plane[pCnt].A;
+            planeParamArray[1][pCnt]=light_plane[pCnt].B;
+            planeParamArray[2][pCnt]=light_plane[pCnt].C;
+            planeParamArray[3][pCnt]=light_plane[pCnt].D;
+        }
+
+        /*std::string planeName[4][laserLineCnt];
+        std::string nameTemp[4]={"A","B","C","D"};
+        for(int i=0;i<laserLineCnt;i++)
+        {
+            std::string name;
+            for(int j=0;j<4;j++)
+            {
+                name=nameTemp[j];
+                name+=std::to_string(i+1);
+                planeName[j][i]=name;
+            }
+        }
+
+        std::string planeName_[4*laserLineCnt+1]={"planeParam"};
+        for(int i=1;i<4*laserLineCnt+1;i++)
+        {
+            std::string *p=&planeName[0][0];
+            planeName_[i]=*p;
+            p++;
+        }*/
+        std::string planeName[4*laserLineCnt+1];
+        std::string nameTemp[4]={"A","B","C","D"};
+        planeName[0]="planeParam";
+        int nameCnt=1;
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<laserLineCnt;j++)
+            {
+                std::string name;
+                name=nameTemp[i];
+                name+=std::to_string(j+1);
+                planeName[nameCnt]=name;
+                //std::cout<<"name"<<nameCnt<<":="<<name<<std::endl;
+                nameCnt++;
+            }
+        }
+
+        write_path=write_json_path;
+        write_path+="plane_param.json";
+        mein_json::json_write(write_path,&planeName[0],&planeParamArray[0][0],4*laserLineCnt+1);
+
+        /*double fx=cameraMatrix.at<double>(0,0);
         double fy=cameraMatrix.at<double>(1,1);
         double u0=cameraMatrix.at<double>(0,2);
         double v0=cameraMatrix.at<double>(1,2);
@@ -90,7 +140,7 @@ construct::construct()
         double param_data[9]={2,fx,fy,u0,v0,pa,pb,pc,pd};
         write_path=write_json_path;
         write_path+="system_param.json";
-        mein_json::json_write(write_path,param_name,param_data,9);
+        mein_json::json_write(write_path,param_name,param_data,9);*/
     }
     else
     {

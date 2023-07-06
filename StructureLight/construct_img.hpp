@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230705
+    last:230706
 */
 
 #ifndef contrruct_img_HPP
@@ -54,10 +54,12 @@ protected:
 
 protected:
     std::vector<cv::Point2f> zenturm_line; //激光中心线点集合(单条)
+    std::vector<std::vector<cv::Point2f>> zenturmLineArrayT;
     std::vector<std::vector<cv::Point2f>> zenturm_line_array; //激光中心线点集合(所有激光中心线)
     cv::Mat img_from_memory;//从内存中读取的图片
 
 private:
+    void PointArray(std::vector<std::vector<cv::Point2f>> zenturm,std::vector<std::vector<cv::Point2f>> &resZenturm);
     void savePointArray(std::vector<cv::Point2f> zenturm,int offset_x,int offset_y);
     void point_array(std::vector<cv::Point2f> points,std::vector<std::vector<cv::Point2f>> &points_array); //滤除激光中心线中不需要的点
     void point_array(std::vector<cv::Point2f> points,std::vector<std::vector<cv::Point2f>> *points_array); //滤除激光中心线中不需要的点

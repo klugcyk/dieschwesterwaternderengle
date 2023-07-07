@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230706
+    last:230707
 */
 
 #ifndef contrruct_img_HPP
@@ -43,6 +43,7 @@ protected:
     //useless
     cv::Mat laser_zenturm_line_zwei(cv::Mat src_img,std::vector<cv::Point> &zenturm,bool type); //type=0,1
     void construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vector<cv::Point2f> &points);
+    void construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet);
     //useful
     void grid_extract_preprocess(cv::Mat src_img,cv::Mat &res_img,int p1,int p2);
     void grid_extract(cv::Mat src_img,cv::Mat &res_img);

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230215
-    last:230605
+    last:230607
 */
 
 #include "StructureLight/construct_img.hpp"
@@ -369,11 +369,14 @@ cv::Mat construct_img::laser_zenturm_line_ein(cv::Mat src_img,std::vector<cv::Po
                     cnt++;
                 }
             }
-            p=pos_sum/cnt;
-            res_img.at<uchar>(p,col)=0;
-            zenturm_point.x=col;
-            zenturm_point.y=p;
-            zenturm.push_back(zenturm_point);
+            if(cnt!=0)
+            {
+                p=pos_sum/cnt;
+                res_img.at<uchar>(p,col)=0;
+                zenturm_point.x=col;
+                zenturm_point.y=p;
+                zenturm.push_back(zenturm_point);
+            }
         }
     }
     else
@@ -391,11 +394,14 @@ cv::Mat construct_img::laser_zenturm_line_ein(cv::Mat src_img,std::vector<cv::Po
                     cnt++;
                 }
             }
-            p=pos_sum/cnt;
-            res_img.at<uchar>(row,p)=0;
-            zenturm_point.x=p;
-            zenturm_point.y=row;
-            zenturm.push_back(zenturm_point);
+            if(cnt!=0)
+            {
+                p=pos_sum/cnt;
+                res_img.at<uchar>(row,p)=0;
+                zenturm_point.x=p;
+                zenturm_point.y=row;
+                zenturm.push_back(zenturm_point);
+            }
         }
     }
 
@@ -987,6 +993,8 @@ void construct_img::point_filter(std::vector<cv::Point2f> &points)
 /*
     三维重建测试，提取激光线的点位置
     @src_img:重建用的图片
+    @res_img:结果图片
+    @points:提取到点的坐标
 */
 void construct_img::construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vector<cv::Point2f> &points)
 {
@@ -1098,6 +1106,126 @@ void construct_img::construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vec
 #ifdef construct_img_save_img
     write_path=write_img_path;
     write_path+="test_line_res.png";
+    cv::imwrite(write_path,res_img);
+#endif
+}
+
+/*
+    三维重建测试，提取激光线的点位置
+    @src_img:重建用的图片
+    @res_img:结果图片
+    @points:提取到点的坐标
+*/
+void construct_img::construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet)
+{
+    res_img=src_img;
+
+    //图像预处理
+    cv::Mat bin_img(src_img.rows,src_img.cols,CV_8UC1);
+    //增强红色通道
+    for(size_t row=0;row<src_img.rows;row++)
+    {
+        for(size_t col=0;col<src_img.cols;col++)
+        {
+            int B=src_img.at<cv::Vec3b>(row,col)[0];
+            if(B>200)
+            {
+                bin_img.at<uchar>(row,col)=255;
+            }
+            else
+            {
+                bin_img.at<uchar>(row,col)=0;
+            }
+        }
+    }
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="test_multi_line_bin.png";
+    cv::imwrite(write_path,bin_img);
+#endif
+
+    cv::Mat mor_img;
+    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(9,9),cv::Point(-1,-1));
+    morphologyEx(bin_img,mor_img,CV_MOP_CLOSE,kernel);
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="test_multi_line_morphology.png";
+    cv::imwrite(write_path,mor_img);
+#endif
+
+    cv::Mat blur_img;
+    cv::medianBlur(mor_img,blur_img,5);
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="test_multi_line_blur.png";
+    cv::imwrite(write_path,blur_img);
+#endif
+    //连通域roi提取
+    cv::Mat labels,lab;
+    cv::Mat connect_info,connect_centor;
+    int cnt=cv::connectedComponentsWithStats(blur_img,lab,connect_info,connect_centor,8,CV_16U);
+#ifdef construct_img_print_data_info
+    std::cout<<"connected cnt:="<<cnt<<std::endl;
+#endif
+    std::vector<cv::Mat> roi;
+    for(int i=1;i<cnt;i++)
+    {
+        int x=connect_info.at<int>(i,0);
+        int y=connect_info.at<int>(i,1);
+        int h=connect_info.at<int>(i,2);
+        int w=connect_info.at<int>(i,3);
+        cv::Mat roi_img=blur_img(cv::Rect(x,y,h,w));
+        roi.push_back(roi_img);
+
+#ifdef construct_img_save_img
+        write_path=write_img_path;
+        write_path+="test_multi_line_connect_roi_img_";
+        write_path+=std::to_string(i);
+        write_path+=".png";
+        cv::imwrite(write_path,roi_img);
+#endif
+    }
+
+    //单条激光中心提取
+    std::vector<cv::Point2f> zenturm,points; //只保存单个roi中的点
+    points.clear();
+
+    for(size_t i=0;i<roi.size();i++)
+    {
+        int row=roi[i].rows;
+        int col=roi[i].cols;
+
+        zenturm.clear();
+        if(row>col)
+        {
+            cv::Mat roi_mark=laser_zenturm_line_ein(roi[i],zenturm,0);
+        }
+        else
+        {
+            cv::Mat roi_mark=laser_zenturm_line_ein(roi[i],zenturm,1);
+        }
+
+        int offset_x=connect_info.at<int>(i+1,0); //roi在原图上的位置，列偏置
+        int offset_y=connect_info.at<int>(i+1,1); //roi在原图上的位置，行偏置
+
+        for(size_t i=0;i<zenturm.size();i++)
+        {
+            float x=zenturm[i].x+offset_x;
+            float y=zenturm[i].y+offset_y;
+
+            points.push_back(cv::Point2f(x,y)); //记录点信息
+        }
+        pointsSet.push_back(points);
+    }
+    //排列点
+    point_filter(points);
+#ifdef construct_img_mark
+    draw_point(res_img,points,cv::Scalar(0,255,0));
+#endif
+
+#ifdef construct_img_save_img
+    write_path=write_img_path;
+    write_path+="test_multi_line_res.png";
     cv::imwrite(write_path,res_img);
 #endif
 }

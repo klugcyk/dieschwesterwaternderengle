@@ -178,6 +178,69 @@ construct::~construct()
 
 }
 
+std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points)
+{
+    std::vector<math_geometry::point3> res_points;
+
+    if(recal_flag) //重新标定用construct_cal类中的参数重建
+    {
+        double fx=cameraMatrix.at<double>(0,0);
+        double fy=cameraMatrix.at<double>(1,1);
+        double u0=cameraMatrix.at<double>(0,2);
+        double v0=cameraMatrix.at<double>(1,2);
+
+        for(size_t setCnt=0;setCnt<src_points.size();setCnt++)
+        {
+            for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
+            {
+                math_geometry::point3 p;
+                double temp1=light_plane[setCnt].D;
+                temp1+=light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
+                temp1+=light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
+                double temp2=light_plane[setCnt].A*u0/fx;
+                temp2+=light_plane[setCnt].B*v0/fy;
+                temp2-=light_plane[setCnt].C;
+
+                p.z=temp1/temp2;
+                p.x=(src_points[setCnt][point_cnt].x-u0*p.z)/fx;
+                p.y=(src_points[setCnt][point_cnt].y-v0*p.z)/fy;
+
+                res_points.push_back(p);
+            }
+        }
+
+    }
+    else //不是重新标定的用读取到的参数重建
+    {
+        double fx=read_cameraMatrix.at<double>(0,0);
+        double fy=read_cameraMatrix.at<double>(1,1);
+        double u0=read_cameraMatrix.at<double>(0,2);
+        double v0=read_cameraMatrix.at<double>(1,2);
+
+        for(size_t setCnt=0;setCnt<src_points.size();setCnt++)
+        {
+        for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
+        {
+            math_geometry::point3 p;
+            double temp1=read_light_plane[setCnt].D;
+            temp1+=read_light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
+            temp1+=read_light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
+            double temp2=light_plane[setCnt].A*u0/fx;
+            temp2+=read_light_plane[setCnt].B*v0/fy;
+            temp2-=read_light_plane[setCnt].C;
+
+            p.z=temp1/temp2;
+            p.x=(src_points[setCnt][point_cnt].x-u0*p.z)/fx;
+            p.y=(src_points[setCnt][point_cnt].y-v0*p.z)/fy;
+
+            res_points.push_back(p);
+        }
+        }
+    }
+
+    return res_points;
+}
+
 std::vector<math_geometry::point3> construct::construct_point(std::vector<std::vector<cv::Point2f>> src_points_array)
 {
     std::vector<math_geometry::point3> res_points;

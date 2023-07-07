@@ -36,6 +36,7 @@ public:
 protected:
     int constructWithImg(cv::Mat src_img);
     std::vector<math_geometry::point3> construct_point_ein(std::vector<cv::Point2f> src_points);
+    std::vector<math_geometry::point3> construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points);
     std::vector<math_geometry::point3> construct_point(std::vector<std::vector<cv::Point2f>> src_points_array);
     void construct_sum(cv::Mat src_img);
     void construct_sum(cv::Mat src_img,int time);

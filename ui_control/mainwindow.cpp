@@ -274,7 +274,7 @@ void MainWindow::on_construct_clicked()
     i=ui->img_name->text().toInt();
     if(i<=200)
     {
-        i=201;
+        i=202;
     }
 
     std::string num=std::to_string(i);
@@ -296,10 +296,10 @@ void MainWindow::on_construct_clicked()
         write_path=write_img_path;
         write_path+="undistort_img_test.png";
         cv::imwrite(write_path,undistort_img);
-        std::vector<cv::Point2f> get_points;
+        std::vector<std::vector<cv::Point2f>> get_points;
         std::vector<math_geometry::point3> get_gp;
-        construct_img_test(undistort_img,res_img,get_points);
-        get_gp=construct_point_ein(get_points);
+        construct_img_multi_test(undistort_img,res_img,get_points);
+        get_gp=construct_point_multi(get_points);
         construct_test(get_gp);
     }
 }

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230706
+    last:230707
 */
 
 #include "StructureLight/construct.hpp"
@@ -60,7 +60,7 @@ construct::construct()
             cv::Mat temp_img=cv::imread(read_path);
             if(!temp_img.empty())
             {
-#ifdef construct_print_error_info
+#ifdef construct_print_data_info
                 printf("push back image %d\n",i);
 #endif
                 laser_img.push_back(temp_img);
@@ -337,6 +337,39 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
 }
 
 /*
+    三条线三维重建测试
+    @p1:从图像中提取，利用相机模型计算得到的点集合
+*/
+void construct::constructShow(std::vector<math_geometry::point3> p1)
+{
+    pcl::PointXYZ p;
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+
+    for(int i=0;i<p1.size();++i)
+    {
+        p.x=p1[i].x;
+        p.y=p1[i].y;
+        p.z=p1[i].z;
+        cloud->push_back(p);
+    }
+
+    // 保存点云数据
+    const std::string saved_pcd_path="/home/klug/img/construct/cloudShow.pcd";
+    bool binary_mode=false;
+    pcl::io::savePCDFile(saved_pcd_path, *cloud, binary_mode);
+    // 显示点云数据
+    boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer1(new pcl::visualization::PCLVisualizer("3D Viewer"));
+    viewer1->setBackgroundColor(0,0,0);
+    viewer1->addPointCloud<pcl::PointXYZ>(cloud, "sample cloud");
+
+    while(!viewer1->wasStopped())
+    {
+        viewer1->spinOnce(100);
+        usleep(5000);
+    }
+}
+
+/*
     最终三维重建
     @src_img:包含多条激光线的图像
 */
@@ -370,8 +403,9 @@ void construct::construct_sum(cv::Mat src_img,int time)
     @src_img:包含多条激光线的图像
     @返回值：1 重建成功，-1 重建失败
 */
-int construct::construct_with_img(cv::Mat src_img)
+int construct::constructWithImg(cv::Mat src_img)
 {
+
     return 1;
 }
 

@@ -20,7 +20,7 @@
 #include "source.hpp"
 
 #define zwei_consutrct_img_print_msg_info
-#define zwei_consutrct_img_print_data_info
+//#define zwei_consutrct_img_print_data_info
 #define zwei_consutrct_img_save_process
 #define zwei_consutrct_img_print_error_info
 

@@ -76,7 +76,7 @@ void zwei_construct_win::on_save_clicked()
 {
     int img_num=ui->img_name->text().toInt();
     int save_for=0;
-    if(ui->for_cal->isChecked())//保存为标定图片
+    if(ui->for_cal->isChecked()) //保存为标定图片
     {
         save_for=1;
     }

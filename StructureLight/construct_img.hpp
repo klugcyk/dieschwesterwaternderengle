@@ -22,7 +22,7 @@
 #include "math/least_sqaure.hpp"
 
 #define construct_img_print_msg_info
-#define construct_img_print_data_info
+//#define construct_img_print_data_info
 #define construct_img_print_error_info
 #define construct_img_save_img
 #define construct_img_mark

@@ -13,7 +13,7 @@
 #include "source.hpp"
 
 #define zwei_construct_print_msg_info
-#define zwei_construct_print_data_info
+//#define zwei_construct_print_data_info
 #define zwei_construct_save_process
 #define zwei_construct_print_error_info
 

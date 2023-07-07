@@ -27,7 +27,7 @@ namespace structlight_construct
 construct_cal::construct_cal()
 {
 #ifdef construct_cal_print_msg_info
-    printf("start the 3d construct calibrate node...\n");
+    printf("start the 3d construct calibrate...\n");
 #endif
     if(!recal_flag)
     {
@@ -47,7 +47,7 @@ construct_cal::construct_cal()
         read_light_plane_ein.B=get_value[6];
         read_light_plane_ein.C=get_value[7];
         read_light_plane_ein.D=get_value[8];
-#ifdef construct_cal_print_msg_info
+#ifdef construct_cal_print_data_info
         printf("read camera fx:=%f\n",get_value[1]);
         printf("read camera fy:=%f\n",get_value[2]);
         printf("read camera u0:=%f\n",get_value[3]);
@@ -56,6 +56,9 @@ construct_cal::construct_cal()
         printf("read light plane_ein B:=%f\n",get_value[6]);
         printf("read light plane_ein C:=%f\n",get_value[7]);
         printf("read light plane_ein D:=%f\n",get_value[8]);
+#endif
+#ifdef construct_cal_print_msg_info
+        printf("read the parameter successed...\n");
 #endif
     }
     else
@@ -69,7 +72,7 @@ construct_cal::construct_cal()
 construct_cal::~construct_cal()
 {
 #ifdef construct_cal_print_msg_info
-    printf("end the 3d construct calibrate node...\n");
+    printf("end the 3d construct calibrate...\n");
 #endif
 
 }

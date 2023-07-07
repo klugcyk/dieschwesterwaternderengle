@@ -311,23 +311,35 @@ void MainWindow::on_save_cal_param_clicked()
 {
     if(cal_done)
     {
-        double fx=cameraMatrix.at<double>(0,0);
-        double fy=cameraMatrix.at<double>(1,1);
-        double u0=cameraMatrix.at<double>(0,2);
-        double v0=cameraMatrix.at<double>(1,2);
-        double pa=light_plane_ein.A;
-        double pb=light_plane_ein.B;
-        double pc=light_plane_ein.C;
-        double pd=light_plane_ein.D;
+        double planeParamArray[4][laserLineCnt]; //标定平面参数
+        for(size_t pCnt=0;pCnt<light_plane.size();pCnt++)
+        {
+            planeParamArray[0][pCnt]=light_plane[pCnt].A;
+            planeParamArray[1][pCnt]=light_plane[pCnt].B;
+            planeParamArray[2][pCnt]=light_plane[pCnt].C;
+            planeParamArray[3][pCnt]=light_plane[pCnt].D;
+        }
 
-        std::string string_temp;
-        //char param_name[9][5]={{"camera_param"},{"fx"},{"fy"},{"u0"},{"v0"},{"A"},{"B"},{"C"},{"D"}}; //相机参数
-        std::string param_name[9]={"camera_param","fx","fy","u0","v0","A","B","C","D"}; //相机参数
-        double param_data[9]={2,fx,fy,u0,v0,pa,pb,pc,pd};
-        //mein_json::json_write_construct("/home/klug/system_param.json",&param_name[0][0],param_data,5,9);
+        std::string planeName[4*laserLineCnt+1];
+        std::string nameTemp[4]={"A","B","C","D"};
+        planeName[0]="planeParam";
+        int nameCnt=1;
+        for(int i=0;i<4;i++)
+        {
+            for(int j=0;j<laserLineCnt;j++)
+            {
+                std::string name;
+                name=nameTemp[i];
+                name+=std::to_string(j+1);
+                planeName[nameCnt]=name;
+                //std::cout<<"name"<<nameCnt<<":="<<name<<std::endl;
+                nameCnt++;
+            }
+        }
+
         write_path=write_json_path;
-        write_path+="system_param.json";
-        mein_json::json_write(write_path,param_name,param_data,9);
+        write_path+="plane_param.json";
+        mein_json::json_write(write_path,&planeName[0],&planeParamArray[0][0],4*laserLineCnt+1);
     }
     else
     {

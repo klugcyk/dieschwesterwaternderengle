@@ -23,7 +23,7 @@
 #include "gene_operate/json_operate.hpp"
 
 #define zwei_construct_cal_print_msg_info
-#define zwei_construct_cal_print_data_info
+//#define zwei_construct_cal_print_data_info
 #define zwei_construct_cal_save_process
 #define zwei_construct_cal_print_error_info
 

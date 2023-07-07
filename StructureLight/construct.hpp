@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230601
+    last:230707
 */
 
 #ifndef construct_HPP
@@ -17,7 +17,7 @@
 //#include <pcl/visualization/pcl_visualizer.h>
 
 #define construct_print_msg_info
-#define construct_print_data_info
+//#define construct_print_data_info
 #define construct_save_process
 #define construct_print_error_info
 
@@ -34,11 +34,12 @@ public:
 public:
 
 protected:
-    int construct_with_img(cv::Mat src_img);
+    int constructWithImg(cv::Mat src_img);
     std::vector<math_geometry::point3> construct_point_ein(std::vector<cv::Point2f> src_points);
     std::vector<math_geometry::point3> construct_point(std::vector<std::vector<cv::Point2f>> src_points_array);
     void construct_sum(cv::Mat src_img);
     void construct_sum(cv::Mat src_img,int time);
+    void constructShow(std::vector<math_geometry::point3> p1);
 
 protected:
     //pcl::PointXYZ pcl_point;

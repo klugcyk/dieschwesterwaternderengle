@@ -10,5 +10,5 @@
 
 # buendia required
 
-git clone https://gitee.com/klug/buendia.git
+git clone https://github.com/klugcyk/buendia.git
 

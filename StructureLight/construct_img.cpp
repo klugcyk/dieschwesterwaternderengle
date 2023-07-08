@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230215
-    last:230607
+    last:230608
 */
 
 #include "StructureLight/construct_img.hpp"
@@ -547,6 +547,23 @@ void construct_img::draw_point(cv::Mat &src_img,std::vector<cv::Point2f> zenturm
     for(size_t i=0;i<zenturm.size();i++)
     {
         circle(src_img,cv::Point(zenturm[i].x,zenturm[i].y),1,color,1);
+    }
+}
+
+/*
+    在图像中打印中心线的点
+    @src_img:原图
+    @zenturm:中心线点集
+    @color:颜色
+*/
+void construct_img::draw_point(cv::Mat &src_img,std::vector<std::vector<cv::Point2f>> zenturm,cv::Scalar color)
+{
+    for(size_t i=0;i<zenturm.size();i++)
+    {
+        for(size_t j=0;j<zenturm[i].size();j++)
+        {
+            circle(src_img,cv::Point(zenturm[i][j].x,zenturm[i][j].y),1,color,1);
+        }
     }
 }
 
@@ -1208,6 +1225,7 @@ void construct_img::construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,st
         int offset_x=connect_info.at<int>(i+1,0); //roi在原图上的位置，列偏置
         int offset_y=connect_info.at<int>(i+1,1); //roi在原图上的位置，行偏置
 
+        points.clear();
         for(size_t i=0;i<zenturm.size();i++)
         {
             float x=zenturm[i].x+offset_x;
@@ -1218,14 +1236,14 @@ void construct_img::construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,st
         pointsSet.push_back(points);
     }
     //排列点
-    point_filter(points);
+    //point_filter(points);
 #ifdef construct_img_mark
-    draw_point(res_img,points,cv::Scalar(0,255,0));
+    draw_point(res_img,pointsSet,cv::Scalar(0,255,0));
 #endif
 
 #ifdef construct_img_save_img
     write_path=write_img_path;
-    write_path+="test_multi_line_res.png";
+    write_path+="test_multi_line_draw_res.png";
     cv::imwrite(write_path,res_img);
 #endif
 }

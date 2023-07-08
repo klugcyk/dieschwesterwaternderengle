@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230707
+    last:230708
 */
 
 #ifndef contrruct_img_HPP
@@ -22,7 +22,7 @@
 #include "math/least_sqaure.hpp"
 
 #define construct_img_print_msg_info
-//#define construct_img_print_data_info
+#define construct_img_print_data_info
 #define construct_img_print_error_info
 #define construct_img_save_img
 #define construct_img_mark
@@ -67,6 +67,7 @@ private:
     void point_filter(std::vector<cv::Point2f> &points); //滤除激光中心线中不需要的点
     void draw_point(cv::Mat &src_img,std::vector<cv::Point2f> zenturm,int offset_x,int offset_y);
     void save_point(std::vector<cv::Point2f> zenturm,int offset_x,int offset_y);
+    void draw_point(cv::Mat &src_img,std::vector<std::vector<cv::Point2f>> zenturm, cv::Scalar color);
     void draw_point(cv::Mat &src_img,std::vector<cv::Point2f> zenturm, cv::Scalar color);
     int circle_detect(std::vector<cv::Point> contour,int threshold,int step);
     cv::Mat laser_zenturm_line_ein(cv::Mat src_img,std::vector<cv::Point2f> &zenturm,bool type); //type=0,1

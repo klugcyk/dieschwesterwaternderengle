@@ -23,7 +23,7 @@
 #include "math/least_sqaure.hpp"
 
 #define construct_cal_print_msg_info
-//#define construct_cal_print_data_info
+#define construct_cal_print_data_info
 #define construct_cal_save_process
 #define construct_cal_print_error_info
 

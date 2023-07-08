@@ -296,10 +296,81 @@ void MainWindow::on_construct_clicked()
         write_path=write_img_path;
         write_path+="undistort_img_test.png";
         cv::imwrite(write_path,undistort_img);
-        std::vector<std::vector<cv::Point2f>> get_points;
+        std::vector<std::vector<cv::Point2f>> get_points,get_points_;
         std::vector<math_geometry::point3> get_gp;
         construct_img_multi_test(undistort_img,res_img,get_points);
-        get_gp=construct_point_multi(get_points);
+
+        float zenturmPointArray[get_points.size()];
+        int lut[get_points.size()];
+
+        for(int i=0;i<get_points.size();i++)
+        {
+            lut[i]=i;
+        }
+
+        for(size_t ps=0;ps<get_points.size();ps++)
+        {
+            double x_sum=0/*,y_sum=0*/;
+            for(size_t pt=0;pt<get_points[ps].size();pt++)
+            {
+                x_sum+=get_points[ps][pt].x;
+                //y_sum+=get_points[ps][pt].y;
+            }
+            zenturmPointArray[ps]=x_sum/get_points[ps].size();
+        }
+
+        for(int bub=0;bub<get_points.size()-1;bub++)
+        {
+            for(int bub_=bub+1;bub_<get_points.size();bub_++)
+            {
+                if(zenturmPointArray[bub_]>zenturmPointArray[bub])
+                {
+                    float ftemp=zenturmPointArray[bub];
+                    zenturmPointArray[bub]=zenturmPointArray[bub_];
+                    zenturmPointArray[bub_]=ftemp;
+
+                    int temp=lut[bub];
+                    lut[bub]=lut[bub_];
+                    lut[bub_]=temp;
+                }
+            }
+        }
+
+        for(size_t p=0;p<get_points.size();p++)
+        {
+            std::vector<cv::Point2f> pTemp=get_points[lut[p]];
+            if(p>9||p==0)
+            {
+                get_points_.push_back(pTemp);
+            }
+            else
+            {
+                pTemp.insert(pTemp.end(),get_points[lut[p+1]].begin(),get_points[lut[p+1]].end());
+                pTemp.insert(pTemp.end(),get_points[lut[p+2]].begin(),get_points[lut[p+2]].end());
+                get_points_.push_back(pTemp);
+                p+=2;
+            }
+        }
+/*
+        float za[get_points_.size()];
+        for(size_t p1=0;p1<get_points_.size();p1++)
+        {
+            float x_t=0;
+            for(size_t p2=0;p2<get_points_[p1].size();p2++)
+            {
+                x_t+=get_points_[p1][p2].x;
+            }
+            za[p1]=x_t/get_points_[p1].size();
+        }
+
+        cv::Mat r=cv::imread("/home/klug/img/construct/test_multi_line_draw_res.png");
+        for(int i=0;i<7;i++)
+        {
+            cv::circle(r,cv::Point2f(za[i],1000),5,cv::Scalar(0,255,0),1);
+        }
+        cv::imwrite("/home/klug/img/construct/1000.png",r);
+*/
+        get_gp=construct_point_multi(get_points_);
         construct_test(get_gp);
     }
 }

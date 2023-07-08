@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230707
+    last:230708
 */
 
 #include "StructureLight/construct.hpp"
@@ -73,7 +73,8 @@ construct::construct()
             }
         }
         //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95)); //小
-        system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
+        //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
+        system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2)); //大
 
         //保存标定参数到json文件
         double planeParamArray[4][laserLineCnt]; //标定平面参数
@@ -189,29 +190,32 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
         double u0=cameraMatrix.at<double>(0,2);
         double v0=cameraMatrix.at<double>(1,2);
 
-        for(size_t setCnt=0;setCnt<src_points.size();setCnt++)
+        for(size_t setCnt=0;setCnt<7;setCnt++)
         {
             for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
             {
                 math_geometry::point3 p;
                 double temp1=light_plane[setCnt].D;
-                temp1+=light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
-                temp1+=light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
-                double temp2=light_plane[setCnt].A*u0/fx;
-                temp2+=light_plane[setCnt].B*v0/fy;
-                temp2-=light_plane[setCnt].C;
+                temp1-=light_plane[setCnt].A*u0/fx;
+                temp1-=light_plane[setCnt].B*v0/fy;
+                double temp2=light_plane[setCnt].C;
+                temp2+=light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
+                temp2+=light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
+                /*double temp1=light_plane[laserLineCnt-setCnt-1].D;
+                double temp2=light_plane[laserLineCnt-setCnt-1].A*(src_points[setCnt][point_cnt].x-u0)/fx;
+                temp2+=light_plane[laserLineCnt-setCnt-1].B*(src_points[setCnt][point_cnt].y-v0)/fy;
+                temp2+=light_plane[laserLineCnt-setCnt-1].C;*/
 
-                p.z=temp1/temp2;
-                p.x=(src_points[setCnt][point_cnt].x-u0*p.z)/fx;
-                p.y=(src_points[setCnt][point_cnt].y-v0*p.z)/fy;
+                p.z=-temp1/temp2;
+                p.x=(src_points[setCnt][point_cnt].x*p.z-u0)/fx;
+                p.y=(src_points[setCnt][point_cnt].y*p.z-v0)/fy;
 
                 res_points.push_back(p);
             }
         }
-
     }
     else //不是重新标定的用读取到的参数重建
-    {
+    {/*
         double fx=read_cameraMatrix.at<double>(0,0);
         double fy=read_cameraMatrix.at<double>(1,1);
         double u0=read_cameraMatrix.at<double>(0,2);
@@ -235,7 +239,7 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
 
             res_points.push_back(p);
         }
-        }
+        }*/
     }
 
     return res_points;
@@ -380,6 +384,14 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
         p.x=p1[i].x;
         p.y=p1[i].y;
         p.z=p1[i].z;
+        cloud->push_back(p);
+    }
+
+    for(int i=0;i<500;i++)
+    {
+        p.x=0;
+        p.y=0;
+        p.z=i;
         cloud->push_back(p);
     }
 

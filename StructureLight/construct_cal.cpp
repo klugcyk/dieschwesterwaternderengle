@@ -103,7 +103,7 @@ void construct_cal::cal_test()
     }
 
     // 相机轴线点
-    for(int i=0;i<300;++i)
+    for(int i=0;i<400;++i)
     {
          p.x=0;
          p.y=0;
@@ -115,21 +115,24 @@ void construct_cal::cal_test()
     }
 
     // 激光平面点
-    for(int x=-100;x<100;x+=1)
+    for(int y=-30;y<30;y+=1)
     {
-        for(int y=-50;y<50;y+=10)
+        for(int z=300;z<400;z+=1)
         {
-            p.x=x;
-            p.y=y;
-            p.z=-(light_plane[0].A*x+light_plane[0].B*y+light_plane[0].D)/light_plane[0].C;
-            p.r=0;
-            p.g=255;
-            p.b=0;
-            if(p.z>0&&p.z<300)
+            for(int i=0;i<laserLineCnt;i++)
             {
-                cloud->push_back(p);
+                p.x=-(light_plane[i].B*y+light_plane[i].C*z+light_plane[i].D)/light_plane[i].A;
+                p.y=y;//-(light_plane[i].A*x+light_plane[i].C*z+light_plane[i].D)/light_plane[i].B;
+                p.z=z;//-(light_plane[i].A*x+light_plane[i].B*y+light_plane[i].D)/light_plane[i].C;
+                p.r=0;
+                p.g=255;
+                p.b=0;
+                if(p.x<100&&p.x>-100)
+                {
+                    cloud->push_back(p);
+                }
             }
-
+            /*
             p.z=-(light_plane[1].A*x+light_plane[1].B*y+light_plane[1].D)/light_plane[1].C;
             p.r=0;
             p.g=255;
@@ -182,7 +185,7 @@ void construct_cal::cal_test()
             if(p.z>0&&p.z<300)
             {
                 cloud->push_back(p);
-            }
+            }*/
         }
     }
 
@@ -200,7 +203,7 @@ void construct_cal::cal_test()
                 p.r=0;
                 p.g=0;
                 p.b=255;
-                cloud->push_back(p);
+                //cloud->push_back(p);
             }
         }
     }
@@ -220,6 +223,14 @@ void construct_cal::cal_test()
         usleep(5000);
     }
 }
+
+/*
+    测试程序
+
+int construct_cal::cal_test_()
+{
+    return light_plane.size();
+}*/
 
 /*
     结构光系统标定，包括光源标定和相机标定
@@ -486,15 +497,15 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
         std::cout<<std::endl;
 #endif
     }*/
-    //5张图，每张图7条线,35
-    for(size_t plane_cnt=0;plane_cnt<7;plane_cnt+=1)
+    //5张图，每张图laserLineCnt条线
+    for(size_t plane_cnt=0;plane_cnt<laserLineCnt;plane_cnt+=1)
     {
         std::vector<Eigen::Vector3d> pointsT;
-        for(int i=plane_cnt;i<zenturm_camera_array.size();i+=laserLineCnt)
+        for(size_t pointSet=plane_cnt;pointSet<zenturm_camera_array.size();pointSet+=laserLineCnt)
         {
-            for(int j=0;j<zenturm_camera_array[i].size();j++)
+            for(size_t j=0;j<zenturm_camera_array[pointSet].size();j++)
             {
-                pointsT.push_back(zenturm_camera_array[i][j]);
+                pointsT.push_back(zenturm_camera_array[pointSet][j]);
             }
         }
 

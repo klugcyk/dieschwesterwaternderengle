@@ -35,6 +35,7 @@ class construct_cal:public structlight_construct::construct_img
 public:
     construct_cal();
     ~construct_cal();
+    //int cal_test_();
 
 public:
 

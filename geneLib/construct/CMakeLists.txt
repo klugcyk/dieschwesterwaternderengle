@@ -26,7 +26,7 @@ find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 # selbst
 include_directories(~/buendia)
-include_directories(~/dieschwesterwaternderengle)
+include_directories(~/klug/dieschwesterwaternderengle)
 
 # opencv
 include_directories(/usr/local/include/opencv4)
@@ -45,12 +45,12 @@ include_directories(/usr/include/vtk-7.1)
 
 add_library(construct SHARED
   construct_global.h
-  ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-  ~/dieschwesterwaternderengle/StructureLight/construct.hpp
-  ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-  ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
-  ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-  ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct.cpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct.hpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.cpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.hpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
+  ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
 )
 
 target_link_libraries(construct PRIVATE Qt${QT_VERSION_MAJOR}::Core

@@ -41,6 +41,8 @@ protected:
     void construct_sum(cv::Mat src_img);
     void construct_sum(cv::Mat src_img,int time);
     void constructShow(std::vector<math_geometry::point3> p1);
+    void planeParamWrite();
+    void planeParamRead();
 
 protected:
     //pcl::PointXYZ pcl_point;

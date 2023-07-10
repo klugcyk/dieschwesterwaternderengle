@@ -787,7 +787,10 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
         for(size_t col=0;col<src_img.cols;col++)
         {
             int B=src_img.at<cv::Vec3b>(row,col)[0];
-            if(B>250)
+            int G=src_img.at<cv::Vec3b>(row,col)[1];
+            int R=src_img.at<cv::Vec3b>(row,col)[2];
+            //if(B>250)
+            if(B>150&&G<100&&R<80)
             {
                 bin_img.at<uchar>(row,col)=255;
             }
@@ -804,7 +807,7 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 #endif
 
     cv::Mat mor_img;
-    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(15,15),cv::Point(-1,-1));
+    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(9,9),cv::Point(-1,-1));
     morphologyEx(bin_img,mor_img,CV_MOP_CLOSE,kernel);
 #ifdef construct_img_save_img
     write_path=write_img_path;
@@ -835,7 +838,8 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
         int w=connect_info.at<int>(i,3);
         cv::Mat roi_img=blur_img(cv::Rect(x,y,h,w));
         //去除短激光线的影响，只对长激光线做中心线提取
-        if(w>1000)
+        //if(w>1000)
+        if(w>100)
         {
             roi.push_back(roi_img);
         }
@@ -888,6 +892,12 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 #endif
 
     line_cnt=zenturm_line_array.size();
+
+#ifdef construct_img_print_data_info
+    std::cout<<"zenturm_line_array.size():="
+            <<zenturm_line_array.size()
+           <<std::endl;
+#endif
 
     return line_cnt;
 }
@@ -1024,8 +1034,10 @@ void construct_img::construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vec
     {
         for(size_t col=0;col<src_img.cols;col++)
         {
+            int B=src_img.at<cv::Vec3b>(row,col)[0];
+            int G=src_img.at<cv::Vec3b>(row,col)[1];
             int R=src_img.at<cv::Vec3b>(row,col)[2];
-            if(R>50)
+            if(B>150&&G<100&&R<80)
             {
                 bin_img.at<uchar>(row,col)=255;
             }
@@ -1115,7 +1127,7 @@ void construct_img::construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vec
         }
     }
     //删除不需要的点
-    point_filter(points);
+    //point_filter(points);
 #ifdef construct_img_mark
     draw_point(res_img,points,cv::Scalar(0,255,0));
 #endif

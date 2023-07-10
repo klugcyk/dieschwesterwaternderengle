@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230708
+    last:230710
 */
 
 #include "StructureLight/construct.hpp"
@@ -73,84 +73,18 @@ construct::construct()
             }
         }
         //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95)); //小
-        //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
-        system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2)); //大
-
-        //保存标定参数到json文件
-        double planeParamArray[4][laserLineCnt]; //标定平面参数
-        for(size_t pCnt=0;pCnt<light_plane.size();pCnt++)
-        {
-            planeParamArray[0][pCnt]=light_plane[pCnt].A;
-            planeParamArray[1][pCnt]=light_plane[pCnt].B;
-            planeParamArray[2][pCnt]=light_plane[pCnt].C;
-            planeParamArray[3][pCnt]=light_plane[pCnt].D;
-        }
-
-        /*std::string planeName[4][laserLineCnt];
-        std::string nameTemp[4]={"A","B","C","D"};
-        for(int i=0;i<laserLineCnt;i++)
-        {
-            std::string name;
-            for(int j=0;j<4;j++)
-            {
-                name=nameTemp[j];
-                name+=std::to_string(i+1);
-                planeName[j][i]=name;
-            }
-        }
-
-        std::string planeName_[4*laserLineCnt+1]={"planeParam"};
-        for(int i=1;i<4*laserLineCnt+1;i++)
-        {
-            std::string *p=&planeName[0][0];
-            planeName_[i]=*p;
-            p++;
-        }*/
-        std::string planeName[4*laserLineCnt+1];
-        std::string nameTemp[4]={"A","B","C","D"};
-        planeName[0]="planeParam";
-        int nameCnt=1;
-        for(int i=0;i<4;i++)
-        {
-            for(int j=0;j<laserLineCnt;j++)
-            {
-                std::string name;
-                name=nameTemp[i];
-                name+=std::to_string(j+1);
-                planeName[nameCnt]=name;
-                //std::cout<<"name"<<nameCnt<<":="<<name<<std::endl;
-                nameCnt++;
-            }
-        }
-
-        write_path=write_json_path;
-        write_path+="plane_param.json";
-        mein_json::json_write(write_path,&planeName[0],&planeParamArray[0][0],4*laserLineCnt+1);
-
-        /*double fx=cameraMatrix.at<double>(0,0);
-        double fy=cameraMatrix.at<double>(1,1);
-        double u0=cameraMatrix.at<double>(0,2);
-        double v0=cameraMatrix.at<double>(1,2);
-        double pa=light_plane_ein.A;
-        double pb=light_plane_ein.B;
-        double pc=light_plane_ein.C;
-        double pd=light_plane_ein.D;
-
-        std::string string_temp;
-        std::string param_name[9]={"camera_param","fx","fy","u0","v0","A","B","C","D"}; //相机参数
-        double param_data[9]={2,fx,fy,u0,v0,pa,pb,pc,pd};
-        write_path=write_json_path;
-        write_path+="system_param.json";
-        mein_json::json_write(write_path,param_name,param_data,9);*/
+        system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
+        //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2)); //大
+        planeParamWrite();
     }
     else
     {
         //从json文件加载标定数据
-        std::string get_name[9]={"camera_param","fx","fy","u0","v0","A","B","C","D"};
-        double get_value[9];
+        std::string get_name[5]={"cameraParam","fx","fy","u0","v0"};
+        double get_value[5];
 
         read_path=read_json_path;
-        read_path+="system_param.json";
+        read_path+="camera_param.json";
         mein_json::json_read(read_path,get_name,get_value);
         read_cameraMatrix_construct.at<float>(0,0)=get_value[1];
         read_cameraMatrix_construct.at<float>(1,1)=get_value[2];
@@ -168,6 +102,8 @@ construct::construct()
         std::cout<<"read achieve..."
                 <<std::endl;
 #endif
+        //从json文件加载平面参数
+
     }
 }
 
@@ -176,6 +112,77 @@ construct::~construct()
 #ifdef construct_cal_print_msg_info
     printf("close the construct...\n");
 #endif
+
+}
+
+void construct::planeParamWrite()
+{
+    //保存标定参数到json文件
+    double planeParamArray[4][laserLineCnt]; //标定平面参数
+    for(size_t pCnt=0;pCnt<light_plane.size();pCnt++)
+    {
+        planeParamArray[0][pCnt]=light_plane[pCnt].A;
+        planeParamArray[1][pCnt]=light_plane[pCnt].B;
+        planeParamArray[2][pCnt]=light_plane[pCnt].C;
+        planeParamArray[3][pCnt]=light_plane[pCnt].D;
+#ifdef construct_print_data_info
+        std::cout<<"planeParam 1 "<<pCnt+1<<" "<<planeParamArray[0][pCnt]<<std::endl;
+        std::cout<<"planeParam 2 "<<pCnt+1<<" "<<planeParamArray[1][pCnt]<<std::endl;
+        std::cout<<"planeParam 3 "<<pCnt+1<<" "<<planeParamArray[2][pCnt]<<std::endl;
+        std::cout<<"planeParam 4 "<<pCnt+1<<" "<<planeParamArray[3][pCnt]<<std::endl;
+        std::cout<<std::endl;
+#endif
+    }
+
+    double planeParamArray_[4*laserLineCnt+1];
+    planeParamArray_[0]=6174;
+    int nameCnt=1;
+    for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<laserLineCnt;j++)
+        {
+            planeParamArray_[nameCnt]=planeParamArray[i][j];
+            nameCnt++;
+        }
+    }
+
+    std::string planeName[4*laserLineCnt+1];
+    std::string nameTemp[4]={"A","B","C","D"};
+    planeName[0]="planeParam";
+    nameCnt=1;
+    for(int i=0;i<4;i++)
+    {
+        for(int j=0;j<laserLineCnt;j++)
+        {
+            std::string name;
+            name=nameTemp[i];
+            name+=std::to_string(j+1);
+            planeName[nameCnt]=name;
+            //std::cout<<"name"<<nameCnt<<":="<<name<<std::endl;
+            nameCnt++;
+        }
+    }
+
+    write_path=write_json_path;
+    write_path+="plane_param.json";
+    mein_json::json_write(write_path,planeName,planeParamArray_,4*laserLineCnt+1);
+
+    //保存相机参数到json文件
+    double fx=cameraMatrix.at<double>(0,0);
+    double fy=cameraMatrix.at<double>(1,1);
+    double u0=cameraMatrix.at<double>(0,2);
+    double v0=cameraMatrix.at<double>(1,2);
+
+    std::string string_temp;
+    std::string param_name[5]={"cameraParam","fx","fy","u0","v0"}; //相机参数
+    double param_data[5]={6174.0,fx,fy,u0,v0};
+    write_path=write_json_path;
+    write_path+="camera_param.json";
+    mein_json::json_write(write_path,param_name,param_data,5);//路径，名称，数据，位数
+}
+
+void construct::planeParamRead()
+{
 
 }
 

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230707
+    last:230711
 */
 
 #ifndef construct_HPP
@@ -20,6 +20,7 @@
 #define construct_print_data_info
 #define construct_save_process
 #define construct_print_error_info
+#define construct_img_mark
 
 namespace structlight_construct
 {
@@ -54,6 +55,11 @@ private:
     cv::Mat read_cameraMatrix_construct=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0)); //从json读取的相机内参
     std::vector<math_geometry::geo_plane_param> read_light_plane_construct; //从json读取的所有激光平面参数
     math_geometry::geo_plane_param read_light_plane_ein_construct; //从json读取的单个激光平面参数
+
+};
+
+namespace cuda
+{
 
 };
 

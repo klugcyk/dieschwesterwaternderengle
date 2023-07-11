@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友路易斯恩里克
     start:230220
-    last:230705
+    last:230711
 */
 
 #ifndef construct_cal_HPP
@@ -26,6 +26,7 @@
 #define construct_cal_print_data_info
 #define construct_cal_save_process
 #define construct_cal_print_error_info
+#define construct_cal_img_mark
 
 namespace structlight_construct
 {
@@ -79,6 +80,11 @@ private:
     //Eigen::Matrix3d cameraMatrix_inverse; //相机内参的逆
     std::vector<Eigen::Vector3d> zenturm_camera; //相机坐标系中，激光线的点
     std::vector<std::vector<Eigen::Vector3d>> zenturm_camera_array; //相机坐标系中，多条激光线的点，
+
+};
+
+namespace cuda
+{
 
 };
 

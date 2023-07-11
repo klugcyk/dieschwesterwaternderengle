@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230708
+    last:230711
 */
 
 #ifndef contrruct_img_HPP
@@ -22,7 +22,7 @@
 #include "math/least_sqaure.hpp"
 
 #define construct_img_print_msg_info
-#define construct_img_print_data_info
+//#define construct_img_print_data_info
 #define construct_img_print_error_info
 #define construct_img_save_img
 #define construct_img_mark
@@ -52,12 +52,13 @@ protected:
     int laserZenturmLineMultiCal(cv::Mat src_img,cv::Mat &res_img); //标定时，激光中心线提取
     int laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img); //三维重建时，激光中心线提取
     int laser_zenturm_line_zwei(cv::Mat src_img,cv::Mat &res_img);
+    void constructImgMulti(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet);
 
 protected:
     std::vector<cv::Point2f> zenturm_line; //激光中心线点集合(单条)
     std::vector<std::vector<cv::Point2f>> zenturmLineArrayT;
     std::vector<std::vector<cv::Point2f>> zenturm_line_array; //激光中心线点集合(所有激光中心线)
-    cv::Mat img_from_memory;//从内存中读取的图片
+    cv::Mat img_from_memory; //从内存中读取的图片
 
 private:
     void PointArray(std::vector<std::vector<cv::Point2f>> zenturm,std::vector<std::vector<cv::Point2f>> &resZenturm);
@@ -79,6 +80,11 @@ private:
     int blue_threshold=250;
     int red_threshold=250;
     int green_threshold=250;
+
+};
+
+namespace cuda
+{
 
 };
 

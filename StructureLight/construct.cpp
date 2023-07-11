@@ -197,25 +197,28 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
         double u0=cameraMatrix.at<double>(0,2);
         double v0=cameraMatrix.at<double>(1,2);
 
-        for(size_t setCnt=0;setCnt<7;setCnt++)
+        for(size_t setCnt=0;setCnt<src_points.size();setCnt++)
         {
             for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
             {
                 math_geometry::point3 p;
-                double temp1=light_plane[setCnt].D;
+                /*double temp1=light_plane[setCnt].D;
                 temp1-=light_plane[setCnt].A*u0/fx;
                 temp1-=light_plane[setCnt].B*v0/fy;
                 double temp2=light_plane[setCnt].C;
                 temp2+=light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
                 temp2+=light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
-                /*double temp1=light_plane[laserLineCnt-setCnt-1].D;
-                double temp2=light_plane[laserLineCnt-setCnt-1].A*(src_points[setCnt][point_cnt].x-u0)/fx;
-                temp2+=light_plane[laserLineCnt-setCnt-1].B*(src_points[setCnt][point_cnt].y-v0)/fy;
-                temp2+=light_plane[laserLineCnt-setCnt-1].C;*/
 
                 p.z=-temp1/temp2;
                 p.x=(src_points[setCnt][point_cnt].x*p.z-u0)/fx;
-                p.y=(src_points[setCnt][point_cnt].y*p.z-v0)/fy;
+                p.y=(src_points[setCnt][point_cnt].y*p.z-v0)/fy;*/
+                double temp1=light_plane[setCnt].D;
+                double temp2=light_plane[setCnt].C;
+                temp2+=(src_points[setCnt][point_cnt].x-u0)/fx*light_plane[setCnt].A;
+                temp2+=(src_points[setCnt][point_cnt].y-v0)/fy*light_plane[setCnt].B;
+                p.z=-temp1/temp2;
+                p.x=(src_points[setCnt][point_cnt].x-u0)*p.z/fx;
+                p.y=(src_points[setCnt][point_cnt].y-v0)*p.z/fy;
 
                 res_points.push_back(p);
             }
@@ -383,17 +386,20 @@ std::vector<math_geometry::point3> construct::construct_point_ein(std::vector<cv
 */
 void construct::construct_test(std::vector<math_geometry::point3> p1)
 {
-    pcl::PointXYZ p;
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::PointXYZRGB p;
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
 
     for(int i=0;i<p1.size();++i)
     {
         p.x=p1[i].x;
         p.y=p1[i].y;
         p.z=p1[i].z;
+        p.r=0;
+        p.g=255;
+        p.b=255;
         cloud->push_back(p);
     }
-
+    //相机轴线
     for(int i=0;i<500;i++)
     {
         p.x=0;
@@ -402,6 +408,27 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
         cloud->push_back(p);
     }
 
+    for(int y=-30;y<30;y+=1)
+    {
+        for(int z=300;z<400;z+=1)
+        {
+            for(int i=0;i<laserLineCnt;i++)
+            {
+                p.x=-(light_plane[i].B*y+light_plane[i].C*z+light_plane[i].D)/light_plane[i].A;
+                p.y=y;//-(light_plane[i].A*x+light_plane[i].C*z+light_plane[i].D)/light_plane[i].B;
+                p.z=z;//-(light_plane[i].A*x+light_plane[i].B*y+light_plane[i].D)/light_plane[i].C;
+                p.r=0;
+                p.g=255;
+                p.b=0;
+                if(p.x<100&&p.x>-100)
+                {
+                    cloud->push_back(p);
+                }
+            }
+        }
+    }
+
+
     // 保存点云数据
     const std::string saved_pcd_path="/home/klug/img/construct/cloud_test.pcd";
     bool binary_mode=false;
@@ -409,7 +436,7 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
     // 显示点云数据
     boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer1(new pcl::visualization::PCLVisualizer("3D Viewer"));
     viewer1->setBackgroundColor(0,0,0);
-    viewer1->addPointCloud<pcl::PointXYZ>(cloud, "sample cloud");
+    viewer1->addPointCloud<pcl::PointXYZRGB>(cloud, "sample cloud");
 
     while(!viewer1->wasStopped())
     {
@@ -490,5 +517,10 @@ int construct::constructWithImg(cv::Mat src_img)
 
     return 1;
 }
+
+namespace cuda
+{
+
+};
 
 };

@@ -203,7 +203,7 @@ void construct_cal::cal_test()
                 p.r=0;
                 p.g=0;
                 p.b=255;
-                //cloud->push_back(p);
+                cloud->push_back(p);
             }
         }
     }
@@ -920,5 +920,10 @@ void construct_cal::assign_points(std::vector<cv::Point2f> all_points,std::vecto
 {
 
 }
+
+namespace cuda
+{
+
+};
 
 };

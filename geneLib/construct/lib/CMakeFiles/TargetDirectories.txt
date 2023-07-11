@@ -1,4 +1,0 @@
-/home/klug/klug/dieschwesterwaternderengle/geneLib/construct/lib/CMakeFiles/construct.dir
-/home/klug/klug/dieschwesterwaternderengle/geneLib/construct/lib/CMakeFiles/edit_cache.dir
-/home/klug/klug/dieschwesterwaternderengle/geneLib/construct/lib/CMakeFiles/rebuild_cache.dir
-/home/klug/klug/dieschwesterwaternderengle/geneLib/construct/lib/CMakeFiles/construct_autogen.dir

@@ -53,10 +53,13 @@ set(PROJECT_SOURCES
 
     # img algorithm
     ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.cpp
+    ~/klug/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
     ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.hpp
     ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
+    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
     ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
     ~/klug/dieschwesterwaternderengle/StructureLight/construct.cpp
+    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
     ~/klug/dieschwesterwaternderengle/StructureLight/construct.hpp
     ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
     ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp

@@ -86,6 +86,24 @@ private:
 namespace cuda
 {
 
+class construct_cal:public structlight_construct::cuda::construct_img
+{
+public:
+    construct_cal();
+    ~construct_cal();
+
+public:
+
+protected:
+
+protected:
+
+private:
+
+private:
+
+};
+
 };
 
 };

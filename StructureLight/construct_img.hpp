@@ -22,7 +22,7 @@
 #include "math/least_sqaure.hpp"
 
 #define construct_img_print_msg_info
-//#define construct_img_print_data_info
+#define construct_img_print_data_info
 #define construct_img_print_error_info
 #define construct_img_save_img
 #define construct_img_mark
@@ -85,6 +85,25 @@ private:
 
 namespace cuda
 {
+
+class construct_img
+{
+public:
+    construct_img();
+    construct_img(int r,int g,int b);
+    ~construct_img();
+
+public:
+
+protected:
+
+protected:
+
+private:
+
+private:
+
+};
 
 };
 

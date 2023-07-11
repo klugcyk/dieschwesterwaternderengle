@@ -1297,8 +1297,8 @@ void construct_img::constructImgMulti(cv::Mat src_img,cv::Mat &res_img,std::vect
 #endif
 
     cv::Mat mor_img;
-    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(13,13),cv::Point(-1,-1));
-    morphologyEx(bin_img,mor_img,CV_MOP_CLOSE,kernel);
+    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(5,5),cv::Point(-1,-1));
+    morphologyEx(bin_img,mor_img,CV_MOP_OPEN,kernel);
 #ifdef construct_img_save_img
     write_path=write_img_path;
     write_path+="test_multi_line_morphology.png";

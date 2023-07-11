@@ -75,7 +75,7 @@ construct::construct()
         //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95)); //小
         system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
         //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2)); //大
-        planeParamWrite();
+        planeParamWrite();//保存标定数据
     }
     else
     {
@@ -125,13 +125,6 @@ void construct::planeParamWrite()
         planeParamArray[1][pCnt]=light_plane[pCnt].B;
         planeParamArray[2][pCnt]=light_plane[pCnt].C;
         planeParamArray[3][pCnt]=light_plane[pCnt].D;
-#ifdef construct_print_data_info
-        std::cout<<"planeParam 1 "<<pCnt+1<<" "<<planeParamArray[0][pCnt]<<std::endl;
-        std::cout<<"planeParam 2 "<<pCnt+1<<" "<<planeParamArray[1][pCnt]<<std::endl;
-        std::cout<<"planeParam 3 "<<pCnt+1<<" "<<planeParamArray[2][pCnt]<<std::endl;
-        std::cout<<"planeParam 4 "<<pCnt+1<<" "<<planeParamArray[3][pCnt]<<std::endl;
-        std::cout<<std::endl;
-#endif
     }
 
     double planeParamArray_[4*laserLineCnt+1];
@@ -158,7 +151,6 @@ void construct::planeParamWrite()
             name=nameTemp[i];
             name+=std::to_string(j+1);
             planeName[nameCnt]=name;
-            //std::cout<<"name"<<nameCnt<<":="<<name<<std::endl;
             nameCnt++;
         }
     }
@@ -399,6 +391,7 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
         p.b=255;
         cloud->push_back(p);
     }
+
     //相机轴线
     for(int i=0;i<500;i++)
     {
@@ -415,14 +408,14 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
             for(int i=0;i<laserLineCnt;i++)
             {
                 p.x=-(light_plane[i].B*y+light_plane[i].C*z+light_plane[i].D)/light_plane[i].A;
-                p.y=y;//-(light_plane[i].A*x+light_plane[i].C*z+light_plane[i].D)/light_plane[i].B;
-                p.z=z;//-(light_plane[i].A*x+light_plane[i].B*y+light_plane[i].D)/light_plane[i].C;
+                p.y=y;
+                p.z=z;
                 p.r=0;
                 p.g=255;
                 p.b=0;
                 if(p.x<100&&p.x>-100)
                 {
-                    cloud->push_back(p);
+                    //cloud->push_back(p);
                 }
             }
         }

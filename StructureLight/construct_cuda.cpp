@@ -14,7 +14,7 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <boost/thread/thread.hpp>
 #include "source.hpp"
-#include "gene_operate/json_operate.hpp"
+#include "json_operate/json_operate.hpp"
 
 namespace structlight_construct
 {

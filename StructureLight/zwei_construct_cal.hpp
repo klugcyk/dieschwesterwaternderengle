@@ -20,7 +20,7 @@
 #include "StructureLight/zwei_construct_img.hpp"
 //#include "StructureLight/construct_cal.hpp"
 #include "source.hpp"
-#include "gene_operate/json_operate.hpp"
+#include "json_operate/json_operate.hpp"
 
 #define zwei_construct_cal_print_msg_info
 //#define zwei_construct_cal_print_data_info

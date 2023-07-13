@@ -31,6 +31,7 @@ public:
     construct();
     ~construct();
     void construct_test(std::vector<math_geometry::point3> p);
+    void test_main();
 
 public:
 

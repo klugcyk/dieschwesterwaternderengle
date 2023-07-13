@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230710
+# last:230712
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -29,7 +29,6 @@ find_package(Eigen3 REQUIRED)
 
 # selbst
 include_directories(~/klug/vortex)
-include_directories(~/buendia)
 include_directories(~/dieschwesterwaternderengle)
 
 # opencv
@@ -67,14 +66,10 @@ set(PROJECT_SOURCES
     ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
     ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
     ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-    #~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
-    #~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
-    #~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
-    #~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
-
-    # pointcloud algorithm
-    #~/klug/dieschwesterwaternderengle/pointcloud/construct_pointcloud.cpp
-    #~/klug/dieschwesterwaternderengle/pointcloud/construct_pointcloud.hpp
+    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
+    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
+    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
+    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
     # math
     ~/klug/vortex/math/least_sqaure.cpp
@@ -82,11 +77,14 @@ set(PROJECT_SOURCES
     ~/klug/vortex/math/geometry.cpp
     ~/klug/vortex/math/geometry.hpp
 
-    #gene operate
-    ~/klug/vortex/gene_operate/json_operate.cpp
-    ~/klug/vortex/gene_operate/json_operate.hpp
+    # gene operate
+    ~/klug/vortex/json_operate/json_operate.cpp
+    ~/klug/vortex/json_operate/json_operate.hpp
+    ~/klug/vortex/data_array/data_array.cpp
+    ~/klug/vortex/data_array/data_array.hpp
     ~/klug/vortex/camera/cameraGene.cpp
     ~/klug/vortex/camera/cameraGene.hpp
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -114,38 +112,6 @@ endif()
 
 target_link_libraries(dieschwesterwaternderengle PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
     pthread
-
-    #/opt/pylon/lib/libgxapi.so
-    #/opt/pylon/lib/libPylonDataProcessing.so
-    #/opt/pylon/lib/libPylonDataProcessingGui.so
-    #/opt/pylon/lib/libXmlParser_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libpylon_TL_gtc.so
-    #/opt/pylon/lib/libpylonutility.so
-    #/opt/pylon/lib/libGenApi_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libpylonc.so
-    #/opt/pylon/lib/libLog_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libNodeMapData_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/liblog4cpp_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libPylonDataProcessingCore.so
-    #/opt/pylon/lib/libMathParser_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libFirmwareUpdate_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libuxapi.so
-    #/opt/pylon/lib/libpylon_TL_camemu.so
-    #/opt/pylon/lib/libGCBase_gcc_v3_1_Basler_pylon.so
-    #/opt/pylon/lib/libpylon_TL_gige.so
-    #/opt/pylon/lib/libpylonbase.so
-    #/opt/pylon/lib/pylon-libusb-1.0.so
-    #/opt/pylon/lib/libpylon_TL_usb.so
-    #/opt/pylon/lib/libpylonc.so.7.2
-    #/opt/pylon/lib/libuxapi.so.7.2
-    #/opt/pylon/lib/libgxapi.so.7.2
-    #/opt/pylon/lib/libpylonbase.so.7.2
-    #/opt/pylon/lib/libpylonutility.so.7.2
-    #/opt/pylon/lib/libgxapi.so.7.2.1
-    #/opt/pylon/lib/libpylonbase.so.7.2.1
-    #/opt/pylon/lib/libpylonc.so.7.2.1
-    #/opt/pylon/lib/libuxapi.so.7.2.1
-    #/opt/pylon/lib/libpylonutility.so.7.2.1
 
     ${OpenCV_LIBS}
 

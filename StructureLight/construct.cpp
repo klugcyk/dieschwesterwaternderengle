@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230425
-    last:230710
+    last:230712
 */
 
 #include "StructureLight/construct.hpp"
@@ -14,7 +14,8 @@
 #include <pcl/visualization/pcl_visualizer.h>
 #include <boost/thread/thread.hpp>
 #include "source.hpp"
-#include "gene_operate/json_operate.hpp"
+#include "json_operate/json_operate.hpp"
+#include "data_array/data_array.hpp"
 
 namespace structlight_construct
 {
@@ -25,7 +26,7 @@ construct::construct()
     printf("open the construct...\n");
 #endif
 
-    if(recal_flag)//标定
+    if(recal_flag) //标定
     {
         std::vector<cv::Mat> cal_img;
         std::vector<cv::Mat> laser_img;
@@ -511,9 +512,9 @@ int construct::constructWithImg(cv::Mat src_img)
     return 1;
 }
 
-namespace cuda
+void construct::test_main()
 {
 
-};
+}
 
 };

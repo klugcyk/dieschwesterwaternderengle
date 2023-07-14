@@ -1,5 +1,5 @@
 # 献给我的心上人等待天使的妹妹
-# last：230704
+# last：230714
 
 # github token 
 
@@ -12,6 +12,8 @@ git add -A
 git commit -m "date"
 git config --system --unset credential.helper
 git remote set-url origin https://liebelili@github.com/klugcyk/dieschewesterwaternderangle.git
+
+多线结构光光源：赫胥尔镭德，镭凯
 
 # 投影重构三维重建
 1 相移法：https://blog.csdn.net/beyond951/article/details/123361852；
@@ -139,6 +141,7 @@ git ssh 可以不需要账号密码访问repo
 13 Brisk特征点描述；
 14 ORB;
 15 Haar特征；
+16 Flann特征；
 
 
 * 图像色彩空间
@@ -486,3 +489,6 @@ std::unique_lock<std::mutex> mtx(m);
 * explicit
 
 * 堆栈
+
+
+# cuda

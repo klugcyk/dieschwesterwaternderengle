@@ -141,19 +141,22 @@ git ssh 可以不需要账号密码访问repo
 13 Brisk特征点描述；
 14 ORB;
 15 Haar特征；
-16 Flann特征；
+16 Flann特征，快速最近邻匹配,FlannBasedMatcher matcher；
+17 opencv数据类型KeyPoint，vector<KeyPoint> kp；
+17 opencv数据类型DMatch，vector<DMatch> m；
 
 
 * 图像色彩空间
-1 RGB；
-2 HSV；
-3 HSL；
+1 RGB;
+2 HSV;
+3 HSL;
+4 LAB;
 
 
 # PCL点云处理
 
 
-# 计算机硬件
+# 计算机组成原理
 
 * 真值与机器数
 计算机中真实参与计算的是补码

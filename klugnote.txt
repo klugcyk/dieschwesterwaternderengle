@@ -13,7 +13,7 @@ git commit -m "date"
 git config --system --unset credential.helper
 git remote set-url origin https://liebelili@github.com/klugcyk/dieschewesterwaternderangle.git
 
-多线结构光光源：赫胥尔镭德，镭凯
+多线结构光光源：赫胥尔镭德，镭凯，holoeye
 
 # 投影重构三维重建
 1 相移法：https://blog.csdn.net/beyond951/article/details/123361852；
@@ -514,9 +514,17 @@ std::unique_lock<std::mutex> mtx(m);
 
 
 * 栈区
+有编译器管理分配和释放，不要返回局部变量的地址，栈区的数据在程序执行完后释放，
+第一次可以读取到数据是编译器做了保留，第二次无法读取正确的数值
+1 函数参数，函数形参
+2 局部变量
+
 
 * 堆区
-
+在程序运行后，程序员管理释放，如果程序运行期间不释放，在程序结束后由操作系统释放
+new关键词，在堆区开辟数据
+int * p=new int (10); //可在函数中使用返回
+堆区数据释放：
 
 
 # cuda

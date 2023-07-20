@@ -103,7 +103,7 @@ void construct_cal::cal_test()
     }
 
     // 相机轴线点
-    for(int i=0;i<400;++i)
+    for(int i=0;i<50;++i)
     {
          p.x=0;
          p.y=0;

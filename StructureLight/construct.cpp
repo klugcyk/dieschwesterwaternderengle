@@ -394,12 +394,12 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
     }
 
     //相机轴线
-    for(int i=0;i<500;i++)
+    for(int i=0;i<50;i++)
     {
         p.x=0;
         p.y=0;
         p.z=i;
-        cloud->push_back(p);
+        //cloud->push_back(p);
     }
 
     for(int y=-30;y<30;y+=1)

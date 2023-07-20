@@ -3,11 +3,11 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230215
-    last:230711
+    last:230720
 */
 
-#ifndef contrruct_img_HPP
-#define contrruct_img_HPP
+#ifndef construct_img_HPP
+#define construct_img_HPP
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>

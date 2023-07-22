@@ -28,7 +28,7 @@ find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 # selbst
-include_directories(~/klug/vortex)
+include_directories(~/vortex)
 include_directories(~/dieschwesterwaternderengle)
 
 # opencv
@@ -51,39 +51,39 @@ set(PROJECT_SOURCES
     source.hpp
 
     # img algorithm
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_img.hpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/construct.hpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
-    ~/klug/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
-    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
-    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
-    ~/klug/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
+    ~/dieschwesterwaternderengle/StructureLight/construct.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct.hpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
+    ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
+    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
+    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
+    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
+    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
     # math
-    ~/klug/vortex/math/least_sqaure.cpp
-    ~/klug/vortex/math/least_sqaure.hpp
-    ~/klug/vortex/math/geometry.cpp
-    ~/klug/vortex/math/geometry.hpp
+    ~/vortex/math/least_sqaure.cpp
+    ~/vortex/math/least_sqaure.hpp
+    ~/vortex/math/geometry.cpp
+    ~/vortex/math/geometry.hpp
 
     # gene operate
-    ~/klug/vortex/json_operate/json_operate.cpp
-    ~/klug/vortex/json_operate/json_operate.hpp
-    ~/klug/vortex/data_array/data_array.cpp
-    ~/klug/vortex/data_array/data_array.hpp
-    ~/klug/vortex/camera/cameraGene.cpp
-    ~/klug/vortex/camera/cameraGene.hpp
+    ~/vortex/json_operate/json_operate.cpp
+    ~/vortex/json_operate/json_operate.hpp
+    ~/vortex/data_array/data_array.cpp
+    ~/vortex/data_array/data_array.hpp
+    ~/vortex/camera/cameraGene.cpp
+    ~/vortex/camera/cameraGene.hpp
 
 )
 

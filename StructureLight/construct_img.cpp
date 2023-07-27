@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230215
-    last:230608
+    last:230727
 */
 
 #include "StructureLight/construct_img.hpp"
@@ -775,13 +775,25 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 {
     int line_cnt=0;
 
+#ifdef useBlueLaser
+    bThreshold=150;
+    gThreshold=100;
+    rThreshold=80;
+#endif
+
+#ifdef useRedLaser
+    bThreshold=100;
+    gThreshold=100;
+    rThreshold=250;
+#endif
+
     //清除上一张图片上提取的点位缓存
     zenturm_line_array.clear();
 
     res_img=src_img;
     //图像预处理
     cv::Mat bin_img(src_img.rows,src_img.cols,CV_8UC1);
-    //增强红色通道
+    //增强某个颜色通道
     for(size_t row=0;row<src_img.rows;row++)
     {
         for(size_t col=0;col<src_img.cols;col++)
@@ -790,10 +802,19 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
             int G=src_img.at<cv::Vec3b>(row,col)[1];
             int R=src_img.at<cv::Vec3b>(row,col)[2];
             //if(B>250)
-            if(B>150&&G<100&&R<80)
+#ifdef useBlueLaser
+            if(B>bThreshold&&G<gThreshold&&R<rThreshold)
             {
                 bin_img.at<uchar>(row,col)=255;
             }
+#endif
+
+#ifdef useRedLaser
+            if(R>rThreshold)
+            {
+                bin_img.at<uchar>(row,col)=255;
+            }
+#endif
             else
             {
                 bin_img.at<uchar>(row,col)=0;
@@ -807,7 +828,7 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 #endif
 
     cv::Mat mor_img;
-    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(9,9),cv::Point(-1,-1));
+    cv::Mat kernel=getStructuringElement(cv::MORPH_RECT,cv::Size(13,13),cv::Point(-1,-1));
     morphologyEx(bin_img,mor_img,CV_MOP_CLOSE,kernel);
 #ifdef construct_img_save_img
     write_path=write_img_path;
@@ -843,14 +864,14 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
         {
             roi.push_back(roi_img);
         }
-
+/*
 #ifdef construct_img_save_img
         write_path=write_img_path;
         write_path+="line_connect_roi_img_";
         write_path+=std::to_string(i);
         write_path+=".png";
         cv::imwrite(write_path,roi_img);
-#endif
+#endif*/
     }
 
     //单条激光中心提取

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的身旁常伴月光
     start:221129
-    last:230711
+    last:230727
 */
 
 #include <QApplication>
@@ -12,14 +12,7 @@
 #include "StructureLight/zwei_construct.hpp"
 #include "StructureLight/construct.hpp"
 
-#define dieschwesterwaternderengle
 //#define zweiChoose
-
-#ifndef dieschwesterwaternderengle
-#include "ui_control/mainwindow.h"
-#include "ui_control/img1.h"
-#include "ui_control/zwei_construct_win.h"
-#endif
 
 bool link_update=0;
 bool richt_update=0;
@@ -32,22 +25,11 @@ bool camera_continue_switch=0; //开启相机连续采集图像
 
 int main(int argc, char *argv[])
 {
-#ifdef dieschwesterwaternderengle
+
 #ifdef zweiChoose
     ZweiConstruct::construct c;
 #else
     structlight_construct::construct c;
 #endif
     return 1;
-#else
-    QApplication a(argc, argv);
-#ifdef zweiChoose
-    zwei_construct_win w;
-#else
-    MainWindow w;
-#endif
-    w.show();
-
-    return a.exec();
-#endif
 }

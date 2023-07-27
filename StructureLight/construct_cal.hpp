@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友路易斯恩里克
     start:230220
-    last:230711
+    last:230727
 */
 
 #ifndef construct_cal_HPP
@@ -24,7 +24,7 @@
 
 #define construct_cal_print_msg_info
 #define construct_cal_print_data_info
-#define construct_cal_save_process
+//#define construct_cal_save_process
 #define construct_cal_print_error_info
 #define construct_cal_img_mark
 
@@ -72,14 +72,17 @@ private:
     std::vector<std::vector<cv::Point2f>> assign_zenturm_points; //按激光线分类的中心线点
     std::vector<cv::Point2f> all_zenturm_points; //提取的所有激光线中心点
     std::vector<cv::Mat> extrinsic_matrix; //相机外参
-    cv::Size board_size=cv::Size(6,9); //标定板的尺度
-    cv::Size2f square_size=cv::Size2f(6.96,6.96);//标定板的格子大小 3.95
+    //cv::Size board_size=cv::Size(6,9); //标定板的尺度
+    //cv::Size2f square_size=cv::Size2f(6.96,6.96);//标定板的格子大小 3.95
+    cv::Size board_size=cv::Size(8,11); //标定板的尺度
+    cv::Size2f square_size=cv::Size2f(5.00,5.00);//标定板的格子大小 3.95
     std::vector<cv::Mat> rvecsMat;
     std::vector<cv::Mat> rotation_matrix;
     std::vector<cv::Mat> tvecsMat;
     //Eigen::Matrix3d cameraMatrix_inverse; //相机内参的逆
     std::vector<Eigen::Vector3d> zenturm_camera; //相机坐标系中，激光线的点
     std::vector<std::vector<Eigen::Vector3d>> zenturm_camera_array; //相机坐标系中，多条激光线的点，
+    std::vector<cv::Mat> imgLaserUndistort;
 
 };
 

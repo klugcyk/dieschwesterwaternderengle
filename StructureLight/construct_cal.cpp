@@ -3,7 +3,7 @@
     author:klug
     献给我亲爱的好友梅尔基亚德斯
     start:230220
-    last:230705
+    last:230727
 */
 
 #include "StructureLight/construct_cal.hpp"
@@ -247,9 +247,10 @@ int construct_cal::system_calibrate(std::vector<cv::Mat> src_img,std::vector<cv:
         return 0;
     }
 
+    // 相机标定
     camera_calibrate(src_img,chess_size,chess_length);
-    //lightsource_calibrate_ein(1,laser_img);
-    //lightsource_calibrate(src_img,laser_img);
+
+    // 激光线标定
     lightsourceCalibrate(src_img,laser_img);
 
     cal_done=1;
@@ -431,6 +432,25 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
 {
     cv::Mat res; //useless
 
+    //去除相机畸变
+    imgLaserUndistort.clear();
+    for(int imgCnt=0;imgCnt<img_laser.size();imgCnt++)
+    {
+        cv::Mat ui;
+        cv::undistort(img_laser[imgCnt],ui,cameraMatrix,distCoeffs);
+        imgLaserUndistort.push_back(ui);
+#ifdef construct_cal_save_process
+        write_path=write_img_path;
+        write_path+="undistort/";
+        write_path+=std::to_string(imgCnt);
+        write_path+=".png";
+        cv::imwrite(write_Path,ui);
+#endif
+    }
+#ifdef construct_cal_print_msg_info
+        printf("achieve the img undistort for light source calibrate...\n");
+#endif
+
     //相机坐标系中，中心点的坐标值
     zenturm_camera_array.clear();
 
@@ -443,10 +463,10 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
 
     //激光平面参数集合清除
     light_plane.clear();
-    for(int img_cnt=0;img_cnt<img_laser.size();img_cnt++)
+    for(int img_cnt=0;img_cnt<imgLaserUndistort.size();img_cnt++)
     {
         //激光线图像中，激光中心线提取，后续读取图像处理类中的参数来做最小二乘法拟合标定
-        laserZenturmLineMultiCal(img_laser[img_cnt],res);
+        laserZenturmLineMultiCal(imgLaserUndistort[img_cnt],res);
         //图像中提取到的中心线数量与实际不相同，结束标定
         if(zenturm_line_array.size()!=laserLineCnt)
         {
@@ -456,11 +476,11 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
 #endif
         }
 #ifdef construct_cal_save_process
-        std::string _save=write_img_path;
-        _save+="sys_cal_res_";
-        _save+=std::to_string(img_cnt+1);
-        _save+=".png";
-        cv::imwrite(_save,res);
+        write_path=write_img_path;
+        write_path+="sys_cal_res_";
+        write_path+=std::to_string(img_cnt+1);
+        write_path+=".png";
+        cv::imwrite(write_path,res);
 #endif
         // 相机外参转换成平面方程，标定板平面
         math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板

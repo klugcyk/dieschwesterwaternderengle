@@ -26,7 +26,7 @@ construct::construct()
     printf("open the construct...\n");
 #endif
 
-    if(recal_flag) //标定
+    if(recal_flag) //重新标定
     {
         std::vector<cv::Mat> cal_img;
         std::vector<cv::Mat> laser_img;
@@ -40,14 +40,14 @@ construct::construct()
             cv::Mat temp_img=cv::imread(read_path);
             if(!temp_img.empty())
             {
-#ifdef construct_print_error_info
+#ifdef construct_print_msg_info
                 printf("push back image %d\n",i);
 #endif
                 cal_img.push_back(temp_img);
             }
             else
             {
-#ifdef construct_print_error_info
+#ifdef construct_print_msg_info
                 printf("no image %d find\n",i);
 #endif
             }
@@ -73,10 +73,10 @@ construct::construct()
 #endif
             }
         }
-        //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(3.95,3.95)); //小
-        system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(6.96,6.96)); //大
-        //system_calibrate(cal_img,laser_img,cv::Size(6,9),cv::Size2f(11.2,11.2)); //大
-        planeParamWrite();//保存标定数据
+        // 结构光系统标定
+        system_calibrate(cal_img,laser_img,cv::Size(8,11),cv::Size2f(5.00,5.00)); //大
+        // 保存标定数据
+        //planeParamWrite();
     }
     else
     {

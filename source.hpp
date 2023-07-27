@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的眼神常带月光
     start:230511
-    last:23071
+    last:230727
 */
 
 #pragma once // 只编译一次
@@ -32,8 +32,11 @@ extern bool richt_update;
 
 #define zwei_cal_img_num 30
 #define cal_img_num 30 //加载标定图片的数量
-#define laserLineCnt 16 //结构光硬件上光线的条数
+#define laserLineCnt 2 //结构光硬件上光线的条数
 #define cameraCnt 1 //相机数量
+
+#define useRedLaser //使用红色激光
+//#define useBlueLaser //使用蓝色激光
 
 extern std::string read_path;
 extern std::string write_path;

@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230712
+# last:230727
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -52,13 +52,13 @@ set(PROJECT_SOURCES
 
     # img algorithm
     ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
+    #~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
+    #~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
+    #~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct.hpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
@@ -66,10 +66,10 @@ set(PROJECT_SOURCES
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
-    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
-    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
-    ~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
+    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
+    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
+    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
+    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
     # math
     ~/vortex/math/least_sqaure.cpp
@@ -82,8 +82,8 @@ set(PROJECT_SOURCES
     ~/vortex/json_operate/json_operate.hpp
     ~/vortex/data_array/data_array.cpp
     ~/vortex/data_array/data_array.hpp
-    ~/vortex/camera/cameraGene.cpp
-    ~/vortex/camera/cameraGene.hpp
+    ~/vortex/cameraGene/cameraGene.cpp
+    ~/vortex/cameraGene/cameraGene.hpp
 
 )
 

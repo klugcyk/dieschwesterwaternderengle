@@ -80,6 +80,9 @@ private:
     int blue_threshold=250;
     int red_threshold=250;
     int green_threshold=250;
+    int bThreshold=250;
+    int rThreshold=250;
+    int gThreshold=250;
 
 };
 

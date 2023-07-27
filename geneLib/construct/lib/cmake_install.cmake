@@ -1,4 +1,4 @@
-# Install script for directory: /home/klug/klug/dieschwesterwaternderengle/geneLib/construct
+# Install script for directory: /home/klug/dieschwesterwaternderengle/geneLib/construct
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/klug/klug/dieschwesterwaternderengle/geneLib/construct/lib/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/klug/dieschwesterwaternderengle/geneLib/construct/lib/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

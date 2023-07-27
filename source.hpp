@@ -34,6 +34,7 @@ extern bool richt_update;
 #define cal_img_num 30 //加载标定图片的数量
 #define laserLineCnt 2 //结构光硬件上光线的条数
 #define cameraCnt 1 //相机数量
+#define laserLengthThreshold 50 // 标定时选择ROI激光线长度阈值
 
 #define useRedLaser //使用红色激光
 //#define useBlueLaser //使用蓝色激光

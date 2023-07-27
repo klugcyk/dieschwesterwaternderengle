@@ -115,19 +115,19 @@ void construct_cal::cal_test()
     }
 
     // 激光平面点
-    for(int y=-30;y<30;y+=1)
+    for(int y=-50;y<50;y+=1)
     {
-        for(int z=300;z<400;z+=1)
+        for(int x=-100;x<100;x+=1)
         {
             for(int i=0;i<laserLineCnt;i++)
             {
-                p.x=-(light_plane[i].B*y+light_plane[i].C*z+light_plane[i].D)/light_plane[i].A;
+                p.x=x;//-(light_plane[i].B*y+light_plane[i].C*z+light_plane[i].D)/light_plane[i].A;
                 p.y=y;//-(light_plane[i].A*x+light_plane[i].C*z+light_plane[i].D)/light_plane[i].B;
-                p.z=z;//-(light_plane[i].A*x+light_plane[i].B*y+light_plane[i].D)/light_plane[i].C;
+                p.z=-(light_plane[i].A*x+light_plane[i].B*y+light_plane[i].D)/light_plane[i].C;
                 p.r=0;
                 p.g=255;
                 p.b=0;
-                if(p.x<100&&p.x>-100)
+                if(p.z<100&&p.z>0)
                 {
                     cloud->push_back(p);
                 }
@@ -444,7 +444,7 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
         write_path+="undistort/";
         write_path+=std::to_string(imgCnt);
         write_path+=".png";
-        cv::imwrite(write_Path,ui);
+        cv::imwrite(write_path,ui);
 #endif
     }
 #ifdef construct_cal_print_msg_info

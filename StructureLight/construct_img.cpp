@@ -15,7 +15,7 @@ namespace structlight_construct
 construct_img::construct_img()
 {
 #ifdef construct_img_print_msg_info
-    printf("start the 3d construct node...\n");
+    printf("start the multi line 3d construct...\n");
 #endif
 
 }
@@ -23,24 +23,24 @@ construct_img::construct_img()
 construct_img::construct_img(int r,int g,int b)
 {
 #ifdef construct_img_print_msg_info
-    printf("start the 3d construct node set some value...\n");
+    printf("start the multi line 3d construct node set some value...\n");
 #endif
 
-    green_threshold=g;
-    red_threshold=r;
-    blue_threshold=b;
+    gThreshold=g;
+    rThreshold=r;
+    bThreshold=b;
 }
 
 construct_img::~construct_img()
 {
 #ifdef construct_img_print_msg_info
-    printf("end the 3d construct node...\n");
+    printf("end the multi line 3d construct...\n");
 #endif
 
 }
 
 /*
-    激光中心线提取算法，标定中2条中心线提取
+    激光中心线提取算法，标定中2条中心线提取,交叉激光中心线提取
     @src_img:输入图像
     @res_img:提取结果
     @res:返回值，提取到中心线计数
@@ -784,7 +784,7 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 #ifdef useRedLaser
     bThreshold=100;
     gThreshold=100;
-    rThreshold=250;
+    rThreshold=220;
 #endif
 
     //清除上一张图片上提取的点位缓存
@@ -858,20 +858,20 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
         int h=connect_info.at<int>(i,2);
         int w=connect_info.at<int>(i,3);
         cv::Mat roi_img=blur_img(cv::Rect(x,y,h,w));
-        //去除短激光线的影响，只对长激光线做中心线提取
-        //if(w>1000)
-        if(w>100)
+
+        //去除短激光线的影响，只对长激光线做中心线提取，laserLengthThreshold in source.cpp
+        if(w>laserLengthThreshold)
         {
             roi.push_back(roi_img);
         }
-/*
+
 #ifdef construct_img_save_img
         write_path=write_img_path;
         write_path+="line_connect_roi_img_";
         write_path+=std::to_string(i);
         write_path+=".png";
         cv::imwrite(write_path,roi_img);
-#endif*/
+#endif
     }
 
     //单条激光中心提取
@@ -898,8 +898,9 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
         int offset_x=connect_info.at<int>(i+1,0); //roi在原图上的位置，列偏置
         int offset_y=connect_info.at<int>(i+1,1); //roi在原图上的位置，行偏置
         savePointArray(zenturm,offset_x,offset_y); //保存激光中心点到类中保存中心点的变量中      
-    }
+    }    
     PointArray(zenturmLineArrayT,zenturm_line_array);
+
     //删除不需要的点
     //point_filter(zenturm_line);
 #ifdef construct_img_mark
@@ -921,6 +922,34 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 #endif
 
     return line_cnt;
+}
+
+/*
+    三维重建过程中提取激光中心线，无激光线被遮挡
+    @src_img:
+    @res_img:
+*/
+int construct_img::laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img)
+{
+    int lineCnt=0;
+
+    //按行或列进行突变值查找
+    float laserZenturmV[src_img.rows][laserLineCnt]; // 缓存数据点信息，按照每行有条激光线缓存
+    const int kernelSize=11;
+    int kernel[kernelSize]={0,0,0,1,3,5,3,1,0,0,0};
+
+    for(size_t rowCnt=0;rowCnt<src_img.rows;rowCnt++)
+    {
+        int lineCnt_;
+        //laserZenturmV[rowCnt][lineCnt_]=0;
+        float convolutionRes;
+        for(size_t colCnt=(kernelSize-1)/2;colCnt<src_img.cols;colCnt++)
+        {
+
+        }
+    }
+
+    return lineCnt;
 }
 
 /*
@@ -1282,12 +1311,12 @@ void construct_img::construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,st
 }
 
 /*
-    三维重建，提取激光线的点位置
+    三维重建，提取激光线的点位置，测试使用
     @src_img:重建用的图片
     @res_img:结果图片
     @points:提取到点的坐标
 */
-void construct_img::constructImgMulti(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet)
+void construct_img::constructImgMulti_test(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet)
 {
     res_img=src_img;
 
@@ -1410,10 +1439,40 @@ void construct_img::constructImgMulti(cv::Mat src_img,cv::Mat &res_img,std::vect
     @row:图像行数
     @col:图像列数
     @channels:图像通道数
+    @resImg:返回值读取到的图片
 */
-void construct_img::getimgfrommeony(uchar *pixel_add,int row,int col,int channels)
+cv::Mat construct_img::getimgfrommeony(uchar *pixel_add,int row,int col,int channels)
 {
-
+    if(channels==1)
+    {
+        cv::Mat resImg(row,col,CV_8UC1);
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                resImg.at<uchar>(i,j)=*pixel_add;
+                pixel_add++;
+            }
+        }
+        return resImg;
+    }
+    else
+    {
+        cv::Mat resImg(row,col,CV_8UC3);
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                resImg.at<cv::Vec3b>(i,j)[0]=*pixel_add;
+                pixel_add++;
+                resImg.at<cv::Vec3b>(i,j)[1]=*pixel_add;
+                pixel_add++;
+                resImg.at<cv::Vec3b>(i,j)[2]=*pixel_add;
+                pixel_add++;
+            }
+        }
+        return resImg;
+    }
 }
 
 /*
@@ -1422,15 +1481,40 @@ void construct_img::getimgfrommeony(uchar *pixel_add,int row,int col,int channel
     @row:图像行数
     @col:图像列数
     @channels:图像通道数
+    @resImg:返回值读取到的图片
 */
-void construct_img::getimgfrommeony(double *pixel_add,int row,int col,int channels)
+cv::Mat construct_img::getimgfrommeony(double *pixel_add,int row,int col,int channels)
 {
-
+    if(channels==1)
+    {
+        cv::Mat resImg(row,col,CV_32FC1);
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                resImg.at<double>(i,j)=*pixel_add;
+                pixel_add++;
+            }
+        }
+        return resImg;
+    }
+    else
+    {
+        cv::Mat resImg(row,col,CV_32FC3);
+        for(int i=0;i<row;i++)
+        {
+            for(int j=0;j<col;j++)
+            {
+                resImg.at<cv::Vec3b>(i,j)[0]=*pixel_add;
+                pixel_add++;
+                resImg.at<cv::Vec3b>(i,j)[1]=*pixel_add;
+                pixel_add++;
+                resImg.at<cv::Vec3b>(i,j)[2]=*pixel_add;
+                pixel_add++;
+            }
+        }
+        return resImg;
+    }
 }
-
-namespace cuda
-{
-
-};
 
 };

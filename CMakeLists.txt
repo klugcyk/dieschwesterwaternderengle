@@ -66,18 +66,12 @@ set(PROJECT_SOURCES
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.cpp
-    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_pre.hpp
-    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.cpp
-    #~/dieschwesterwaternderengle/ZweiAuge/zwei_auge_construct.hpp
 
-    # math
+    # vortex
     ~/vortex/math/least_sqaure.cpp
     ~/vortex/math/least_sqaure.hpp
     ~/vortex/math/geometry.cpp
     ~/vortex/math/geometry.hpp
-
-    # gene operate
     ~/vortex/json_operate/json_operate.cpp
     ~/vortex/json_operate/json_operate.hpp
     ~/vortex/data_array/data_array.cpp

@@ -24,7 +24,7 @@
 #define construct_img_print_msg_info
 #define construct_img_print_data_info
 #define construct_img_print_error_info
-#define construct_img_save_img
+//#define construct_img_save_img
 #define construct_img_mark
 
 namespace structlight_construct
@@ -51,8 +51,8 @@ protected:
     cv::Mat laser_zenturm_line(cv::Mat src_img,cv::Mat &res_img);
     int laserZenturmLineMultiCal(cv::Mat src_img,cv::Mat &res_img); //标定时，激光中心线提取
     int laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img); //三维重建时，激光中心线提取
-    int laser_zenturm_line_zwei(cv::Mat src_img,cv::Mat &res_img);
-    void constructImgMulti(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet);
+    int laser_zenturm_line_zwei(cv::Mat src_img,cv::Mat &res_img); //激光线交叉时提取激光中心线
+    void constructImgMulti_test(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet);
 
 protected:
     std::vector<cv::Point2f> zenturm_line; //激光中心线点集合(单条)
@@ -73,13 +73,13 @@ private:
     int circle_detect(std::vector<cv::Point> contour,int threshold,int step);
     cv::Mat laser_zenturm_line_ein(cv::Mat src_img,std::vector<cv::Point2f> &zenturm,bool type); //type=0,1
     cv::Mat zenturm_abandon(cv::Mat img1,cv::Mat img2,int length); //去除图像上结构光中心过亮的区域
-    void getimgfrommeony(uchar *pixel_add,int row,int col,int channels);
-    void getimgfrommeony(double *pixel_add,int row,int col,int channels);
+    cv::Mat getimgfrommeony(uchar *pixel_add,int row,int col,int channels);
+    cv::Mat getimgfrommeony(double *pixel_add,int row,int col,int channels);
 
 private:
-    int blue_threshold=250;
-    int red_threshold=250;
-    int green_threshold=250;
+    //int blue_threshold=250;
+    //int red_threshold=250;
+    //int green_threshold=250;
     int bThreshold=250;
     int rThreshold=250;
     int gThreshold=250;

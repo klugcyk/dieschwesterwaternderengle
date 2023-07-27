@@ -18,7 +18,7 @@
 
 #define construct_print_msg_info
 #define construct_print_data_info
-#define construct_save_process
+//#define construct_save_process
 #define construct_print_error_info
 #define construct_img_mark
 

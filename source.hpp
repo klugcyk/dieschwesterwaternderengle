@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹，她的眼神常带月光
     start:230511
-    last:230727
+    last:230728
 */
 
 #pragma once // 只编译一次
@@ -16,9 +16,7 @@
 #include <string>
 #include <mutex>
 
-extern bool link_update;
-extern bool richt_update;
-
+#define addLibPath "/home/klug/sakura/" //加载动态链接库的路径
 #define read_img_path "/home/klug/img/construct/"
 #define read_img_path_cal "/home/klug/img/construct/cal/"
 #define write_img_path "/home/klug/img/construct/"
@@ -34,7 +32,7 @@ extern bool richt_update;
 #define cal_img_num 30 //加载标定图片的数量
 #define laserLineCnt 2 //结构光硬件上光线的条数
 #define cameraCnt 1 //相机数量
-#define laserLengthThreshold 50 // 标定时选择ROI激光线长度阈值
+#define laserLengthThreshold 50 //标定时选择ROI激光线长度阈值
 
 #define useRedLaser //使用红色激光
 //#define useBlueLaser //使用蓝色激光
@@ -45,6 +43,8 @@ extern bool recal_flag;
 extern bool cal_done;
 extern bool communication_open;
 extern bool camera_continue_switch;
+extern bool link_update;
+extern bool richt_update;
 
 //extern std::mutex continue_lock; //相机连续采集图像线程锁
 

@@ -3,7 +3,7 @@
     author:klug
     献给我的心上人等待天使的妹妹
     start:230215
-    last:230727
+    last:230728
 */
 
 #include "StructureLight/construct_img.hpp"
@@ -926,10 +926,11 @@ int construct_img::laserZenturmLineMultiCal(cv::Mat src_img, cv::Mat &res_img)
 
 /*
     三维重建过程中提取激光中心线，无激光线被遮挡
-    @src_img:
-    @res_img:
+    @src_img:多激光线图像
+    @res_img:提取激光中心线结果的图像
+    @zenturm:激光中心点存储地址
 */
-int construct_img::laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img)
+int construct_img::laserZenturmLineMulti(cv::Mat src_img,cv::Mat &res_img,float *zenturm)
 {
     int lineCnt=0;
 

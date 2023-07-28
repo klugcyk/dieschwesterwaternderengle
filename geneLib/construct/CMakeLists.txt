@@ -25,7 +25,7 @@ find_package(OpenCV REQUIRED)
 # eigen
 find_package(Eigen3 REQUIRED)
 # selbst
-#include_directories(~/buendia)
+include_directories(~/undb/include)
 include_directories(~/vortex)
 include_directories(~/dieschwesterwaternderengle)
 

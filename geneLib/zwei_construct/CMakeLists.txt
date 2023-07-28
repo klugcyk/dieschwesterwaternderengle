@@ -2,7 +2,7 @@
 # author:klug
 # 献给不喜欢我的弗里德里希冯海因洛特
 # start:230523
-# last:230606
+# last:230728
 
 cmake_minimum_required(VERSION 3.14)
 
@@ -25,9 +25,9 @@ find_package(OpenCV REQUIRED)
 # eigen
 find_package(Eigen3 REQUIRED)
 # selbst
-include_directories(~/buendia)
+include_directories(~/undb/include)
 include_directories(~/dieschwesterwaternderengle)
-include_directories(~/fernandadelcarpio)
+include_directories(~/vortex)
 
 # opencv
 include_directories(/usr/local/include/opencv4)

@@ -25,7 +25,6 @@ bool camera_continue_switch=0; //开启相机连续采集图像
 
 int main(int argc, char *argv[])
 {
-
 #ifdef zweiChoose
     ZweiConstruct::construct c;
 #else

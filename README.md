@@ -54,3 +54,9 @@ laserLineCnt 2
 * 相机数量
 cameraCnt 1 
 
+* 使用红色激光，与useBlueLaser只能选择一个
+useRedLaser
+
+* 使用蓝色激光，与useRedLaser只能选择一个
+useBlueLaser
+

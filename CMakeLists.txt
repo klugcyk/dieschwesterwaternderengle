@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230727
+# last:230728
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -29,6 +29,7 @@ find_package(Eigen3 REQUIRED)
 
 # selbst
 include_directories(~/vortex)
+include_directories(~/undb/include)
 include_directories(~/dieschwesterwaternderengle)
 
 # opencv
@@ -52,13 +53,13 @@ set(PROJECT_SOURCES
 
     # img algorithm
     ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-    #~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-    #~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-    #~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
+    ~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct.hpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
@@ -68,16 +69,16 @@ set(PROJECT_SOURCES
     ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
 
     # vortex
-    ~/vortex/math/least_sqaure.cpp
-    ~/vortex/math/least_sqaure.hpp
-    ~/vortex/math/geometry.cpp
-    ~/vortex/math/geometry.hpp
+    ~/undb/src/math/least_sqaure.cpp
+    ~/undb/include/math/least_sqaure.hpp
+    ~/undb/src/math/geometry.cpp
+    ~/undb/include/math/geometry.hpp
     ~/vortex/json_operate/json_operate.cpp
     ~/vortex/json_operate/json_operate.hpp
-    ~/vortex/data_array/data_array.cpp
-    ~/vortex/data_array/data_array.hpp
-    ~/vortex/cameraGene/cameraGene.cpp
-    ~/vortex/cameraGene/cameraGene.hpp
+    ~/undb/src/data_array/data_array.cpp
+    ~/undb/include/data_array/data_array.hpp
+    ~/undb/src/cameraGene/cameraGene.cpp
+    ~/undb/include/cameraGene/cameraGene.hpp
 
 )
 

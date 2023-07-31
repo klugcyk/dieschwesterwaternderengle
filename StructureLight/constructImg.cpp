@@ -8,7 +8,6 @@
 
 #include "StructureLight/construct_img.hpp"
 #include "source.hpp"
-#include "meinCV/generateKernel.hpp"
 
 namespace structlight_construct
 {
@@ -939,7 +938,7 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
     float laserZenturmV[srcImg.rows][laserLineCnt]; // 缓存数据点信息，按照每行有条激光线缓存
     const int kernelSize=11;
     int kernel[kernelSize]={0,0,0,1,3,5,3,1,0,0,0};
-    geneKernelEinZenturm(kernelSize,kernel);
+    //cv::Mat resImg_(srcImg.rows,srcImg.cols,CV_32FC1);
 
     for(size_t y=0;y<srcImg.rows;y++)
     {
@@ -956,7 +955,6 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
             resImg.at<float>(y,x)=convolutionRes;
         }
     }
-
     cv::normalize(resImg,resImg,0,255,cv::NORM_MINMAX);
 
     //使用roi卷积

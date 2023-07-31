@@ -1,9 +1,9 @@
-/*
+﻿/*
     文件等级：密一
     author:klug
     献给我的心上人等待天使的妹妹，她的眼神常带月光
     start:230511
-    last:230728
+    last:230731
 */
 
 #pragma once // 只编译一次
@@ -12,6 +12,7 @@
 #define source_hpp
 
 #define klug_improve
+#define algorithm_test
 
 #include <string>
 #include <mutex>

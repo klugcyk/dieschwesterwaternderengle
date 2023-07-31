@@ -1,8 +1,8 @@
-# 文件等级:密一
+﻿# 文件等级:密一
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230728
+# last:230731
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -53,20 +53,18 @@ set(PROJECT_SOURCES
 
     # img algorithm
     ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_img_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cal_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
     ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cuda.cpp
     ~/dieschwesterwaternderengle/StructureLight/construct.hpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
-    ~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
+
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
+    #~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
 
     # vortex
     ~/undb/src/math/least_sqaure.cpp
@@ -79,7 +77,8 @@ set(PROJECT_SOURCES
     ~/undb/include/data_array/data_array.hpp
     ~/undb/src/cameraGene/cameraGene.cpp
     ~/undb/include/cameraGene/cameraGene.hpp
-
+    ~/undb/src/meinCV/generateKernel.cpp
+    ~/undb/include/meinCV/generateKernel.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

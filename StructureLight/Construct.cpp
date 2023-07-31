@@ -17,7 +17,7 @@
 #include "json_operate/json_operate.hpp"
 #include "data_array/data_array.hpp"
 
-namespace structlight_construct
+namespace StructlightConstruct
 {
 
 construct::construct()

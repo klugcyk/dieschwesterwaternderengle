@@ -6,21 +6,21 @@
     last:230731
 */
 
-#include "StructureLight/construct_img.hpp"
+#include "StructureLight/ConstrucImg.hpp"
 #include "source.hpp"
 
-namespace structlight_construct
+namespace MultilightConstruct
 {
 
-construct_img::construct_img()
+constructImg::constructImg()
 {
-#ifdef construct_img_print_msg_info
+#ifdef constructImgPrintMsgInfo
     printf("start the multi line 3d construct...\n");
 #endif
 
 }
 
-construct_img::construct_img(int r,int g,int b)
+constructImg::constructImg(int r,int g,int b)
 {
 #ifdef construct_img_print_msg_info
     printf("start the multi line 3d construct node set some value...\n");
@@ -31,7 +31,7 @@ construct_img::construct_img(int r,int g,int b)
     bThreshold=b;
 }
 
-construct_img::~construct_img()
+constructImg::~constructImg()
 {
 #ifdef construct_img_print_msg_info
     printf("end the multi line 3d construct...\n");

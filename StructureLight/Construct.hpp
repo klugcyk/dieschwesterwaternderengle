@@ -2,7 +2,7 @@
     文件等级:密一
     author:klug
     献给我的心上人等待天使的妹妹
-    start:230425
+    start:230731
     last:230731
 */
 
@@ -22,10 +22,10 @@
 #define construct_print_error_info
 #define construct_img_mark
 
-namespace structlight_construct
+namespace StructlightConstruct
 {
 
-class construct:protected structlight_construct::construct_cal
+class construct:protected structlightConstruct::constructCal
 {
 public:
     construct();

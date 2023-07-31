@@ -9,6 +9,7 @@
 #include "StructureLight/construct_img.hpp"
 #include "source.hpp"
 #include "meinCV/generateKernel.hpp"
+#include "data_array/data_array.hpp"
 
 namespace structlight_construct
 {
@@ -937,29 +938,34 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
 
     //按行或列进行突变值查找
     float laserZenturmV[srcImg.rows][laserLineCnt]; // 缓存数据点信息，按照每行有条激光线缓存
+    int laserMax[laserLineCnt]={0,0};
     const int kernelSize=11;
     int kernel[kernelSize]={0,0,0,1,3,5,3,1,0,0,0};
-    geneKernelEinZenturm(kernelSize,kernel);
 
+    geneKernelGradient(kernelSize,kernel);
     for(size_t y=0;y<srcImg.rows;y++)
     {
-        int lineCnt_;
-
         for(size_t x=(kernelSize-1)/2;x<srcImg.cols-(kernelSize-1)/2-1;x++)
         {
             float convolutionRes=0;
             for(int k=0;k<kernelSize;k++)
             {
-                convolutionRes+=kernel[kernelSize]*srcImg.at<uchar>(y,x+k-(kernelSize-1)/2);
+                convolutionRes+=kernel[k]*srcImg.at<uchar>(y,x+k-(kernelSize-1)/2);
+            }
+
+            int mindata=mein_dataArray::minArrayData(laserMax,laserLineCnt);
+            for(int i=0;i<laserLineCnt;i++)
+            {
+                if(convolutionRes>laserMax[i])
+                {
+                    laserMax[i]=convolutionRes;
+                }
             }
 
             resImg.at<float>(y,x)=convolutionRes;
         }
     }
-
     cv::normalize(resImg,resImg,0,255,cv::NORM_MINMAX);
-
-    //使用roi卷积
 
     return lineCnt;
 }

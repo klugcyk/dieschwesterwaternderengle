@@ -6,8 +6,8 @@
     last:230731
 */
 
-#ifndef construct_img_HPP
-#define construct_img_HPP
+#ifndef constructImg_HPP
+#define constructImg_HPP
 
 #include <opencv2/opencv.hpp>
 #include <opencv2/imgproc/types_c.h>
@@ -21,33 +21,26 @@
 #include "math/geometry.hpp"
 #include "math/least_sqaure.hpp"
 
-#define construct_img_print_msg_info
-#define construct_img_print_data_info
-#define construct_img_print_error_info
-#define construct_img_save_img
-#define construct_img_mark
+#define constructImgPrintMsgInfo
+#define constructImgPrintDataInfo
+#define constructImgPrintErrorInfo
+#define constructImgSaveImg
+#define constructImgMark
 
-namespace structlight_construct
+namespace MultilightConstruct
 {
 
-class construct_img
+class constructImg
 {
 public:
-    construct_img();
-    construct_img(int r,int g,int b);
-    ~construct_img();
+    constructImg();
+    constructImg(int r,int g,int b);
+    ~constructImg();
 
 public:
 
 protected:
-    //useless
-    cv::Mat laser_zenturm_line_zwei(cv::Mat src_img,std::vector<cv::Point> &zenturm,bool type); //type=0,1
-    void construct_img_test(cv::Mat src_img,cv::Mat &res_img,std::vector<cv::Point2f> &points);
-    void construct_img_multi_test(cv::Mat src_img,cv::Mat &res_img,std::vector<std::vector<cv::Point2f>> &pointsSet);
     //useful
-    void grid_extract_preprocess(cv::Mat src_img,cv::Mat &res_img,int p1,int p2);
-    void grid_extract(cv::Mat src_img,cv::Mat &res_img);
-    void convolution_grid_extract(cv::Mat src_img,cv::Mat &res_img,int kernel_size,int threshold);
     cv::Mat laser_zenturm_line(cv::Mat src_img,cv::Mat &res_img);
     int laserZenturmLineMultiCal(cv::Mat src_img,cv::Mat &res_img); //标定时，激光中心线提取
     int laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *zenturm); //三维重建时，激光中心线提取

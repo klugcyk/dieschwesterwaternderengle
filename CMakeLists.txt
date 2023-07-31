@@ -66,7 +66,6 @@ set(PROJECT_SOURCES
     #~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
     #~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
 
-    # vortex
     ~/undb/src/math/least_sqaure.cpp
     ~/undb/include/math/least_sqaure.hpp
     ~/undb/src/math/geometry.cpp

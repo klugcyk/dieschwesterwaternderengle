@@ -16,6 +16,8 @@
 
 #include <string>
 #include <mutex>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define addLibPath "/home/klug/sakura/" //加载动态链接库的路径
 #define read_img_path "/home/klug/img/construct/"

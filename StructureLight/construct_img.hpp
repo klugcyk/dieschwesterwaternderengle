@@ -20,6 +20,7 @@
 #include <Eigen/Dense>
 #include "math/geometry.hpp"
 #include "math/least_sqaure.hpp"
+#include "data_array/data_array.hpp"
 
 #define construct_img_print_msg_info
 #define construct_img_print_data_info

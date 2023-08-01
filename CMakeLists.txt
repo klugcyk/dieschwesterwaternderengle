@@ -28,9 +28,9 @@ find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 # selbst
-include_directories(~/vortex)
-include_directories(~/undb/include)
+include_directories(~/undb)
 include_directories(~/dieschwesterwaternderengle)
+include_directories(/usr/include)
 
 # opencv
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -66,18 +66,20 @@ set(PROJECT_SOURCES
     #~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
     #~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
 
-    ~/undb/src/math/least_sqaure.cpp
-    ~/undb/include/math/least_sqaure.hpp
-    ~/undb/src/math/geometry.cpp
-    ~/undb/include/math/geometry.hpp
-    ~/vortex/json_operate/json_operate.cpp
-    ~/vortex/json_operate/json_operate.hpp
-    ~/undb/src/data_array/data_array.cpp
-    ~/undb/include/data_array/data_array.hpp
-    ~/undb/src/cameraGene/cameraGene.cpp
-    ~/undb/include/cameraGene/cameraGene.hpp
-    ~/undb/src/meinCV/generateKernel.cpp
-    ~/undb/include/meinCV/generateKernel.hpp
+    ~/undb/math/least_sqaure.hpp
+    ~/undb/math/least_sqaure.cpp
+    ~/undb/math/geometry.cpp
+    ~/undb/math/geometry.hpp
+    ~/undb/data_array/data_array.hpp
+    ~/undb/data_array/data_array.cpp
+    ~/undb/cameraGene/cameraGene.hpp
+    ~/undb/cameraGene/cameraGene.cpp
+    ~/undb/meinCV/generateKernel.hpp
+    ~/undb/meinCV/generateKernel.cpp
+
+    ~/undb/json_operate/json_operate.cpp
+    ~/undb/json_operate/json_operate.hpp
+
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -940,7 +940,7 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
     float laserZenturmV[srcImg.rows][laserLineCnt]; // 缓存数据点信息，按照每行有条激光线缓存
     int laserMax[laserLineCnt]={0,0};
     const int kernelSize=11;
-    int kernel[kernelSize]={0,0,0,1,3,5,3,1,0,0,0};
+    int kernel[kernelSize];
 
     geneKernelGradient(kernelSize,kernel);
     for(size_t y=0;y<srcImg.rows;y++)
@@ -953,10 +953,10 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
                 convolutionRes+=kernel[k]*srcImg.at<uchar>(y,x+k-(kernelSize-1)/2);
             }
 
-            int mindata=mein_dataArray::minArrayData(laserMax,laserLineCnt);
+            int mindata=meinDataArray::ArrayMinFind(laserMax,laserLineCnt);
             for(int i=0;i<laserLineCnt;i++)
             {
-                if(convolutionRes>laserMax[i])
+                if(convolutionRes<mindata)
                 {
                     laserMax[i]=convolutionRes;
                 }
@@ -965,6 +965,7 @@ int construct_img::laserZenturmLineMulti(cv::Mat srcImg,cv::Mat &resImg,float *z
             resImg.at<float>(y,x)=convolutionRes;
         }
     }
+
     cv::normalize(resImg,resImg,0,255,cv::NORM_MINMAX);
 
     return lineCnt;

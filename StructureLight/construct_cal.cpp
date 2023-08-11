@@ -192,7 +192,7 @@ void construct_cal::cal_test()
     // 标定平面
     for (int i=25;i<extrinsic_matrix.size();++i)
     {
-        math_geometry::geo_plane_param p1=extrinsic2plane(extrinsic_matrix[i]);
+        mathGeometry::geoPlaneParam p1=extrinsic2plane(extrinsic_matrix[i]);
         for(int x=-100;x<100;x+=1)
         {
             for(int y=-50;y<50;y+=1)
@@ -311,7 +311,7 @@ void construct_cal::lightsource_calibrate_ein(int img_cnt,std::vector<cv::Mat> i
         laser_zenturm_line(img_laser[img_cnt],res);
 
         // 相机外参转换成平面方程，标定板平面
-        math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
+        mathGeometry::geoPlaneParam p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
 
         // 计算中线上点坐标在相机坐标系中的值
         for(size_t i=0;i<zenturm_line.size();i++)
@@ -347,9 +347,9 @@ void construct_cal::lightsource_calibrate_ein(int img_cnt,std::vector<cv::Mat> i
     @extrinsic:标定得到的外参，4*4
     @res_plane:返回值，平面的参数
 */
-math_geometry::geo_plane_param construct_cal::extrinsic2plane(cv::Mat extrinsic)
+mathGeometry::geoPlaneParam construct_cal::extrinsic2plane(cv::Mat extrinsic)
 {
-    math_geometry::geo_plane_param res_plane;
+    mathGeometry::geoPlaneParam res_plane;
 
     res_plane.A=extrinsic.at<double>(0,2);//+extrinsic.at<double>(0,3);
     res_plane.B=extrinsic.at<double>(1,2);//+extrinsic.at<double>(1,3);
@@ -394,7 +394,7 @@ void construct_cal::lightsource_calibrate(std::vector<cv::Mat> img_chess,std::ve
         //激光线图像中，激光中心线提取，后续读取图像处理类中的参数来做最小二乘法拟合标定
         laser_zenturm_line_zwei(img_laser[img_cnt],res);
         // 相机外参转换成平面方程，标定板平面
-        math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
+        mathGeometry::geoPlaneParam p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
 
         // 计算中线上点坐标在相机坐标系中的值
         for(size_t i=0;i<zenturm_line.size();i++)
@@ -483,7 +483,7 @@ void construct_cal::lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vec
         cv::imwrite(write_path,res);
 #endif
         // 相机外参转换成平面方程，标定板平面
-        math_geometry::geo_plane_param p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
+        mathGeometry::geoPlaneParam p=extrinsic2plane(extrinsic_matrix[img_cnt+25]); //从第26张图片为激光平面标定用的标定板
 
         // 计算中线上点坐标在相机坐标系中的值
         for(size_t i=0;i<zenturm_line_array.size();i++)

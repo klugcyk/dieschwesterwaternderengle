@@ -49,21 +49,21 @@ protected:
 protected:
     cv::Mat cameraMatrix=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0)); //相机内参
     cv::Mat distCoeffs=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
-    std::vector<math_geometry::geo_plane_param> light_plane; //所有激光平面参数
-    math_geometry::geo_plane_param light_plane_ein; //单个激光平面参数
+    std::vector<mathGeometry::geoPlaneParam> light_plane; //所有激光平面参数
+    mathGeometry::geoPlaneParam light_plane_ein; //单个激光平面参数
     std::vector<cv::Mat> undistort_img_vector;
     //读取得到的数据
     cv::Mat read_cameraMatrix=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0)); //相机内参
     cv::Mat read_distCoeffs=cv::Mat(1,5,CV_32FC1,cv::Scalar::all(0)); //畸变系数
-    std::vector<math_geometry::geo_plane_param> read_light_plane; //所有激光平面参数
-    math_geometry::geo_plane_param read_light_plane_ein; //单个激光平面参数
+    std::vector<mathGeometry::geoPlaneParam> read_light_plane; //所有激光平面参数
+    mathGeometry::geoPlaneParam read_light_plane_ein; //单个激光平面参数
 
 private:
     void assign_points(std::vector<cv::Point2f> all_points,std::vector<std::vector<cv::Point2f>> &assigned_points); //对获取到的中线点按激光线分类
     void lightsource_calibrate(std::vector<cv::Mat> img_chess,std::vector<cv::Mat> img_laser); //激光平面位置标定相对于相机
     void lightsourceCalibrate(std::vector<cv::Mat> img_chess,std::vector<cv::Mat> img_laser); //激光平面位置标定相对于相机
     void lightsource_calibrate_ein(int img_cnt,std::vector<cv::Mat> img_laser); //单条激光平面位置标定相对于相机
-    math_geometry::geo_plane_param extrinsic2plane(cv::Mat extrinsic); //外参转平面方程
+    mathGeometry::geoPlaneParam extrinsic2plane(cv::Mat extrinsic); //外参转平面方程
     std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector); //相机内外参标定
     //std::vector<cv::Mat> camera_calibrate(std::vector<cv::Mat> img_vector,cv::Size chess_size,cv::Size2f chess_length); //相机内外参标定
     void line_point_array(std::vector<Eigen::Vector3d> points,std::vector<std::vector<Eigen::Vector3d>> &array_points);

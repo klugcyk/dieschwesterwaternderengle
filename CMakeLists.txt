@@ -76,7 +76,6 @@ set(PROJECT_SOURCES
     ~/undb/cameraGene/cameraGene.cpp
     ~/undb/meinCV/generateKernel.hpp
     ~/undb/meinCV/generateKernel.cpp
-
     ~/undb/json_operate/json_operate.cpp
     ~/undb/json_operate/json_operate.hpp
 

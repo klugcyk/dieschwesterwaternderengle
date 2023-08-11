@@ -30,19 +30,19 @@ class construct:protected structlight_construct::construct_cal
 public:
     construct();
     ~construct();
-    void construct_test(std::vector<math_geometry::point3> p);
+    void construct_test(std::vector<mathGeometry::point3> p);
     void test_main();
 
 public:
 
 protected:
     int constructWithImg(cv::Mat src_img);
-    std::vector<math_geometry::point3> construct_point_ein(std::vector<cv::Point2f> src_points);
-    std::vector<math_geometry::point3> construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points);
-    std::vector<math_geometry::point3> construct_point(std::vector<std::vector<cv::Point2f>> src_points_array);
+    std::vector<mathGeometry::point3> construct_point_ein(std::vector<cv::Point2f> src_points);
+    std::vector<mathGeometry::point3> construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points);
+    std::vector<mathGeometry::point3> construct_point(std::vector<std::vector<cv::Point2f>> src_points_array);
     void construct_sum(cv::Mat src_img);
     void construct_sum(cv::Mat src_img,int time);
-    void constructShow(std::vector<math_geometry::point3> p1);
+    void constructShow(std::vector<mathGeometry::point3> p1);
     void planeParamWrite();
     void planeParamRead();
 
@@ -54,8 +54,8 @@ private:
 
 private:
     cv::Mat read_cameraMatrix_construct=cv::Mat(3,3,CV_32FC1,cv::Scalar::all(0));
-    std::vector<math_geometry::geo_plane_param> read_light_plane_construct;
-    math_geometry::geo_plane_param read_light_plane_ein_construct;
+    std::vector<mathGeometry::geoPlaneParam> read_light_plane_construct;
+    mathGeometry::geoPlaneParam read_light_plane_ein_construct;
 
 };
 

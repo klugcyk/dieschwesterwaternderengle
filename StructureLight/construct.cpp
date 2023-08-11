@@ -192,9 +192,9 @@ void construct::planeParamRead()
 
 }
 
-std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points)
+std::vector<mathGeometry::point3> construct::construct_point_multi(std::vector<std::vector<cv::Point2f>> src_points)
 {
-    std::vector<math_geometry::point3> res_points;
+    std::vector<mathGeometry::point3> res_points;
 
     if(recal_flag) //recalibrate in construct_cal
     {
@@ -207,7 +207,7 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
         {
             for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
             {
-                math_geometry::point3 p;
+                mathGeometry::point3 p;
                 /*double temp1=light_plane[setCnt].D;
                 temp1-=light_plane[setCnt].A*u0/fx;
                 temp1-=light_plane[setCnt].B*v0/fy;
@@ -241,7 +241,7 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
         {
         for(size_t point_cnt=0;point_cnt<src_points[setCnt].size();point_cnt++)
         {
-            math_geometry::point3 p;
+            mathGeometry::point3 p;
             double temp1=read_light_plane[setCnt].D;
             temp1+=read_light_plane[setCnt].A*src_points[setCnt][point_cnt].x/fx;
             temp1+=read_light_plane[setCnt].B*src_points[setCnt][point_cnt].y/fy;
@@ -261,9 +261,9 @@ std::vector<math_geometry::point3> construct::construct_point_multi(std::vector<
     return res_points;
 }
 
-std::vector<math_geometry::point3> construct::construct_point(std::vector<std::vector<cv::Point2f>> src_points_array)
+std::vector<mathGeometry::point3> construct::construct_point(std::vector<std::vector<cv::Point2f>> src_points_array)
 {
-    std::vector<math_geometry::point3> res_points;
+    std::vector<mathGeometry::point3> res_points;
 
     if(recal_flag)
     {
@@ -277,7 +277,7 @@ std::vector<math_geometry::point3> construct::construct_point(std::vector<std::v
             std::vector<cv::Point2f> points=src_points_array[array_cnt];
             for(size_t point_cnt=0;point_cnt<points.size();point_cnt++)
             {
-                math_geometry::point3 p;
+                mathGeometry::point3 p;
                 double temp1=light_plane_ein.D;
                 temp1+=light_plane_ein.A*points[point_cnt].x/fx;
                 temp1+=light_plane_ein.B*points[point_cnt].y/fy;
@@ -305,7 +305,7 @@ std::vector<math_geometry::point3> construct::construct_point(std::vector<std::v
             std::vector<cv::Point2f> points=src_points_array[array_cnt];
             for(size_t point_cnt=0;point_cnt<points.size();point_cnt++)
             {
-                math_geometry::point3 p;
+                mathGeometry::point3 p;
                 double temp1=read_light_plane_ein.D;
                 temp1+=read_light_plane_ein.A*points[point_cnt].x/fx;
                 temp1+=read_light_plane_ein.B*points[point_cnt].y/fy;
@@ -330,9 +330,9 @@ std::vector<math_geometry::point3> construct::construct_point(std::vector<std::v
     @src_points:point in 2d
     @return:res_points
 */
-std::vector<math_geometry::point3> construct::construct_point_ein(std::vector<cv::Point2f> src_points)
+std::vector<mathGeometry::point3> construct::construct_point_ein(std::vector<cv::Point2f> src_points)
 {
-    std::vector<math_geometry::point3> res_points;
+    std::vector<mathGeometry::point3> res_points;
 
     if(recal_flag)
     {
@@ -343,7 +343,7 @@ std::vector<math_geometry::point3> construct::construct_point_ein(std::vector<cv
 
         for(size_t point_cnt=0;point_cnt<src_points.size();point_cnt++)
         {
-            math_geometry::point3 p;
+            mathGeometry::point3 p;
             double temp1=light_plane_ein.D;
             temp1+=light_plane_ein.A*src_points[point_cnt].x/fx;
             temp1+=light_plane_ein.B*src_points[point_cnt].y/fy;
@@ -367,7 +367,7 @@ std::vector<math_geometry::point3> construct::construct_point_ein(std::vector<cv
 
         for(size_t point_cnt=0;point_cnt<src_points.size();point_cnt++)
         {
-            math_geometry::point3 p;
+            mathGeometry::point3 p;
             double temp1=read_light_plane_ein.D;
             temp1+=read_light_plane_ein.A*src_points[point_cnt].x/fx;
             temp1+=read_light_plane_ein.B*src_points[point_cnt].y/fy;
@@ -390,7 +390,7 @@ std::vector<math_geometry::point3> construct::construct_point_ein(std::vector<cv
     3 line 3d construct test
     @p1:extract from img use the camera model calculate the points set
 */
-void construct::construct_test(std::vector<math_geometry::point3> p1)
+void construct::construct_test(std::vector<mathGeometry::point3> p1)
 {
     pcl::PointXYZRGB p;
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -456,7 +456,7 @@ void construct::construct_test(std::vector<math_geometry::point3> p1)
     3 line constructtest
     @p1:extract from image with the camera model
 */
-void construct::constructShow(std::vector<math_geometry::point3> p1)
+void construct::constructShow(std::vector<mathGeometry::point3> p1)
 {
     pcl::PointXYZ p;
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);

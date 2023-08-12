@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230731
+# last:230825
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -29,6 +29,7 @@ find_package(Eigen3 REQUIRED)
 
 # selbst
 include_directories(~/undb)
+include_directories(~/buendia)
 include_directories(~/dieschwesterwaternderengle)
 include_directories(/usr/include)
 
@@ -49,35 +50,19 @@ include_directories(/usr/include/vtk-7.1)
 
 set(PROJECT_SOURCES
     main.cpp
-    source.hpp
+    #source.hpp
 
-    # img algorithm
-    ~/dieschwesterwaternderengle/StructureLight/construct_img.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_img.hpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cal.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct_cal.hpp
-    ~/dieschwesterwaternderengle/StructureLight/construct.cpp
-    ~/dieschwesterwaternderengle/StructureLight/construct.hpp
+    ~/dieschwesterwaternderengle/ui_control/constructmain.cpp
+    ~/dieschwesterwaternderengle/ui_control/constructmain.h
+    ~/dieschwesterwaternderengle/ui_control/constructmain.ui
+    ~/dieschwesterwaternderengle/imgProcess/imgCode.cpp
+    ~/dieschwesterwaternderengle/imgProcess/imgCode.hpp
+    ~/dieschwesterwaternderengle/pointCloud/pointCloudExtract.cpp
+    ~/dieschwesterwaternderengle/pointCloud/pointCloudExtract.hpp
 
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.cpp
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_img.hpp
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.cpp
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct_cal.hpp
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct.cpp
-    #~/dieschwesterwaternderengle/StructureLight/zwei_construct.hpp
-
-    ~/undb/math/least_sqaure.hpp
-    ~/undb/math/least_sqaure.cpp
-    ~/undb/math/geometry.cpp
-    ~/undb/math/geometry.hpp
-    ~/undb/data_array/data_array.hpp
-    ~/undb/data_array/data_array.cpp
-    ~/undb/cameraGene/cameraGene.hpp
-    ~/undb/cameraGene/cameraGene.cpp
-    ~/undb/meinCV/generateKernel.hpp
-    ~/undb/meinCV/generateKernel.cpp
-    ~/undb/json_operate/json_operate.cpp
-    ~/undb/json_operate/json_operate.hpp
+    # buendia
+    ~/buendia/socket/socket.cpp
+    ~/buendia/socket/socket.hpp
 
 )
 

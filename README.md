@@ -6,9 +6,14 @@
 
 # pcl required
 
-# vortex required
+# buendia required
 
-git clone https://github.com/klugcyk/vortex.git
+git clone https://github.com/klugcyk/buendia.git
+
+# 结构光上位机
+
+* 下位机IP为192.168.1.11
+* 下位机Port为6174
 
 # source 中的设置
 
@@ -59,4 +64,6 @@ useRedLaser
 
 * 使用蓝色激光，与useRedLaser只能选择一个
 useBlueLaser
+
+# 
 

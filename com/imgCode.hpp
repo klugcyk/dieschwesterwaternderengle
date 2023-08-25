@@ -16,14 +16,18 @@
 #include <iostream>
 #include <thread>
 
+#define imgCodeDivideNum 5000
+
 #define imgEncodePrintError
 #define imgEncodePrintDate
 #define imgEncodePrintMsg
 
-class imgcode:public buendia::socket_
+class imgcode
 {
 public:
     imgcode();
+    imgcode(cv::Mat srcImg);
+    imgcode(const imgcode &ic);
     ~imgcode();
 
 public:
@@ -31,9 +35,13 @@ public:
 protected:
     void Encode(cv::Mat srcImg,std::string type);
     void Decode(std::vector<uchar> imgCode,cv::Mat &resImg);
+    void codeEnDivide();
+    void codeDeDivide();
 
 protected:
-    std::vector<uchar> imgCode;
+    std::vector<uchar> sendImgCode; //图像编码字符串
+    std::vector<uchar> recvImgCode; //图像编码字符串
+    std::vector<std::vector<uchar>> recvImgCodeDivide; //分多次发送的图像编码字符串
 
 private:
 

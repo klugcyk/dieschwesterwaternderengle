@@ -2,7 +2,7 @@
 # author:klug
 # 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
 # start:221129
-# last:230825
+# last:230731
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -28,10 +28,9 @@ find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
 
 # selbst
-include_directories(~/undb)
 include_directories(~/buendia)
+include_directories(~/undb/include)
 include_directories(~/dieschwesterwaternderengle)
-include_directories(/usr/include)
 
 # opencv
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -50,20 +49,25 @@ include_directories(/usr/include/vtk-7.1)
 
 set(PROJECT_SOURCES
     main.cpp
-    #source.hpp
 
+    # ui
     ~/dieschwesterwaternderengle/ui_control/constructmain.cpp
     ~/dieschwesterwaternderengle/ui_control/constructmain.h
     ~/dieschwesterwaternderengle/ui_control/constructmain.ui
-    ~/dieschwesterwaternderengle/imgProcess/imgCode.cpp
-    ~/dieschwesterwaternderengle/imgProcess/imgCode.hpp
+
+    # com
+    ~/dieschwesterwaternderengle/com/imgCode.cpp
+    ~/dieschwesterwaternderengle/com/imgCode.hpp
+    ~/dieschwesterwaternderengle/com/com.cpp
+    ~/dieschwesterwaternderengle/com/com.hpp
+
+    # pointcloud
     ~/dieschwesterwaternderengle/pointCloud/pointCloudExtract.cpp
     ~/dieschwesterwaternderengle/pointCloud/pointCloudExtract.hpp
 
     # buendia
     ~/buendia/socket/socket.cpp
     ~/buendia/socket/socket.hpp
-
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

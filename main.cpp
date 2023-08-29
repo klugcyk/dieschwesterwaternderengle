@@ -8,23 +8,24 @@
 
 #include <QApplication>
 #include "ui_control/constructmain.h"
+#include "ui_control/mainwindow.h"
 #include <opencv2/opencv.hpp>
 #include <sys/time.h>
 #include "com/imgCode.hpp"
 
 int main(int argc, char *argv[])
 {
-
+/*
     cv::Mat img=cv::imread("/home/klug/img/construct/cal/1.png");
     imgcode ic(img);
 
     return 0;
-/*
+*/
     QApplication a(argc, argv);
-    constructMain m;
+    MainWindow m;
 
     m.show();
 
     return a.exec();
-*/
+
 }

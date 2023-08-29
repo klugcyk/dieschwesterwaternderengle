@@ -16,7 +16,7 @@
 #include <iostream>
 #include <thread>
 
-#define imgCodeDivideNum 5000
+
 
 #define imgEncodePrintError
 #define imgEncodePrintDate
@@ -42,6 +42,7 @@ protected:
     std::vector<uchar> sendImgCode; //图像编码字符串
     std::vector<uchar> recvImgCode; //图像编码字符串
     std::vector<std::vector<uchar>> recvImgCodeDivide; //分多次发送的图像编码字符串
+    const int imgCodeDivideNum=5000;
 
 private:
 

@@ -3,7 +3,7 @@
     author:klug
     献给不喜欢我的弗雷德里希冯海因洛特
     start:230825
-    last:230825
+    last:230828
 */
 
 #include "com/imgCode.hpp"
@@ -31,7 +31,7 @@ imgcode::imgcode(const imgcode &ic)
 
 /*
     灰度图编码
-    @img:编码的图片
+    @img:编码的图片,图片类型为CV_32FC3,3通道浮点图
     @type:图像文件后缀
 */
 void imgcode::Encode(cv::Mat srcImg,std::string type)

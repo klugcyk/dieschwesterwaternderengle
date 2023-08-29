@@ -3,7 +3,7 @@
     author:klug
     献给杜尔西内娅德尔托博索
     start:230825
-    last:230825
+    last:230828
 */
 
 #include "pointCloud/pointCloudExtract.hpp"
@@ -40,12 +40,12 @@ void pointCloudExtract::img2pointcloud(cv::Mat srcImgXYZ,cv::Mat srcImgBGR)
     {
         for(size_t col=0;col<srcImgXYZ.cols;col++)
         {
-            p.x=srcImgXYZ.at<cv::Vec3b>(row,col)[0];
-            p.y=srcImgXYZ.at<cv::Vec3b>(row,col)[1];
-            p.z=srcImgXYZ.at<cv::Vec3b>(row,col)[2];
-            p.r=srcImgBGR.at<cv::Vec3b>(row,col)[0];
-            p.g=srcImgBGR.at<cv::Vec3b>(row,col)[1];
-            p.b=srcImgBGR.at<cv::Vec3b>(row,col)[2];
+            p.x=srcImgXYZ.at<cv::Vec3f>(row,col)[0];
+            p.y=srcImgXYZ.at<cv::Vec3f>(row,col)[1];
+            p.z=srcImgXYZ.at<cv::Vec3f>(row,col)[2];
+            p.r=srcImgBGR.at<cv::Vec3f>(row,col)[0];
+            p.g=srcImgBGR.at<cv::Vec3f>(row,col)[1];
+            p.b=srcImgBGR.at<cv::Vec3f>(row,col)[2];
             pcRGB.push_back(p);
         }
     }

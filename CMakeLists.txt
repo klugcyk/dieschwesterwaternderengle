@@ -1,8 +1,8 @@
 ﻿# 文件等级:密一
 # author:klug
-# 献给我的心上人等待天使的妹妹，她是美丽女神阿尔忒弥斯的神女
+# 献给我的心上人等待天使的妹妹，她是美丽的女神阿尔忒弥斯的神女
 # start:221129
-# last:230731
+# last:230828
 
 cmake_minimum_required(VERSION 3.5)
 
@@ -29,7 +29,6 @@ find_package(Eigen3 REQUIRED)
 
 # selbst
 include_directories(~/buendia)
-include_directories(~/undb/include)
 include_directories(~/dieschwesterwaternderengle)
 
 # opencv
@@ -51,6 +50,9 @@ set(PROJECT_SOURCES
     main.cpp
 
     # ui
+    ~/dieschwesterwaternderengle/ui_control/mainwindow.cpp
+    ~/dieschwesterwaternderengle/ui_control/mainwindow.h
+    ~/dieschwesterwaternderengle/ui_control/mainwindow.ui
     ~/dieschwesterwaternderengle/ui_control/constructmain.cpp
     ~/dieschwesterwaternderengle/ui_control/constructmain.h
     ~/dieschwesterwaternderengle/ui_control/constructmain.ui

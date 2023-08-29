@@ -30,7 +30,7 @@ public:
 public:
 
 protected:
-    int imgRecv(cv::Mat *srcImg,int port);
+    void imgRecv(const char *ip,int port);
     int paramSend(uchar param,int port);
 
 protected:
@@ -40,6 +40,9 @@ protected:
 private:
 
 private:
+    int imgRow; //接收图片的行数
+    int imgCol; //接收图片的列数
+    int recvTimes; //一张图片需要接收的次数
 
 };
 

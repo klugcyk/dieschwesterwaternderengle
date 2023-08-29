@@ -14,13 +14,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QToolBox" name="toolBox">
+   <widget class="QToolBox" name="paramBox">
     <property name="geometry">
      <rect>
-      <x>880</x>
-      <y>20</y>
-      <width>211</width>
-      <height>311</height>
+      <x>850</x>
+      <y>10</y>
+      <width>301</width>
+      <height>411</height>
      </rect>
     </property>
     <property name="font">
@@ -38,35 +38,109 @@
      <string/>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="ein">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>211</width>
-       <height>146</height>
+       <width>301</width>
+       <height>246</height>
       </rect>
      </property>
      <attribute name="label">
       <string>camera Param</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>100</width>
-        <height>27</height>
+        <x>0</x>
+        <y>0</y>
+        <width>281</width>
+        <height>134</height>
        </rect>
       </property>
-      <property name="text">
-       <string>PushButton</string>
-      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>camera model:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>grab model:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>camera gain:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>expose time:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="exposeTime"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="cameraGain"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox">
+         <item>
+          <property name="text">
+           <string>link camera</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>richt camera</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="comboBox_2">
+         <item>
+          <property name="text">
+           <string>standard model</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="zwei">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>301</width>
+       <height>246</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>after Param</string>
      </attribute>
@@ -76,8 +150,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>211</width>
-       <height>146</height>
+       <width>301</width>
+       <height>246</height>
       </rect>
      </property>
      <attribute name="label">
@@ -85,15 +159,139 @@
      </attribute>
     </widget>
     <widget class="QWidget" name="viel">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>301</width>
+       <height>246</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>camera Func</string>
      </attribute>
     </widget>
     <widget class="QWidget" name="funf">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>301</width>
+       <height>246</height>
+      </rect>
+     </property>
      <attribute name="label">
       <string>coordination Set</string>
      </attribute>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>245</width>
+        <height>233</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="formLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>coordination:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>TX/mm:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>TY/mm:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>TZ/mm:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Rx/rad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>RY/rad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>RZ/rad:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="comboBox_3">
+         <item>
+          <property name="text">
+           <string>link camera </string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>richt camera</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>myself</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="Tx"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="Ty"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="Tz"/>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLineEdit" name="Rx"/>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="Ry"/>
+       </item>
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="Rz"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
+   </widget>
+   <widget class="toolPage" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>250</y>
+      <width>371</width>
+      <height>251</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -168,6 +366,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>toolPage</class>
+   <extends>QWidget</extends>
+   <header>toolpage.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

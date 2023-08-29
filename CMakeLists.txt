@@ -30,6 +30,7 @@ find_package(Eigen3 REQUIRED)
 # selbst
 include_directories(~/buendia)
 include_directories(~/dieschwesterwaternderengle)
+include_directories(~/dieschwesterwaternderengle/ui_control)
 
 # opencv
 include_directories(${OpenCV_INCLUDE_DIRS})
@@ -56,6 +57,12 @@ set(PROJECT_SOURCES
     ~/dieschwesterwaternderengle/ui_control/constructmain.cpp
     ~/dieschwesterwaternderengle/ui_control/constructmain.h
     ~/dieschwesterwaternderengle/ui_control/constructmain.ui
+    ~/dieschwesterwaternderengle/ui_control/test.h
+    ~/dieschwesterwaternderengle/ui_control/test.cpp
+    ~/dieschwesterwaternderengle/ui_control/test.ui
+    ~/dieschwesterwaternderengle/ui_control/toolpage.h
+    ~/dieschwesterwaternderengle/ui_control/toolpage.cpp
+    ~/dieschwesterwaternderengle/ui_control/toolpage.ui
 
     # com
     ~/dieschwesterwaternderengle/com/imgCode.cpp
